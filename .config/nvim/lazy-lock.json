@@ -10,5 +10,6 @@
   "onedarkpro": { "branch": "main", "commit": "f90c110a4944d8d520229d6c6bd8040bfca31a63" },
   "plenary.nvim": { "branch": "master", "commit": "a3e3bc82a3f95c5ed0d7201546d5d2c19b20d683" },
   "telescope.nvim": { "branch": "master", "commit": "79552ef8488cb492e0f9d2bf3b4e808f57515e35" },
+  "vim-maximizer": { "branch": "master", "commit": "2e54952fe91e140a2e69f35f22131219fcd9c5f1" },
   "which-key.nvim": { "branch": "main", "commit": "5ae87af42914afe8b478ad6cdb3cb179fb73a62b" }
 }
