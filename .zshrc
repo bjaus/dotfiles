@@ -75,6 +75,7 @@ plugins=(git aliases autojump)
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
+[ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
