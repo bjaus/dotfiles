@@ -75,7 +75,16 @@ plugins=(git aliases autojump)
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
+
+# Setup autojump
 [ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
+
+# Setup pnpm
+export PNPM_HOME="/Users/bjaus/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -104,3 +113,4 @@ export LANG=en_US.UTF-8
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias vim="nvim"
+alias pn="pnpm"
