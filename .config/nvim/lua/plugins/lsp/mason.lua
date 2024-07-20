@@ -42,12 +42,10 @@ return {
         "grammarly",
         "graphql",
         "html",
-        "htmx",
         "jqls",
         "jsonls",
         "lua_ls",
         "marksman",
-        "nginx_language_server",
         "phpactor",
         "prismals",
         "pyright",
@@ -60,6 +58,8 @@ return {
         "vacuum",
         "vuels",
         "yamlls",
+        -- "htmx",
+        -- "nginx_language_server",
       },
     })
 

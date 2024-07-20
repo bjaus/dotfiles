@@ -79,6 +79,12 @@ source $ZSH/oh-my-zsh.sh
 # Setup autojump
 [ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
 
+# Setup goenv
+eval "$(goenv init -)"
+
+# Setup pyenv
+eval "$(pyenv init -)"
+
 # Setup pnpm
 export PNPM_HOME="/Users/bjaus/Library/pnpm"
 case ":$PATH:" in
