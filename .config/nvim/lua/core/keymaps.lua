@@ -6,6 +6,10 @@ local keymap = vim.keymap
 keymap.set("n", "<leader>nh", ":nohl<CR>", { desc = "Clear search highlights" })
 
 -- window management
+keymap.set("n", "<C-h>", "<C-w>h", { desc = "Move to the left split window" })
+keymap.set("n", "<C-j>", "<C-w>j", { desc = "Move to the bottom split window" })
+keymap.set("n", "<C-k>", "<C-w>k", { desc = "Move to the top split window" })
+keymap.set("n", "<C-l>", "<C-w>l", { desc = "Move to the right split window" })
 keymap.set("n", "<leader>se", "<C-w>=", { desc = "Make split windows equal size" })
 keymap.set("n", "<leader>sh", "<C-w>s", { desc = "Split window horizontally" })
 keymap.set("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" })
