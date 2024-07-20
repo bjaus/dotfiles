@@ -1,0 +1,8 @@
+[init]
+	defaultBranch = main
+[user]
+	name = Brandon Jaus
+	email = brandon.jaus@gmail.com
+[aliases]
+	c = git commit
+	s = git status
