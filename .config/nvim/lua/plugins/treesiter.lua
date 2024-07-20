@@ -12,6 +12,9 @@ return {
     local treesitter = require("nvim-treesitter.configs")
 
     treesitter.setup({
+      modules = {},
+      auto_install = true,
+      ignore_install = {},
       ensure_installed = {
         "bash",
         "c",
@@ -64,7 +67,7 @@ return {
       },
       sync_install = false,
       highlight = { enable = true },
-      indent = { enable = true },  
+      indent = { enable = true },
       autotag = { enable = true },
       incremental_selection = {
         enable = true,
