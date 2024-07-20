@@ -1,7 +1,8 @@
 return {
   "nvim-telescope/telescope.nvim",
   dependencies = {
-    "nvim-lua/plenary.nvim"
+    "nvim-lua/plenary.nvim",
+    "folke/todo-comments.nvim",
   },
   config = function()
     local telescope = require("telescope")
@@ -24,6 +25,6 @@ return {
     vim.keymap.set("n", "<leader>fr", "<cmd>Telescope oldfiles<CR>", { desc = "Fuzzy find recent files" })
     vim.keymap.set("n", "<leader>fg", "<cmd>Telescope live_grep<CR>", { desc = "Search pattern in pwd" })
     vim.keymap.set("n", "<leader>fc", "<cmd>Telescope grep_string<CR>", { desc = "Search string under cursor in pwd" })
-    vim.keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<CR>", { desc = "Find TODOs" })
+    vim.keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<CR>", { desc = "Find todo comments" })
   end,
 }
