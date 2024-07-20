@@ -25,7 +25,10 @@ require("lazy").setup({
   -- colorscheme that will be used when installing plugins.
   install = { colorscheme = { "onedarkpro_dark" } },
   -- automatically check for plugin updates
-  checker = { enabled = false },
+  checker = {
+    enabled = true,
+    notify = false,
+  },
   change_detection = {
     notify = false,
   },
