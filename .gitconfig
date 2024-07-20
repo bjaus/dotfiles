@@ -3,6 +3,7 @@
 [user]
 	name = Brandon Jaus
 	email = brandon.jaus@gmail.com
-[aliases]
-	c = git commit
-	s = git status
+[alias]
+	c = commit
+	s = status
+	a = add
