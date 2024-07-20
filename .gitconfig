@@ -4,6 +4,7 @@
 	name = Brandon Jaus
 	email = brandon.jaus@gmail.com
 [alias]
-	c = commit
-	s = status
 	a = add
+	c = commit
+	l = log
+	s = status
