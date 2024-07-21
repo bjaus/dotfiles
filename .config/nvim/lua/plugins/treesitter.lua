@@ -11,10 +11,11 @@ return {
   },
   config = function()
     local treesitter = require("nvim-treesitter.configs")
+    local tsautotag = require("nvim-ts-autotag")
 
     treesitter.setup({
-      modules = {},
       auto_install = true,
+      sync_install = false,
       ignore_install = {},
       ensure_installed = {
         "bash",
@@ -62,7 +63,6 @@ return {
         "vue",
         "yaml",
       },
-      sync_install = false,
       highlight = {
         enable = true,
         disable = function(lang, buf)
@@ -83,6 +83,14 @@ return {
           scope_incremental = false,
           node_decremental = "<bs>",
         },
+      },
+    })
+
+    tsautotag.setup({
+      opts = {
+        enable_close = true, -- Auto close tags
+        enable_rename = true, -- Auto rename pairs of tags
+        enable_close_on_slash = false -- Auto close on trailing </
       },
     })
 
