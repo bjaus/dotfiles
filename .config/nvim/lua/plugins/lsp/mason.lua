@@ -1,5 +1,6 @@
 return {
   "williamboman/mason.nvim",
+  enabled = false,
   dependencies = {
     "williamboman/mason-lspconfig.nvim",
     "WhoIsSethDaniel/mason-tool-installer.nvim",
@@ -73,7 +74,7 @@ return {
         { "eslint_d", auto_update = true },
         { "gofumpt", auto_update = true },
         { "goimports", auto_update = true },
-        { "golangci-lint", auto_update = true },
+        { "golangcilint", auto_update = true },
         { "golines", auto_update = true },
         { "gomodifytags", auto_update = true },
         { "gotests", auto_update = true },

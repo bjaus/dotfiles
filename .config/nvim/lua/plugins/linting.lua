@@ -5,7 +5,7 @@ return {
     local lint = require("lint")
 
     lint.linters_by_ft = {
-      go = { "golangcilint" },
+      -- go = { "golangcilint" },
       javascript = { "eslint_d" },
       javascriptreact = { "eslint_d" },
       python = { "pylint", "flake8" },
@@ -30,7 +30,7 @@ return {
       end,
     })
 
-    vim.keymap.set("n", "<leader>l", function()
+    vim.keymap.set("n", "<leader>ll", function()
       lint.try_lint()
     end, { desc = "Trigger linting for current file" })
   end,
