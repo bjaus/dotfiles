@@ -1,0 +1,26 @@
+#!/bin/bash
+
+action=${2:-install}
+
+case $1 in
+  gopls)
+    go "$action" golang.org/x/tools/gopls@latest
+    ;;
+
+  revive)
+    go "$action" github.com/mgechev/revive@latest
+    ;;
+
+  structslop)
+    go "$action" github.com/orijtech/structslop/cmd/structslop@latest
+    ;;
+
+  staticcheck)
+    go "$action" honnef.co/go/tools/cmd/staticcheck@latest
+    ;;
+
+  *)
+    echo "please provide executable to install"
+    exit 1
+    ;;
+esac
