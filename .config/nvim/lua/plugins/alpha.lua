@@ -1,6 +1,6 @@
 return {
   "goolord/alpha-nvim",
-  enabled = false,
+  enabled = true,
   event = "VimEnter",
   config = function()
     local alpha = require("alpha")
@@ -20,11 +20,11 @@ return {
 
     -- Set menu
     dashboard.section.buttons.val = {
-      dashboard.button("e", "  > New File", "<cmd>ene<CR>"),
-      dashboard.button("ee", "  > Open File Explorer", "<cmd>NvimTreeToggle<CR>"),
-      dashboard.button("ff", "󰱼  > Find File", "<cmd>Telescope find_files<CR>"),
-      dashboard.button("fg", "  > Find Word", "<cmd>Telescope live_grep<CR>"),
-      dashboard.button("wr", "󰁯  > Restore Session for Current Directory", "<cmd>SessionRestore<CR>"),
+      dashboard.button("n", "  > New File", "<cmd>ene<CR>"),
+      dashboard.button("e", "  > Open File Explorer", "<cmd>NvimTreeToggle<CR>"),
+      dashboard.button("r", "󰁯  > Restore Session", "<cmd>SessionRestore<CR>"),
+      dashboard.button("f", "󰱼  > Find File", "<cmd>Telescope find_files<CR>"),
+      dashboard.button("g", "  > Find Word", "<cmd>Telescope live_grep<CR>"),
       dashboard.button("q", "  > Quit NVIM", "<cmd>qa<CR>"),
     }
 

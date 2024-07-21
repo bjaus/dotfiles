@@ -2,6 +2,7 @@ vim.g.mapleader = ";"
 vim.g.maplocalleader = ","
 
 vim.keymap.set("n", "<leader>nh", ":nohl<CR>", { desc = "Clear search highlights" })
+vim.keymap.set("v", "<leader>s", ":sort ui<CR>", { desc = "Sort selected items" })
 
 -- window management
 vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Move to the left split window" })
