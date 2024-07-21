@@ -6,6 +6,8 @@
 [alias]
   a = add
   ap = add --patch
+  au = add --update
+  apu = add --patch --update
   c = commit
   dw = diff -w
   dws = diff -w --staged
