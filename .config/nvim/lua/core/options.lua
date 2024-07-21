@@ -1,39 +1,37 @@
-local opt = vim.opt
-
 -- line numbers
-opt.number = true
-opt.relativenumber = true
+vim.opt.number = true
+vim.opt.relativenumber = true
 
 -- tabs & indentation
-opt.tabstop = 2
-opt.shiftwidth = 2
-opt.expandtab = true
-opt.autoindent = true
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.expandtab = true
+vim.opt.autoindent = true
 
 -- line wrapping
-opt.wrap = false
+vim.opt.wrap = false
 
 -- search settings
-opt.ignorecase = true
-opt.smartcase = true -- if mixed case in search then search case-sensitive
+vim.opt.ignorecase = true
+vim.opt.smartcase = true -- if mixed case in search then search case-sensitive
 
 -- cursor line
-opt.cursorline = true
+vim.opt.cursorline = true
 
 -- true color terminal
-opt.termguicolors = true
-opt.background = "dark"
-opt.signcolumn = "yes"
+vim.opt.termguicolors = true
+vim.opt.background = "dark"
+vim.opt.signcolumn = "yes"
 
 -- backspace
-opt.backspace = "indent,eol,start"
+vim.opt.backspace = "indent,eol,start"
 
 -- clipboard
-opt.clipboard:append("unnamedplus")
+vim.opt.clipboard:append("unnamedplus")
 
 -- split windows
-opt.splitright = true
-opt.splitbelow = true
+vim.opt.splitright = true
+vim.opt.splitbelow = true
 
 -- swap file
-opt.swapfile = false
+vim.opt.swapfile = false
