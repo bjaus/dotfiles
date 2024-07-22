@@ -1,7 +1,7 @@
 return {
   "folke/trouble.nvim",
   cmd = "Trouble",
-  enabled = false,
+  enabled = true,
   dependencies = {
     "nvim-tree/nvim-web-devicons",
     "folke/todo-comments.nvim",

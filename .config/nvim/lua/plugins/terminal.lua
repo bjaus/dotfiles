@@ -3,14 +3,14 @@ return {
   enabled = true,
   version = "*",
   config = function()
-    term = require("toggleterm")
+    local term = require("toggleterm")
 
     term.setup({
       direction = "horizontal", -- "vertical", "tab", "float"
-      size = function(term)
-        if term.direction == "horizontal" then
+      size = function(t)
+        if t.direction == "horizontal" then
           return 20
-        elseif term.direction == "vertical" then
+        elseif t.direction == "vertical" then
           return vim.o.columns * 0.4
         end
       end,
@@ -22,6 +22,5 @@ return {
     end)
     vim.keymap.set("n", "<leader>tt", "<cmd>ToggleTerm<CR>", { desc = "Toggle terminal window" })
     vim.keymap.set("t", "<esc>", "<C-\\><C-n>", { desc = "Exit termina mode" })
-
   end,
 }
