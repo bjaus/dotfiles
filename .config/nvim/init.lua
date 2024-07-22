@@ -1,6 +1,6 @@
 -- See `:help mapleader`
 vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+vim.g.maplocalleader = ';'
 
 vim.g.have_nerd_font = true
 
@@ -134,6 +134,7 @@ require('lazy').setup({
 
       -- Document existing key chains
       require('which-key').add {
+        { '<leader>a', group = '[A]lter' },
         { '<leader>b', group = 'De[B]ug' },
         { '<leader>c', group = '[C]ode' },
         { '<leader>d', group = '[D]ocument' },
@@ -224,25 +225,9 @@ require('lazy').setup({
   { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
     dependencies = {
-      { 'williamboman/mason.nvim', config = true }, -- NOTE: Must be loaded before dependants
+      { 'williamboman/mason.nvim', config = true },
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
-      -- {
-      --   'williamboman/mason.nvim',
-      --   config = function()
-      --     local mason = require 'mason'
-      --     local mason_lsp = require 'mason-lspconfig'
-      --     local mason_tool = require 'mason-tool-installer'
-      --
-      --     mason.setup {
-      --     }
-      --
-      --   end,
-      --   dependencies = {
-      --     'williamboman/mason-lspconfig.nvim',
-      --     'WhoIsSethDaniel/mason-tool-installer.nvim',
-      --   },
-      -- }, -- NOTE: Must be loaded before dependants
       { 'j-hui/fidget.nvim', opts = {} }, -- Useful status updates for LSP.
       {
         'folke/lazydev.nvim',
@@ -292,7 +277,7 @@ require('lazy').setup({
 
           -- Rename the variable under the cursor.
           --  Most Language Servers support renaming across files, etc.
-          map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+          map('<leader>an', vim.lsp.buf.rename, '[A]lter [N]ame')
 
           -- Execute a code action, usually the cursor needs to be on top of an error
           -- or a suggestion from the LSP for this to activate.
@@ -770,6 +755,3 @@ require('lazy').setup({
     },
   },
 })
-
--- The line beneath this is called `modeline`. See `:help modeline`
--- vim: ts=2 sts=2 sw=2 et
