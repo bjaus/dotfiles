@@ -1,15 +1,5 @@
--- debug.lua
---
--- Shows how to use the DAP plugin to debug your code.
---
--- Primarily focused on configuring the debugger for Go, but can
--- be extended to other languages as well. That's why it's called
--- kickstart.nvim and not kitchen-sink.nvim ;)
-
 return {
-  -- NOTE: Yes, you can install new plugins here!
   'mfussenegger/nvim-dap',
-  -- NOTE: And you can specify dependencies as well
   dependencies = {
     -- Creates a beautiful debugger UI
     'rcarriga/nvim-dap-ui',
@@ -29,20 +19,20 @@ return {
     local dapui = require 'dapui'
     return {
       -- Basic debugging keymaps, feel free to change to your liking!
-      { '<F5>', dap.continue, desc = 'Debug: Start/Continue' },
-      { '<F1>', dap.step_into, desc = 'Debug: Step Into' },
-      { '<F2>', dap.step_over, desc = 'Debug: Step Over' },
-      { '<F3>', dap.step_out, desc = 'Debug: Step Out' },
-      { '<leader>b', dap.toggle_breakpoint, desc = 'Debug: Toggle Breakpoint' },
+      { '<leader>bc', dap.continue, desc = 'De[B]ug Start/[C]ontinue' },
+      { '<leader>bi', dap.step_into, desc = 'De[B]ug Step [I]nto' },
+      { '<leader>bo', dap.step_over, desc = 'De[B]ug Step [O]ver' },
+      { '<leader>bu', dap.step_out, desc = 'De[B]ug Step O[U]t' },
+      { '<leader>bt', dap.toggle_breakpoint, desc = 'De[B]ug [T]oggle Breakpoint' },
       {
-        '<leader>B',
+        '<leader>bp',
         function()
           dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
         end,
-        desc = 'Debug: Set Breakpoint',
+        desc = 'De[B]ug Set Break[P]oint',
       },
       -- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
-      { '<F7>', dapui.toggle, desc = 'Debug: See last session result.' },
+      { '<leader>br', dapui.toggle, desc = 'De[B]ug See last session [R]esult.' },
       unpack(keys),
     }
   end,
@@ -71,10 +61,9 @@ return {
     -- For more information, see |:help nvim-dap-ui|
     dapui.setup {
       -- Set icons to characters that are more likely to work in every terminal.
-      --    Feel free to remove or use ones that you like more! :)
-      --    Don't feel like these are good choices.
       icons = { expanded = '▾', collapsed = '▸', current_frame = '*' },
       controls = {
+        enabled = true,
         icons = {
           pause = '⏸',
           play = '▶',
