@@ -7,7 +7,7 @@ return {
       run = true, -- run tests (using for debug)
       commands_create = true, -- create commands (TestFile, TestLast, ...)
       silent = true, -- less notifications
-      term = 'terminal', -- a terminal to run ("terminal"|"toggleterm")
+      term = 'toggleterm', -- a terminal to run ("terminal"|"toggleterm")
       termOpts = {
         direction = 'float', -- terminal's direction ("horizontal"|"vertical"|"float")
         width = 180, -- terminal's width (for vertical|float)
