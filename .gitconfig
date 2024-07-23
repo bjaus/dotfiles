@@ -1,15 +1,19 @@
 [core]
-  editor = vim
+  editor = nvim
   excludesfile = ~/.gitignore
+  whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
 
 [init]
-	defaultBranch = main
+  defaultBranch = main
   templatedir = ~/git-templates
 
 [user]
-	email = brandon.jaus@gmail.com
-	name = Brandon Jaus
+  email = brandon.jaus@gmail.com
+  name = Brandon Jaus
   username = bjaus
+
+[credential]
+  helper = cache --timeout 100000
 
 [fetch] 
   prune = true
@@ -53,11 +57,233 @@
 
 [alias]
   a = add
-  ap = add --patch
+  aa = add --all
+  ac = apply --check
+  adp = add --patch
+  adpu = add --patch --update
+  ahead = !git rev-list --right-only --count $(git bu)...HEAD
+  ai = add -i
+  alias = config --get-regexp ^alias.
+  aliases = !git config -l | grep alias | cut -c 7-
+  ama = am --abort
+  amr = am --resolved
+  ams = am --skip
+  ap = apply
+  as = apply --stat
+  assume = update-index --assume-unchanged
+  assumeall = !git status -s | awk {'print $2'} | xargs git assume
+  assumed = !git ls -v | grep ^h | cut -c 3-
+  au = add --u
   au = add --update
-  apu = add --patch --update
+  b = branch
+  ba = branch -a
+  bare = !sh -c 'git symbolic-ref HEAD refs/heads/$1 && git rm --cached -r . && git clean -xfd' -
+  bc = rev-parse --abbrev-ref HEAD
+  bd = branch -d
+  bdd = branch -D
+  behind = !git rev-list --left-only --count $(git bu)...HEAD
+  bm = branch -m
+  br = branch -r
+  bt = for-each-ref --sort=-committerdate refs/heads/ --format='%(committerdate:iso8601) %(refname:short)'
+  bu = !git rev-parse --abbrev-ref --symbolic-full-name "@{u}"
+  bump = !sh -c 'git commit -am \"Version bump v$1\" && git psuoc && git release $1' -
+  bv = branch -vv
+  bvg = !git branch -vv | grep gone
+  bvo = !git branch -vv | grep origin
   c = commit
+  ca = commit --amend
+  ca = commit -a
+  cad = commit -a --amend
+  cam = commit -am
+  can = commit --amend --no-edit
+  cann = commit --ament --no-edit --no-verify
+  cd = commit --amend
+  ced = commit --allow-empty --amend
+  cem = commit --allow-empty -m
+  cf = cat-file
+  cfp = cat-file -p
+  cfs = cat-file -s
+  cft = cat-file -t
+  cl = clone
+  cld = clone --depth 1
+  clg = !sh -c 'git clone git://github.com/$1 $(basename $1)' -
+  clgp = !sh -c 'git clone git@github.com:$(git config --get user.username)/$1 $1' -
+  cm = commit -m
+  cn = commit --no-verify
+  cp = cherry-pick
+  cpa = cherry-pick --abort
+  cpc = cherry-pick --continue
+  cv = commit -v
+  d = diff
+  dc = diff --cached
+  dck = diff --cached --check
+  dct = difftool --cached
+  dk = diff --check
+  dno = diff --name-only
+  dp = diff --patience
+  ds = diff --stat
+  dss = diff --shortstat
+  dt = difftool
   dw = diff -w
+  dwf = "!f() { git --no-pager diff --name-only --diff-filter=\"$1\"; }; f"
+  dwno = diff -w --name-only
+  dwnop = !git --no-pager diff -w --name-only
   dws = diff -w --staged
+  f = fetch
+  fa = fetch --all
+  fk = fsck
+  fo = fetch origin
+  fp = format-patch
+  fu = fetch upstream
+  fv = fetch -v
+  g = grep -p
+  human = name-rev --name-only --refs=refs/heads/*
   l = log
+  lg = "log --pretty=format:\"%C(auto)%h %C(brightblue)%d%Creset %s %C(brightyellow)(%an) %C(brightred)[%ad]%Creset\" --graph --date=local --date=format-local:\"%Y-%m-%d %H:%M:%S\""
+  ll = log --oneline
+  lp = log --patch
+  ls = ls-files
+  lss = ls-files -s
+  m = merge
+  ma = merge --abort
+  maino = "!sh -c 'default_branch=$(git symbolic-ref refs/remotes/origin/HEAD | sed \"s@^refs/remotes/origin/@@\"); if [[ -z $default_branch ]]; then default_branch=\"master\"; fi; git checkout \"$default_branch\"'"
+  mainv = "!sh git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@'"
+  mc = merge --continue
+  merged = !sh -c 'git o master && git plom && git bd $1 && git rpo' -
+  ms = merge --skip
+  o = checkout
+  ob = checkout -b
+  obn = checkout -b --no-verify
+  ours = "!f() { git checkout --ours $@ && git add $@; }; f"
+  pb = pull --rebase
+  pbo = pull --rebase origin
+  pboc = !git pull --rebase origin $(git bc)
+  pbom = pull --rebase origin master
+  pbuc = !git pull --rebase upstream $(git bc)
+  pbum = pull --rebase upstream master
+  pl = pull
+  plo = pull origin
+  ploc = !git pull origin $(git bc)
+  plom = pull origin master
+  plu = pull upstream
+  pluc = !git pull upstream $(git bc)
+  plum = pull upstream master
+  plv = pull -v
+  pr = prune -v
+  ps = push
+  psao = push --all origin
+  psaoc = !git push --all origin $(git bc)
+  psaom = push --all origin master
+  psd = push origin --delete
+  psdc = !git push origin :$(git bc)
+  psdn = push origin --delete --no-verify
+  psf = push --force-with-lease # Don't use "git push -f/--force" they are not history-safe
+  psf = push -f
+  psfn = push --force-with-lease --no-verify
+  psfo = push -f origin
+  psfoc = !git push -f origin $(git bc)
+  psfom = push -f origin master
+  psn = push --no-verify
+  pso = push origin
+  psoc = !git push origin $(git bc)
+  psom = push origin master
+  pst = push --tags
+  psu = push -u
+  psuo = push -u origin
+  psuoc = !git push -u origin $(git bc)
+  psuom = push -u origin master
+  r = remote
+  ra = remote add
+  rao = remote add origin
+  rau = remote add upstream
+  rb = rebase
+  rba = rebase --abort
+  rbc = rebase --continue
+  rbi = rebase --interactive
+  rbom = rebase origin/main
+  rbs = rebase --skip
+  re = reset
+  reh = reset --hard
+  rehh = reset --hard HEAD
+  release = !sh -c 'git tag v$1 && git pst' -
+  rem = reset --mixed
+  remh = reset --mixed HEAD
+  rep = restore --patch
+  reps = restore --staged --patch
+  res = reset --soft
+  resh = reset --soft HEAD
+  rest = restore
+  rests = restore --staged
+  rh = reset HEAD
+  rmc = rm --cached
+  rmf = rm -f
+  rmrf = rm -r -f
+  rn = remote rename
+  rp = remote prune
+  rpo = remote prune origin
+  rpu = remote prune upstream
+  rr = remote rm
+  rro = remote remove origin
+  rru = remote remove upstream
+  rs = remote show
+  rso = remote show origin
+  rsu = remote show upstream
+  rv = remote -v
   s = status
+  sa = stash apply
+  sb = status -s -b
+  sc = stash clear
+  sd = stash drop
+  serve = daemon --reuseaddr --verbose --base-path=. --export-all ./.git
+  skip = stash push --keep-index
+  sl = stash list
+  snap = !git stash save 'snapshot: $(date)' && git stash apply 'stash@{0}'
+  so = stash pop
+  sp = stash push
+  ss = status -s
+  ssp = stash show -p
+  sspno = stash show -p --name-only
+  st = !git stash list | wc -l 2>/dev/null | grep -oEi '[0-9][0-9]*'
+  subadd = !sh -c 'git submodule add git://github.com/$1 $2/$(basename $1)' -
+  subinit = submodule init
+  subout = submodule update --checkout
+  subpull = !git submodule foreach git pull --tags origin master
+  subrepo = !sh -c 'git filter-branch --prune-empty --subdirectory-filter $1 master' -
+  subup = submodule update --remote --recursive
+  suno = status -uno
+  svnd = svn dcommit
+  svnl = svn log --oneline --show-commit
+  svnr = svn rebase
+  sw = stash show
+  t = tag
+  td = tag -d
+  theirs = "!f() { git checkout --theirs $@ && git add $@; }; f"
+  unassume = update-index --no-assume-unchanged
+  unassumeall = !git assumed | xargs git unassume
+  unrelease = !sh -c 'git tag -d v$1 && git pso :v$1' -
+  w = show
+  whois = !sh -c 'git log -i -1 --author=\"$1\" --pretty=\"format:%an <%ae>\"' -
+  wp = show -p
+  wr = show -p --no-color
+
+  ; git update <branch name> will checkout the target branch, pull, then come back to your original branch
+  update = "!f() { CB=$(git branch | grep \"^\\*\" | cut -d' ' -f2); if [ -z \"$(git status | grep '^Changes not staged for commit')\" ]; then git checkout ${1} && git pull && git checkout ${CB}; else echo 'Cannot update. Stash changes before doing this'; fi }; f"
+  
+  ; git count-commits <ref1>..<ref2> counts the number of commits between the two
+  count-commits = "!f() { COUNT=$(git log --pretty=oneline ${1} | wc -l); echo \"count $1 -> $COUNT\"; }; f"
+
+  ; git trim-gone will delete any local branches for which the remote branch is gone
+  trim-gone = "!f() { git fetch --prune && for B in $(git branch -vv | grep ': gone]' | tr -s ' ' | cut -d' ' -f2); do git branch -D $B; done }; f"
+
+  ; git update-all will fetch, prune, and sync any of your branches which are behind their remote branches
+  update-all = "!f() { git fetch --prune && for B in $(git branch -vv | grep ': behind' | tr -s ' ' | cut -d' ' -f2); do git update $B; done }; f"
+
+  ; git contained-by <branch name> [optional branch args (eg. -av)] will list out which branches are contained by your specified one (eg. which branches are contained by my master branch?). This is the converse to git branch --contains <ref>
+  contained-by = "!f() { if [ -z \"$1\" ]; then echo 'ERR: No branch name provided' && exit 0; fi; CB=${1} && shift; echo \"Branches contained in: ${CB}\"; OLD_IFS=$IFS && IFS=$'\\n'; for B in $(git branch $* | grep -v \"^\\*\"); do [ -n \"$(git branch --contains $(echo \"$B\" | tr -s ' ' | cut -d' ' -f2) | grep $CB)\" ] && echo \"$B\"; done; IFS=$OLD_IFS; }; f"
+
+  ; git sub <command> will execute the same git command for all submodules
+  sub = submodule foreach git
+
+  ; git changelog <ref1>..<ref2> generate a changelog between two commits or refs
+  changelog = log --pretty=format:'* %s (%an)' --abbrev-commit --no-merges
+
