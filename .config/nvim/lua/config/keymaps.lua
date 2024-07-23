@@ -84,8 +84,8 @@ vim.keymap.set('n', ']d', goto_diagnostic(true), { desc = 'next diagnostic', sil
 vim.keymap.set('n', '[d', goto_diagnostic(false), { desc = 'previous diagnostic', silent = true })
 vim.keymap.set('n', ']e', goto_diagnostic(true, 'ERROR'), { desc = 'next error diagnostic', silent = true })
 vim.keymap.set('n', '[e', goto_diagnostic(false, 'ERROR'), { desc = 'previous error diagnostic', silent = true })
-vim.keymap.set('n', ']e', goto_diagnostic(true, 'WARN'), { desc = 'next warning diagnostic', silent = true })
-vim.keymap.set('n', '[e', goto_diagnostic(false, 'WARN'), { desc = 'previous warning diagnostic', silent = true })
+vim.keymap.set('n', ']w', goto_diagnostic(true, 'WARN'), { desc = 'next warning diagnostic', silent = true })
+vim.keymap.set('n', '[w', goto_diagnostic(false, 'WARN'), { desc = 'previous warning diagnostic', silent = true })
 
 local function map_normal_mode(lhs, rhs, desc)
   -- default values:
