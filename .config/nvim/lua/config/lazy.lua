@@ -398,25 +398,7 @@ require('lazy').setup({
       }
     end,
   },
-
-  { -- Easily change to a different colorscheme.
-    -- Change the name of the colorscheme plugin below, and then
-    -- change the command in the config to whatever the name of that colorscheme is.
-    --
-    -- To see what colorschemes are already installed: `:Telescope colorscheme`.
-    'folke/tokyonight.nvim',
-    priority = 1000, -- Make sure to load this before all the other start plugins.
-    init = function()
-      -- Load the colorscheme here.
-      vim.cmd.colorscheme 'tokyonight-night'
-
-      -- Configure highlights.
-      vim.cmd.hi 'Comment gui=none'
-    end,
-  },
-
-  -- Highlight todo, notes, etc in comments
-  {
+  { -- Highlight todo, notes, etc in comments
     'folke/todo-comments.nvim',
     event = 'VimEnter',
     dependencies = {
@@ -557,13 +539,14 @@ require('lazy').setup({
   --  Here are some example plugins that I've included in the Kickstart repository.
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
-  require 'bjaus.plugins.autopairs',
-  require 'bjaus.plugins.debug',
-  require 'bjaus.plugins.gitsigns', -- adds gitsigns recommend keymaps
-  require 'bjaus.plugins.indent_line',
-  require 'bjaus.plugins.lint',
-  require 'bjaus.plugins.neo-tree',
-  require 'bjaus.plugins.testing',
+  require 'plugin.colorscheme',
+  require 'plugin.autopairs',
+  require 'plugin.debug',
+  require 'plugin.gitsigns', -- adds gitsigns recommend keymaps
+  require 'plugin.indent_line',
+  require 'plugin.lint',
+  require 'plugin.neo-tree',
+  require 'plugin.testing',
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize the config.
