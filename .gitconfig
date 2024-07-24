@@ -58,18 +58,18 @@
 [alias]
   a = add
   aa = add --all
-  ac = apply --check
-  adp = add --patch
-  adpu = add --patch --update
-  ahead = !git rev-list --right-only --count $(git bu)...HEAD
+  ahead = !git rev-list --right-only --count $(git bu)...head
   ai = add -i
   alias = config --get-regexp ^alias.
   aliases = !git config -l | grep alias | cut -c 7-
   ama = am --abort
   amr = am --resolved
   ams = am --skip
-  ap = apply
-  as = apply --stat
+  ap = add --patch
+  apc = apply --check
+  app = apply
+  aps = apply --stat
+  apu = add --patch --update
   assume = update-index --assume-unchanged
   assumeall = !git status -s | awk {'print $2'} | xargs git assume
   assumed = !git ls -v | grep ^h | cut -c 3-
