@@ -49,7 +49,7 @@ vim.opt.incsearch = true
 vim.opt.hlsearch = true
 
 -- text wrap
-vim.opt.wrap = false
+vim.opt.wrap = true
 vim.opt.linebreak = true
 vim.opt.textwidth = 0
 
