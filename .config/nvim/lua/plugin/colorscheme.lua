@@ -1,8 +1,15 @@
-return {
-  {
-    priority = 1000, -- Make sure to load this before all the other start plugins.
-    'nyoom-engineering/oxocarbon.nvim',
+return { -- To see what colorschemes are already installed: `:Telescope colorscheme`.
+  { -- https://github.com/scottmckendry/cyberdream.nvim
+    'scottmckendry/cyberdream.nvim',
+    lazy = false,
     enabled = false,
+    priority = 1000,
+  },
+  {
+    'nyoom-engineering/oxocarbon.nvim',
+    lazy = false,
+    enabled = false,
+    priority = 1000,
     config = function()
       vim.opt.background = 'dark' -- set this to dark or light
       vim.cmd 'colorscheme oxocarbon'
@@ -12,19 +19,20 @@ return {
     end,
   },
   {
-    priority = 1000, -- Make sure to load this before all the other start plugins.
     'folke/tokyonight.nvim',
+    lazy = false,
     enabled = true,
+    priority = 1000,
     init = function()
       vim.cmd.colorscheme 'tokyonight-night'
       vim.cmd.hi 'Comment gui=none'
     end,
   },
   {
-    -- To see what colorschemes are already installed: `:Telescope colorscheme`.
-    priority = 1000, -- Make sure to load this before all the other start plugins.
-    enabled = false,
     'catppuccin/nvim',
+    lazy = false,
+    enabled = false,
+    priority = 1000,
     name = 'catppuccin',
     opts = {
       flavour = 'mocha', -- latte, frappe, macchiato, mocha, auto
