@@ -54,8 +54,8 @@ require('lazy').setup({
 
   { -- Fuzzy Finder (files, lsp, etc)
     'nvim-telescope/telescope.nvim',
+    enabled = true,
     event = 'VimEnter',
-    branch = '0.x',
     dependencies = {
       'nvim-lua/plenary.nvim',
       {
