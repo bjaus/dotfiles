@@ -1,4 +1,10 @@
 return { -- To see what colorschemes are already installed: `:Telescope colorscheme`.
+  {
+    'rebelot/kanagawa.nvim',
+    lazy = false,
+    enabled = false,
+    priority = 1000,
+  },
   { -- https://github.com/scottmckendry/cyberdream.nvim
     'scottmckendry/cyberdream.nvim',
     lazy = false,

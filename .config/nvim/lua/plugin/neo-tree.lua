@@ -29,15 +29,23 @@ return {
       enable_git_status = true,
       enable_diagnostics = true,
       sort_case_insensitive = true,
+      open_files_do_not_replace_types = { 'terminal', 'trouble', 'qf' },
       sources = {
-        'filesystem',
         'buffers',
-        'git_status',
+        -- 'diagnostics',
         'document_symbols',
+        'filesystem',
+        'git_status',
+        -- 'workspaces',
       },
+      -- diagnostics = {
+      --   enable = true,
+      --   show_on_dirs = false,
+      -- },
       filesystem = {
         bind_to_cwd = false,
         follow_current_file = { enabled = true },
+        hijack_netrw_behavior = 'open_default',
         use_libuv_file_watcher = true,
         filtered_items = {
           visible = true, -- when true, they will just be displayed differently than normal items
