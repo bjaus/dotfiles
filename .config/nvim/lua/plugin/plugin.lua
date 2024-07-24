@@ -27,6 +27,7 @@ return {
         { '<leader>b', group = 'De[B]ug' },
         { '<leader>c', group = '[C]ode' },
         { '<leader>d', group = '[D]ocument' },
+        { '<leader>d', group = '[E]xplore' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
         { '<leader>i', group = '[I]nspect' },
         { '<leader>l', group = '[L]azy' },
