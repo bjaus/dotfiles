@@ -433,7 +433,7 @@ return {
   },
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
-    branch = 'v*',
+    branch = '*',
     build = ':TSUpdate',
     opts = {
       -- ensure_installed = {

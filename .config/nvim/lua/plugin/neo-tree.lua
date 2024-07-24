@@ -23,18 +23,34 @@ return {
       's1n7ax/nvim-window-picker',
     },
     cmd = 'Neotree',
-    keys = {
-      { '\\', ':Neotree source=filesystem reveal=true position=left action=show toggle=true<CR>', desc = 'NeoTree reveal' },
-    },
+    keys = require('config.keymaps').setup_neotree_keymaps(),
     opts = {
       close_if_last_window = true,
       enable_git_status = true,
       enable_diagnostics = true,
       sort_case_insensitive = true,
+      sources = {
+        'filesystem',
+        'buffers',
+        'git_status',
+        'document_symbols',
+      },
       filesystem = {
+        bind_to_cwd = false,
+        follow_current_file = { enabled = true },
+        use_libuv_file_watcher = true,
+        filtered_items = {
+          visible = true, -- when true, they will just be displayed differently than normal items
+          hide_dotfiles = false,
+          hide_gitignored = true,
+          hide_by_name = {
+            '.git',
+          },
+        },
         window = {
           mappings = {
             ['\\'] = 'close_window',
+            ['o'] = 'open',
           },
         },
       },
