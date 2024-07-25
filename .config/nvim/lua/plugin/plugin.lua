@@ -168,6 +168,7 @@ return {
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         -- { 'golangcilint', auto_update = false },
+        { 'goimports' },
         { 'goimports-reviser', auto_update = true },
         { 'stylua', auto_update = true }, -- Used to format Lua code
       })
@@ -205,29 +206,30 @@ return {
     cmd = { 'ConformInfo' },
     keys = {
       {
-        '<leader>f',
+        '<leader>af',
         function()
           require('conform').format { async = true, lsp_fallback = true }
         end,
         mode = '',
-        desc = '[F]ormat buffer',
+        desc = 'format buffer',
       },
     },
     opts = {
-      notify_on_error = false,
+      timeout = 10,
+      notify_on_error = true,
       format_on_save = function(bufnr)
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. Add additional
         -- languages here or re-enable it for the disabled ones.
         local disable_filetypes = { c = true, cpp = true }
         return {
-          timeout_ms = 500,
+          timeout_ms = 10000,
           lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
         }
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
-        go = { 'gofmt', 'goimports-reviser' },
+        go = { 'gofmt', 'goimports', 'goimports-reviser' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
