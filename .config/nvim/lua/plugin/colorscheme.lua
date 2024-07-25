@@ -1,15 +1,13 @@
 return { -- To see what colorschemes are already installed: `:Telescope colorscheme`.
-  {
-    'rebelot/kanagawa.nvim',
-    lazy = false,
-    enabled = false,
-    priority = 1000,
-  },
   { -- https://github.com/scottmckendry/cyberdream.nvim
     'scottmckendry/cyberdream.nvim',
     lazy = false,
-    enabled = false,
+    enabled = true,
     priority = 1000,
+    init = function()
+      vim.cmd 'colorscheme cyberdream'
+      vim.cmd.hi 'Comment gui=none'
+    end,
   },
   {
     'nyoom-engineering/oxocarbon.nvim',
@@ -24,10 +22,20 @@ return { -- To see what colorschemes are already installed: `:Telescope colorsch
       vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
     end,
   },
+  { -- https://github.com/rebelot/kanagawa.nvim
+    'rebelot/kanagawa.nvim',
+    lazy = false,
+    enabled = false,
+    priority = 1000,
+    init = function()
+      vim.cmd 'colorscheme kanagawa-dragon'
+      vim.cmd.hi 'Comment gui=none'
+    end,
+  },
   {
     'folke/tokyonight.nvim',
     lazy = false,
-    enabled = true,
+    enabled = false,
     priority = 1000,
     init = function()
       vim.cmd.colorscheme 'tokyonight-night'
