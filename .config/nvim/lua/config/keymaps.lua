@@ -34,6 +34,7 @@ vim.keymap.set('v', '<A-k>', ":m '<-2<cr>gv=gv", { desc = 'move up', silent = tr
 -- buffers
 vim.keymap.set('n', '[b', '<cmd>bprevious<cr>', { desc = 'prev buffer' })
 vim.keymap.set('n', ']b', '<cmd>bnext<cr>', { desc = 'next buffer' })
+vim.keymap.set('n', '<leader>wx', '<cmd>bd!<cr>', { desc = 'close buffer' })
 
 -- windows
 vim.keymap.set('n', '<leader>wv', '<cmd>vsplit<cr>', { desc = 'split window vertically' })
@@ -42,8 +43,8 @@ vim.keymap.set('n', '<leader>wh', '<cmd>split<cr>', { desc = 'split window horiz
 -- tabs
 vim.keymap.set('n', '<tab>n', '<cmd>tabnew<cr>', { desc = 'new tab', silent = true })
 vim.keymap.set('n', '<tab>x', '<cmd>tabclose<cr>', { desc = 'close tab', silent = true })
-vim.keymap.set('n', ']<tab>', '<cmd>tabnext<cr>', { desc = 'next tab', silent = true })
-vim.keymap.set('n', '[<tab>', '<cmd>tabprevious<cr>', { desc = 'next tab', silent = true })
+vim.keymap.set('n', ']t', '<cmd>tabnext<cr>', { desc = 'next tab', silent = true })
+vim.keymap.set('n', '[t', '<cmd>tabprevious<cr>', { desc = 'next tab', silent = true })
 
 -- files
 vim.keymap.set('n', '<leader>fn', '<cmd>enew<cr', { desc = 'new file' })
@@ -138,39 +139,37 @@ function M.setup_lsp_keymaps(event)
   -- Jump to the definition of the word under the cursor.
   --  This is where a variable was first declared, or where a function is defined, etc.
   --  To jump back, press <C-t>.
-  map('gd', builtin.lsp_definitions, '[G]oto [D]efinition')
+  map('<leader>jd', builtin.lsp_definitions, 'jump to definition')
 
   -- Find references for the word under the cursor.
-  map('gr', builtin.lsp_references, '[G]oto [R]eferences')
+  map('<leader>jr', builtin.lsp_references, 'jump to references')
 
   -- Jump to the implementation of the word under the cursor.
   --  Useful when the language has ways of declaring types without an actual implementation.
-  map('gI', builtin.lsp_implementations, '[G]oto [I]mplementation')
+  map('<leader>ji', builtin.lsp_implementations, 'jump to implementation')
 
   -- Jump to the type of the word under the cursor.
   --  Useful when you're not sure what type a variable is and you want to see
   --  the definition of its *type*, not where it was *defined*.
-  map('<leader>D', builtin.lsp_type_definitions, 'Type [D]efinition')
+  map('<leader>jD', builtin.lsp_type_definitions, 'jump to definition')
+
+  map('<leader>jC', vim.lsp.buf.declaration, 'jump to declaration')
 
   -- Fuzzy find all the symbols in current file.
   --  Symbols are things like variables, functions, types, etc.
-  map('<leader>ds', builtin.lsp_document_symbols, '[D]ocument [S]ymbols')
+  map('<leader>fsd', builtin.lsp_document_symbols, 'find document symbols')
 
   -- Fuzzy find all the symbols in the current workspace.
   --  Similar to document symbols, except searches over the entire project.
-  map('<leader>ws', builtin.lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+  map('<leader>fsw', builtin.lsp_dynamic_workspace_symbols, 'find workspace symbols')
 
   -- Rename the variable under the cursor.
   --  Most Language Servers support renaming across files, etc.
-  map('<leader>an', vim.lsp.buf.rename, '[A]lter [N]ame')
+  map('<leader>ar', vim.lsp.buf.rename, 'action rename')
 
   -- Execute a code action, usually the cursor needs to be on top of an error
   -- or a suggestion from the LSP for this to activate.
-  map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
-
-  -- WARN: This is not Goto Definition, this is Goto Declaration.
-  -- For example, in C this would take you to the header
-  map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+  map('<leader>ac', vim.lsp.buf.code_action, 'action code')
 
   local client = vim.lsp.get_client_by_id(event.data.client_id)
 
@@ -262,7 +261,7 @@ function M.setup_lazygit_keymaps()
   --   "LazyGitFilter",
   --   "LazyGitFilterCurrentFile",
 
-  map_normal_mode('<leader>gl', function()
+  map_normal_mode('<leader>hl', function()
     -- -- if keymap <Esc><Esc> is set in terminal mode, remove it.
     -- -- this is to enable <Esc> to navigate in LazyGit which otherwise
     -- -- is overridden for terminal usage.
@@ -368,6 +367,52 @@ function M.setup_neotest_keymaps()
     --   require("dap-go").debug_test()
     -- end, "[d]ebug [g]o (nearest test)")
   }
+end
+
+function M.setup_go_keymaps()
+  local util = require 'utils.go'
+  vim.keymap.set('n', '<leader>wgf', util.switch_go_test_file, { desc = 'switch between test file' })
+  vim.keymap.set('n', '<leader>wgv', util.vsplit_go_test_file, { desc = 'switch between test file' })
+end
+
+function M.setup_telescope_keymaps()
+  -- See `:help telescope.builtin`
+  local builtin = require 'telescope.builtin'
+
+  vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'find help' })
+  vim.keymap.set('n', '<leader>fk', builtin.keymaps, { desc = 'find keymaps' })
+  vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'find files' })
+  vim.keymap.set('n', '<leader>fst', builtin.builtin, { desc = 'find select telescope' })
+  vim.keymap.set('n', '<leader>fw', builtin.grep_string, { desc = 'find word' })
+  vim.keymap.set('n', '<leader>fp', builtin.live_grep, { desc = 'find by grep' })
+  vim.keymap.set('n', '<leader>fd', builtin.diagnostics, { desc = 'find diagnostics' })
+  vim.keymap.set('n', '<leader>fr', builtin.resume, { desc = 'find resume' })
+  vim.keymap.set('n', '<leader>ft', '<cmd>TodoTelescope<cr>', { desc = 'find todos' })
+  vim.keymap.set('n', '<leader>fo', builtin.oldfiles, { desc = 'find old files' })
+  vim.keymap.set('n', '<leader>fgb', builtin.git_branches, { desc = 'find git branches' })
+  vim.keymap.set('n', '<leader>fgf', builtin.git_files, { desc = 'find git files' })
+  vim.keymap.set('n', '<leader>fgs', builtin.git_stash, { desc = 'find git staus' })
+  vim.keymap.set('n', '<leader>fgc', builtin.git_commits, { desc = 'find git commits' })
+  vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] find in buffers' })
+
+  vim.keymap.set('n', '<leader>/', function()
+    builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+      winblend = 10,
+      previewer = false,
+    })
+  end, { desc = '[/] fuzzily search in current buffer' })
+
+  vim.keymap.set('n', '<leader>f/', function()
+    builtin.live_grep {
+      grep_open_files = true,
+      prompt_title = 'live grep in Open Files',
+    }
+  end, { desc = 'find [/] in open files' })
+
+  -- Shortcut for searching Neovim configuration files
+  vim.keymap.set('n', '<leader>fn', function()
+    builtin.find_files { cwd = vim.fn.stdpath 'config' }
+  end, { desc = 'find neovim files' })
 end
 
 return M

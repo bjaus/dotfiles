@@ -1,3 +1,5 @@
+require('config.keymaps').setup_go_keymaps()
+
 return {
   {
     'nvim-neotest/neotest',
@@ -9,17 +11,19 @@ return {
       opts.adapters = opts.adapters or {}
       opts.adapters['neotest-golang'] = {
         go_test_args = {
+          '-cover',
+          -- '-coverfile=' .. vim.fn.getcwd() .. '/coverage.out',
+          '-json',
+          '-parallel=1',
           '-race',
           '-shuffle=off',
-          '-cover',
-          '-parallel=1',
-          '-coverfile=' .. vim.fn.getcwd() .. '/coverage.out',
+          '-v',
         },
 
         -- experimental
-        dev_notifications = true,
-        runner = 'gotestsum',
-        gotestsum_args = { '--format=standard-verbose' },
+        -- dev_notifications = true,
+        -- runner = 'gotestsum',
+        -- gotestsum_args = { '--format=standard-verbose' },
       }
     end,
   },
