@@ -17,6 +17,18 @@ require('lazy').setup({
     { import = 'plugin' },
     { import = 'lang' },
   },
+  -- colorscheme that will be used when installing plugins.
+  install = {
+    colorscheme = { 'cyberdream' },
+  },
+  -- automatically check for plugin updates
+  checker = {
+    enabled = true,
+    notify = false,
+  },
+  change_detection = {
+    notify = false,
+  },
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
