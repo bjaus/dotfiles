@@ -23,18 +23,20 @@ return {
 
       -- Document existing key chains
       require('which-key').add {
-        { '<leader>a', group = '[A]lter' },
-        { '<leader>b', group = 'De[B]ug' },
-        { '<leader>c', group = '[C]ode' },
-        { '<leader>d', group = '[D]ocument' },
-        { '<leader>d', group = '[E]xplore' },
-        { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
-        { '<leader>i', group = '[I]nspect' },
-        { '<leader>l', group = '[L]azy' },
-        { '<leader>r', group = '[R]ename' },
-        { '<leader>s', group = '[S]earch' },
-        { '<leader>t', group = '[T]est' },
-        { '<leader>w', group = '[W]orkspace' },
+        { '<leader>a', group = '[a]ction' },
+        { '<leader>b', group = 'de[b]ug' },
+        { '<leader>c', group = '[c]ode' },
+        { '<leader>d', group = '[d]ocument' },
+        { '<leader>d', group = '[e]xplore' },
+        { '<leader>g', group = '[g]it', mode = { 'n', 'v' } },
+        { '<leader>j', group = '[j]ump' },
+        { '<leader>h', group = 'git[h]ub', mode = { 'n', 'v' } },
+        { '<leader>i', group = '[i]nspect' },
+        { '<leader>l', group = '[l]azy' },
+        { '<leader>r', group = '[r]ename' },
+        { '<leader>s', group = '[f]ind' },
+        { '<leader>t', group = '[t]est' },
+        { '<leader>w', group = '[w]indow' },
       }
     end,
   },
@@ -83,42 +85,7 @@ return {
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')
 
-      -- See `:help telescope.builtin`
-      local builtin = require 'telescope.builtin'
-      vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
-      vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
-      vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
-      vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
-      vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
-      vim.keymap.set('n', '<leader>sp', builtin.live_grep, { desc = '[S]earch by Gre[P]' })
-      vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
-      vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
-      vim.keymap.set('n', '<leader>st', '<cmd>TodoTelescope<cr>', { desc = '[S]earch [T]odos' })
-      vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-      vim.keymap.set('n', '<leader>sgb', builtin.git_branches, { desc = '[S]earch [G]it [B]ranches' })
-      vim.keymap.set('n', '<leader>sgf', builtin.git_files, { desc = '[S]earch [G]it [F]iles' })
-      vim.keymap.set('n', '<leader>sgs', builtin.git_stash, { desc = '[S]earch [G]it [S]taus' })
-      vim.keymap.set('n', '<leader>sgc', builtin.git_commits, { desc = '[S]earch [G]it [C]ommits' })
-      vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
-
-      vim.keymap.set('n', '<leader>/', function()
-        builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-          winblend = 10,
-          previewer = false,
-        })
-      end, { desc = '[/] Fuzzily search in current buffer' })
-
-      vim.keymap.set('n', '<leader>s/', function()
-        builtin.live_grep {
-          grep_open_files = true,
-          prompt_title = 'Live Grep in Open Files',
-        }
-      end, { desc = '[S]earch [/] in Open Files' })
-
-      -- Shortcut for searching Neovim configuration files
-      vim.keymap.set('n', '<leader>sn', function()
-        builtin.find_files { cwd = vim.fn.stdpath 'config' }
-      end, { desc = '[S]earch [N]eovim files' })
+      require('config.keymaps').setup_telescope_keymaps()
     end,
   },
 
@@ -165,6 +132,7 @@ return {
         -- golangci_lint_ls = {},
         gopls = {},
         pyright = {},
+        yamlls = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -199,9 +167,9 @@ return {
 
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
-        { 'stylua', auto_update = false }, -- Used to format Lua code
-        { 'goimports-reviser', auto_update = false },
         -- { 'golangcilint', auto_update = false },
+        { 'goimports-reviser', auto_update = true },
+        { 'stylua', auto_update = true }, -- Used to format Lua code
       })
       require('mason-tool-installer').setup {
         run_on_start = true,
@@ -212,9 +180,10 @@ return {
       require('mason-lspconfig').setup {
         auto_install = true,
         ensure_installed = {
-          -- 'golangci_lint_ls',
           'gopls',
           'pyright',
+          'yamlls',
+          -- 'golangci_lint_ls',
         },
         handlers = {
           function(server_name)
@@ -436,7 +405,6 @@ return {
   },
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
-    branch = '*',
     build = ':TSUpdate',
     opts = {
       -- ensure_installed = {
