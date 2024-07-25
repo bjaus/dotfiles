@@ -203,7 +203,7 @@ function M.setup_git_signs_keymaps(bufnr)
   end
 
   -- Navigation
-  map('n', ']c', function()
+  map('n', ']g', function()
     if vim.wo.diff then
       vim.cmd.normal { ']h', bang = true }
     else
@@ -211,7 +211,7 @@ function M.setup_git_signs_keymaps(bufnr)
     end
   end, { desc = 'Jump to next git [c]hange' })
 
-  map('n', '[c', function()
+  map('n', '[g', function()
     if vim.wo.diff then
       vim.cmd.normal { '[h', bang = true }
     else
