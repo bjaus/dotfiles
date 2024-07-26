@@ -1,8 +1,28 @@
 return {
-  {
-    'nvim-neorg/neorg', -- NOTE: This requires luarocks to be installed
+  { -- NOTE: require to `brew install luarocks`
+    -- Tutorial: https://github.com/nvim-neorg/neorg/wiki/Tutorial
+    -- Keybindings: https://github.com/nvim-neorg/neorg/wiki/Default-Keybinds
+    'nvim-neorg/neorg',
     lazy = false,
     version = '*',
-    config = true,
+    config = function()
+      require('neorg').setup {
+        load = {
+          ['core.defaults'] = {},
+          ['core.concealer'] = {},
+          ['core.dirman'] = {
+            config = {
+              workspaces = {
+                notes = '~/notes',
+              },
+              default_workspace = 'notes',
+            },
+          },
+        },
+      }
+
+      vim.wo.foldlevel = 99
+      vim.wo.conceallevel = 2
+    end,
   },
 }
