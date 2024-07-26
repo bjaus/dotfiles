@@ -51,11 +51,10 @@ vim.opt.hlsearch = true
 -- text wrap
 vim.opt.wrap = true
 vim.opt.linebreak = true
-vim.opt.textwidth = 0
+vim.opt.textwidth = 120
 
 -- format options
-vim.cmd [[autocmd FileType * setlocal formatoptions-=o formatoptions-=r]]
-vim.opt.formatoptions:remove 't' -- disable automatic line breaks while typing
+vim.opt.formatoptions = '1cjnpqr'
 
 -- enable mouse support in all modes
 vim.opt.mouse = 'a'
