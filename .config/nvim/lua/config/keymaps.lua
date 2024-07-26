@@ -419,4 +419,23 @@ function M.setup_telescope_keymaps()
   end, { desc = 'find neovim files' })
 end
 
+function M.setup_which_key_keymaps()
+  return {
+    { '<leader>a', group = '[a]ction' },
+    { '<leader>b', group = 'de[b]ug' },
+    { '<leader>c', group = '[c]ode' },
+    { '<leader>d', group = '[d]ocument' },
+    { '<leader>d', group = '[e]xplore' },
+    { '<leader>g', group = '[g]it', mode = { 'n', 'v' } },
+    { '<leader>j', group = '[j]ump' },
+    { '<leader>h', group = 'git[h]ub', mode = { 'n', 'v' } },
+    { '<leader>i', group = '[i]nspect' },
+    { '<leader>l', group = '[l]azy' },
+    { '<leader>r', group = '[r]ename' },
+    { '<leader>s', group = '[f]ind' },
+    { '<leader>t', group = '[t]est' },
+    { '<leader>w', group = '[w]indow' },
+  }
+end
+
 return M
