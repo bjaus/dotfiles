@@ -3,6 +3,10 @@
 
 M = {}
 
+-- stack navigation
+vim.keymap.set('n', '<C-n>', '<C-i>', { desc = 'next frame in stack' })
+vim.keymap.set('n', '<C-p>', '<C-o>', { desc = 'prev frame in stack' })
+
 -- sort alphabetically
 vim.keymap.set('v', '<leader>so', ':sort i<cr>', { desc = 'sort order alphabetically' })
 vim.keymap.set('v', '<leader>su', ':sort ui<cr>', { desc = 'sort unique alphabetically' })
