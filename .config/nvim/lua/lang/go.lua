@@ -1,5 +1,18 @@
 require('config.keymaps').setup_go_keymaps()
 
+local ls = require 'luasnip'
+
+ls.add_snippets('go', {
+  ls.snippet('trun', {
+    ls.text_node { 't.Run("' },
+    ls.insert_node(1),
+    ls.text_node { '", func(t *testing.T) {' },
+    ls.text_node { '', '\t' },
+    ls.insert_node(2),
+    ls.text_node { '', '})' },
+  }),
+})
+
 return {
   {
     'nvim-neotest/neotest',
