@@ -20,24 +20,7 @@ return {
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     config = function() -- This is the function that runs, AFTER loading
       require('which-key').setup()
-
-      -- Document existing key chains
-      require('which-key').add {
-        { '<leader>a', group = '[a]ction' },
-        { '<leader>b', group = 'de[b]ug' },
-        { '<leader>c', group = '[c]ode' },
-        { '<leader>d', group = '[d]ocument' },
-        { '<leader>d', group = '[e]xplore' },
-        { '<leader>g', group = '[g]it', mode = { 'n', 'v' } },
-        { '<leader>j', group = '[j]ump' },
-        { '<leader>h', group = 'git[h]ub', mode = { 'n', 'v' } },
-        { '<leader>i', group = '[i]nspect' },
-        { '<leader>l', group = '[l]azy' },
-        { '<leader>r', group = '[r]ename' },
-        { '<leader>s', group = '[f]ind' },
-        { '<leader>t', group = '[t]est' },
-        { '<leader>w', group = '[w]indow' },
-      }
+      require('which-key').add(require('config.keymaps').setup_which_key_keymaps())
     end,
   },
 
