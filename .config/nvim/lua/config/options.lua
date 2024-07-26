@@ -32,7 +32,7 @@ vim.opt.updatetime = 250 -- save swap file and trigger CursorHold
 
 -- lines numbers
 vim.opt.number = true
-vim.opt.relativenumber = true
+vim.opt.relativenumber = false
 
 -- set table and indent defaults (can be overrideen by per-language configs)
 vim.opt.tabstop = 2
