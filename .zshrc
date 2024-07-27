@@ -8,7 +8,43 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+
+# ZSH_THEME="af-magic"
+# ZSH_THEME="agnoster" # blue & yell
+# ZSH_THEME="arrow" # simple gold
+# ZSH_THEME="aussiegeek"
+# ZSH_THEME="avit"
+# ZSH_THEME="bira"
+# ZSH_THEME="bureau"
+# ZSH_THEME="cloud"
+# ZSH_THEME="crunch"
+# ZSH_THEME="darkblood"
+# ZSH_THEME="daveverwer"
+# ZSH_THEME="dieter"
+# ZSH_THEME="duellj"
+# ZSH_THEME="eastwood"
+# ZSH_THEME="emotty" # requires "emotty" and "emoji" plugin
+# ZSH_THEME="essembeh"
+# ZSH_THEME="fino" # I really like this one
+# ZSH_THEME="fox"
+# ZSH_THEME="gallois"
+# ZSH_THEME="half-life"
+# ZSH_THEME="intheloop"
+# ZSH_THEME="jispwoso"
+# ZSH_THEME="jnrowe"
+# ZSH_THEME="jonathan"
+# ZSH_THEME="mh"
+# ZSH_THEME="miloshadzic" # minimal and sleak
+# ZSH_THEME="mlh"
+# ZSH_THEME="mrtazz"
+# ZSH_THEME="robbyrussell"
+# ZSH_THEME="sorin"
+# ZSH_THEME="strug"
+# ZSH_THEME="superjarin"
+# ZSH_THEME="terminalparty"
+# ZSH_THEME="theunraveler"
+# ZSH_THEME="tjkirch"
+ZSH_THEME="zhann"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -70,7 +106,7 @@ HIST_STAMPS="yyyy-mm-dd"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git aliases autojump)
+plugins=(git aliases autojump emoji emotty)
 
 source $ZSH/oh-my-zsh.sh
 
