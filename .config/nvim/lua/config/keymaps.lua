@@ -401,8 +401,18 @@ function M.setup_telescope_keymaps()
 
   vim.keymap.set('n', '<leader>/', function()
     builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-      winblend = 10,
       previewer = false,
+      layout_config = {
+        preview_cutoff = 1, -- Preview should always show (unless previewer = false)
+
+        width = function(_, max_columns, _)
+          return math.min(max_columns, 120)
+        end,
+
+        height = function(_, _, max_lines)
+          return math.min(max_lines, 25)
+        end,
+      },
     })
   end, { desc = '[/] fuzzily search in current buffer' })
 
