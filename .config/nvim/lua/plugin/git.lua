@@ -18,7 +18,7 @@ return {
       require('config.keymaps').setup_lazygit_keymaps()
     end,
   },
-  {
+  { -- See `:help gitsigns`
     'lewis6991/gitsigns.nvim',
     opts = {
       signs = {
