@@ -23,14 +23,14 @@ return {
   {
     -- https://github.com/kdheepak/lazygit.nvim
     'kdheepak/lazygit.nvim',
-    enabled = false,
+    enabled = true,
     event = 'VeryLazy',
     -- optional for floating window border decoration
     dependencies = {
       'nvim-lua/plenary.nvim',
     },
     config = function()
-      -- require('config.keymaps').setup_lazygit_keymaps()
+      require('config.keymaps').setup_lazygit_keymaps()
     end,
   },
   {

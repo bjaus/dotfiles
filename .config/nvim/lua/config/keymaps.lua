@@ -311,29 +311,29 @@ end
 --     { '<leader>gbo', ':GitBlameOpenFileURL<CR>', desc = 'Open file URL', silent = true },
 --   }
 -- end
---
--- function M.setup_lazygit_keymaps()
---   --   "LazyGit",
---   --   "LazyGitConfig",
---   --   "LazyGitCurrentFile",
---   --   "LazyGitFilter",
---   --   "LazyGitFilterCurrentFile",
---
---   map_normal_mode('<leader>hl', function()
---     -- -- if keymap <Esc><Esc> is set in terminal mode, remove it.
---     -- -- this is to enable <Esc> to navigate in LazyGit which otherwise
---     -- -- is overridden for terminal usage.
---     -- local terminal_keymaps = vim.api.nvim_get_keymap 't'
---     -- for _, keymap in pairs(terminal_keymaps) do
---     --   if keymap.lhs == '<Esc><Esc>' then
---     --     vim.api.nvim_del_keymap('t', '<Esc><Esc>')
---     --   end
---     -- end
---
---     vim.cmd 'LazyGit'
---   end)
--- end
---
+
+function M.setup_lazygit_keymaps()
+  --   "LazyGit",
+  --   "LazyGitConfig",
+  --   "LazyGitCurrentFile",
+  --   "LazyGitFilter",
+  --   "LazyGitFilterCurrentFile",
+
+  map_normal_mode('<leader>gl', function()
+    -- -- if keymap <Esc><Esc> is set in terminal mode, remove it.
+    -- -- this is to enable <Esc> to navigate in LazyGit which otherwise
+    -- -- is overridden for terminal usage.
+    -- local terminal_keymaps = vim.api.nvim_get_keymap 't'
+    -- for _, keymap in pairs(terminal_keymaps) do
+    --   if keymap.lhs == '<Esc><Esc>' then
+    --     vim.api.nvim_del_keymap('t', '<Esc><Esc>')
+    --   end
+    -- end
+
+    vim.cmd 'LazyGit'
+  end)
+end
+
 function M.setup_neotest_keymaps()
   return {
     {
