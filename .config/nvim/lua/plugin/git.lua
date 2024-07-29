@@ -1,5 +1,16 @@
 return {
   {
+    'ruifm/gitlinker.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+    },
+    config = function()
+      local linker = require('gitlinker')
+      linker.setup()
+      require('config.keymaps').setup_git_linker_keymaps()
+    end
+  },
+  {
     -- https://github.com/f-person/git-blame.nvim
     'f-person/git-blame.nvim',
     enabled = false,

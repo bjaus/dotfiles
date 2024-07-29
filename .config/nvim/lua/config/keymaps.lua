@@ -285,6 +285,22 @@ end
 --   map('n', '<leader>tD', gitsigns.toggle_deleted, { desc = '[T]oggle git show [D]eleted' })
 -- end
 --
+function M.setup_git_linker_keymaps()
+  -- TODO: Looks like copying github link to clipboard is mapped by default but I'd like to do that and open so I need
+  -- look into how to make both happen
+  --
+  -- vim.keymap.set('n', '<leader>gb',
+  --   '<cmd>lua require"gitlinker".get_buf_range_url("n", {action_callback = require"gitlinker.actions".open_in_browser})<cr>',
+  --   { silent = true })
+  -- vim.keymap.set('v', '<leader>gb',
+  --   '<cmd>lua require"gitlinker".get_buf_range_url("v", {action_callback = require"gitlinker.actions".open_in_browser})<cr>',
+  --   {})
+  -- vim.keymap.set('n', '<leader>gY', '<cmd>lua require"gitlinker".get_repo_url()<cr>', { silent = true })
+  -- vim.keymap.set('n', '<leader>gB',
+  --   '<cmd>lua require"gitlinker".get_repo_url({action_callback = require"gitlinker.actions".open_in_browser})<cr>',
+  --   { silent = true })
+end
+
 -- function M.setup_git_blame_keymaps()
 --   return {
 --     -- toggle needs to be called twice; https://github.com/f-person/git-blame.nvim/issues/16
