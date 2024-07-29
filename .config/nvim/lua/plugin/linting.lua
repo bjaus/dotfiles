@@ -1,5 +1,7 @@
 return {
+  -- https://github.com/mfussenegger/nvim-lint
   'mfussenegger/nvim-lint',
+  enabled = false,
   event = { 'BufReadPre', 'BufNewFile' },
   config = function()
     local lint = require 'lint'
@@ -8,11 +10,9 @@ return {
       go = { 'golangcilint' },
     }
 
-    -- Create autocommand which carries out the actual linting
-    -- on the specified events.
-    local lint_augroup = vim.api.nvim_create_augroup('lint', { clear = true })
+    -- Create autocommand which carries out the actual linting on the specified events.
     vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWritePost', 'InsertLeave' }, {
-      group = lint_augroup,
+      group = vim.api.nvim_create_augroup('lint', { clear = true }),
       callback = function()
         lint.try_lint()
       end,
