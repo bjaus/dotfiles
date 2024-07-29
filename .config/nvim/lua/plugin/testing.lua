@@ -1,7 +1,7 @@
 return {
   {
   'nvim-neotest/neotest',
-  enabled = false,
+  enabled = true,
   event = 'VeryLazy',
   dependencies = {
     'nvim-neotest/nvim-nio',
@@ -65,7 +65,7 @@ return {
 
     require('neotest').setup(opts)
   end,
-  -- keys = require('config.keymaps').setup_neotest_keymaps(),
+  keys = require('config.keymaps').setup_neotest_keymaps(),
 },
 {
   'klen/nvim-test',
