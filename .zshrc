@@ -162,6 +162,6 @@ fi
 alias cat="bat"
 alias clip="tr -d '\n' | pbcopy"
 alias pn="pnpm"
-alias vim="nvim"
+# alias vim="nvim"
 
 [ -f "$HOME/.zshrc.extended" ] && . "$HOME/.zshrc.extended"
