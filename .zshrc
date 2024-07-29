@@ -160,5 +160,8 @@ fi
 # For a full list of active aliases, run `alias`.
 
 alias cat="bat"
+alias clip="tr -d '\n' | pbcopy"
 alias pn="pnpm"
 alias vim="nvim"
+
+[ -f "$HOME/.zshrc.extended" ] && . "$HOME/.zshrc.extended"
