@@ -1,21 +1,42 @@
--- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
 M = {}
+
+function M.setup_which_key_keymaps()
+  return {
+    -- { ';', group = 'meta' },
+    -- { '<leader>a', group = '[a]ction' },
+    -- { '<leader>b', group = 'de[b]ug' },
+    -- { '<leader>c', group = '[c]ode' },
+    -- { '<leader>d', group = '[d]ocument' },
+    -- { '<leader>d', group = '[e]xplore' },
+    -- { '<leader>g', group = '[g]it', mode = { 'n', 'v' } },
+    -- { '<leader>h', group = 'git[h]ub', mode = { 'n', 'v' } },
+    -- { '<leader>i', group = '[i]nspect' },
+    -- { '<leader>j', group = '[j]ump' },
+    -- { '<leader>k', group = '[k]ey' },
+    -- { '<leader>l', group = '[l]azy' },
+    -- { '<leader>n', group = '[n]otes' },
+    -- { '<leader>r', group = '[r]ename' },
+    -- { '<leader>s', group = '[f]ind' },
+    -- { '<leader>t', group = '[t]est' },
+    -- { '<leader>w', group = '[w]indow' },
+  }
+end
 
 -- stack navigation
 vim.keymap.set('n', '<C-n>', '<C-i>', { desc = 'next frame in stack' })
 vim.keymap.set('n', '<C-p>', '<C-o>', { desc = 'prev frame in stack' })
 
--- sort alphabetically
-vim.keymap.set('v', '<leader>so', ':sort i<cr>', { desc = 'sort order alphabetically' })
-vim.keymap.set('v', '<leader>su', ':sort ui<cr>', { desc = 'sort unique alphabetically' })
+-- -- sort alphabetically
+-- vim.keymap.set('v', '<leader>so', ':sort i<cr>', { desc = 'sort order alphabetically' })
+-- VIP.keymap.set('v', '<leader>su', ':sort ui<cr>', { desc = 'sort unique alphabetically' })
 
 -- set highlight on search, but clear on pressing <Esc> in normal mode
 vim.keymap.set({ 'i', 'n' }, '<esc>', '<cmd>nohlsearch<cr><esc>', { desc = 'escape and clear hlsearch' })
 
--- Diagnostic keymaps
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+-- -- Diagnostic keymaps
+-- vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { desc = 'quit terminal mode' })
@@ -28,53 +49,53 @@ vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'move to lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'move to upper window' })
 
 -- Move Lines
-vim.keymap.set('n', '<A-j>', '<cmd>m .+1<cr>==', { desc = 'move down', silent = true })
-vim.keymap.set('n', '<A-k>', '<cmd>m .-2<cr>==', { desc = 'move up', silent = true })
-vim.keymap.set('i', '<A-j>', '<esc><cmd>m .+1<cr>==gi', { desc = 'move down', silent = true })
-vim.keymap.set('i', '<A-k>', '<esc><cmd>m .-2<cr>==gi', { desc = 'move up', silent = true })
-vim.keymap.set('v', '<A-j>', ":m '>+1<cr>gv=gv", { desc = 'move down', silent = true })
-vim.keymap.set('v', '<A-k>', ":m '<-2<cr>gv=gv", { desc = 'move up', silent = true })
+vim.keymap.set('n', '<A-j>', '<cmd>m .+1<cr>==', { desc = 'move line(s) down', silent = true })
+vim.keymap.set('n', '<A-k>', '<cmd>m .-2<cr>==', { desc = 'move line(s) up', silent = true })
+vim.keymap.set('i', '<A-j>', '<esc><cmd>m .+1<cr>==gi', { desc = 'move line(s) down', silent = true })
+vim.keymap.set('i', '<A-k>', '<esc><cmd>m .-2<cr>==gi', { desc = 'move line(s) up', silent = true })
+vim.keymap.set('v', '<A-j>', ":m '>+1<cr>gv=gv", { desc = 'move line(s) down', silent = true })
+vim.keymap.set('v', '<A-k>', ":m '<-2<cr>gv=gv", { desc = 'move line(s) up', silent = true })
 
--- buffers
-vim.keymap.set('n', '[b', '<cmd>bprevious<cr>', { desc = 'prev buffer' })
+-- -- buffers
+vim.keymap.set('n', '[b', '<cmd>bprevious<cr>', { desc = 'previous buffer' })
 vim.keymap.set('n', ']b', '<cmd>bnext<cr>', { desc = 'next buffer' })
-vim.keymap.set('n', '<leader>wx', '<cmd>bd!<cr>', { desc = 'close buffer' })
+-- vim.keymap.set('n', '<leader>wx', '<cmd>bd!<cr>', { desc = 'close buffer' })
 
--- windows
-vim.keymap.set('n', '<leader>wv', '<cmd>vsplit<cr>', { desc = 'split window vertically' })
-vim.keymap.set('n', '<leader>wh', '<cmd>split<cr>', { desc = 'split window horizontally' })
+-- -- windows
+-- vim.keymap.set('n', '<leader>wv', '<cmd>vsplit<cr>', { desc = 'split window vertically' })
+-- vim.keymap.set('n', '<leader>wh', '<cmd>split<cr>', { desc = 'split window horizontally' })
 
--- tabs
-vim.keymap.set('n', '<tab>n', '<cmd>tabnew<cr>', { desc = 'new tab', silent = true })
-vim.keymap.set('n', '<tab>x', '<cmd>tabclose<cr>', { desc = 'close tab', silent = true })
+-- -- tabs
+-- vim.keymap.set('n', '<tab>n', '<cmd>tabnew<cr>', { desc = 'new tab', silent = true })
+-- vim.keymap.set('n', '<tab>x', '<cmd>tabclose<cr>', { desc = 'close tab', silent = true })
 vim.keymap.set('n', ']t', '<cmd>tabnext<cr>', { desc = 'next tab', silent = true })
-vim.keymap.set('n', '[t', '<cmd>tabprevious<cr>', { desc = 'next tab', silent = true })
+vim.keymap.set('n', '[t', '<cmd>tabprevious<cr>', { desc = 'previous tab', silent = true })
 
--- files
-vim.keymap.set('n', '<leader>fn', '<cmd>enew<cr', { desc = 'new file' })
+-- -- files
+-- vim.keymap.set('n', '<leader>fn', '<cmd>enew<cr', { desc = 'new file' })
 
 -- save
 vim.keymap.set({ 'i', 'x', 'n', 's' }, '<C-s>', '<cmd>w<cr><esc>', { desc = 'save file' })
 
--- lists
-vim.keymap.set('n', '[q', vim.cmd.cprev, { desc = 'previous quickfix' })
-vim.keymap.set('n', ']q', vim.cmd.cnext, { desc = 'next quickfix' })
+-- -- lists
+-- vim.keymap.set('n', '[q', vim.cmd.cprev, { desc = 'previous quickfix' })
+-- vim.keymap.set('n', ']q', vim.cmd.cnext, { desc = 'next quickfix' })
 
--- indentation
--- vim.keymap.set({ 'n', 'v' }, '<', '<gv', { desc = 'indent left' })
--- vim.keymap.set({ 'n', 'v' }, '>', '>gv', { desc = 'indent right' })
+-- -- indentation
+-- -- vim.keymap.set({ 'n', 'v' }, '<', '<gv', { desc = 'indent left' })
+-- -- vim.keymap.set({ 'n', 'v' }, '>', '>gv', { desc = 'indent right' })
 
--- lazy
-vim.keymap.set('n', '<leader>lc', '<cmd>Lazy clean<cr>', { desc = 'run clean' })
-vim.keymap.set('n', '<leader>ld', '<cmd>Lazy debug<cr>', { desc = 'show debug info' })
-vim.keymap.set('n', '<leader>lh', '<cmd>Lazy show<cr>', { desc = 'show home' })
-vim.keymap.set('n', '<leader>li', '<cmd>Lazy install<cr>', { desc = 'run install' })
-vim.keymap.set('n', '<leader>lk', '<cmd>Lazy check<cr>', { desc = 'check for updates' })
-vim.keymap.set('n', '<leader>ll', '<cmd>Lazy log<cr>', { desc = 'show logs' })
-vim.keymap.set('n', '<leader>lp', '<cmd>Lazy profile<cr>', { desc = 'show profile' })
-vim.keymap.set('n', '<leader>lr', '<cmd>Lazy restore<cr>', { desc = 'restore to lockfile' })
-vim.keymap.set('n', '<leader>ls', '<cmd>Lazy sync<cr>', { desc = 'run install, clean, and update' })
-vim.keymap.set('n', '<leader>lu', '<cmd>Lazy update<cr>', { desc = 'run update' })
+-- -- lazy
+-- vim.keymap.set('n', '<leader>lc', '<cmd>Lazy clean<cr>', { desc = 'run clean' })
+-- vim.keymap.set('n', '<leader>ld', '<cmd>Lazy debug<cr>', { desc = 'show debug info' })
+-- vim.keymap.set('n', '<leader>lh', '<cmd>Lazy show<cr>', { desc = 'show home' })
+-- vim.keymap.set('n', '<leader>li', '<cmd>Lazy install<cr>', { desc = 'run install' })
+-- vim.keymap.set('n', '<leader>lk', '<cmd>Lazy check<cr>', { desc = 'check for updates' })
+-- vim.keymap.set('n', '<leader>ll', '<cmd>Lazy log<cr>', { desc = 'show logs' })
+-- vim.keymap.set('n', '<leader>lp', '<cmd>Lazy profile<cr>', { desc = 'show profile' })
+-- vim.keymap.set('n', '<leader>lr', '<cmd>Lazy restore<cr>', { desc = 'restore to lockfile' })
+-- vim.keymap.set('n', '<leader>ls', '<cmd>Lazy sync<cr>', { desc = 'run install, clean, and update' })
+-- vim.keymap.set('n', '<leader>lu', '<cmd>Lazy update<cr>', { desc = 'run update' })
 
 -- diagnostic
 local function goto_diagnostic(next, sev)
@@ -99,40 +120,40 @@ local function map_normal_mode(lhs, rhs, desc)
   vim.keymap.set('n', lhs, rhs, { desc = desc, noremap = false, silent = true })
 end
 
--- function M.setup_trouble_keymaps()
---   return {
---     {
---       '<leader>xx',
---       '<cmd>Trouble diagnostics toggle<cr>',
---       desc = 'Diagnostics (Trouble)',
---     },
---     {
---       '<leader>xX',
---       '<cmd>Trouble diagnostics toggle filter.buf=0<cr>',
---       desc = 'Buffer Diagnostics (Trouble)',
---     },
---     {
---       '<leader>cs',
---       '<cmd>Trouble symbols toggle focus=false<cr>',
---       desc = 'Symbols (Trouble)',
---     },
---     {
---       '<leader>cl',
---       '<cmd>Trouble lsp toggle focus=false win.position=right<cr>',
---       desc = 'LSP Definitions / references / ... (Trouble)',
---     },
---     {
---       '<leader>xL',
---       '<cmd>Trouble loclist toggle<cr>',
---       desc = 'Location List (Trouble)',
---     },
---     {
---       '<leader>xQ',
---       '<cmd>Trouble qflist toggle<cr>',
---       desc = 'Quickfix List (Trouble)',
---     },
---   }
--- end
+-- -- function M.setup_trouble_keymaps()
+-- --   return {
+-- --     {
+-- --       '<leader>xx',
+-- --       '<cmd>Trouble diagnostics toggle<cr>',
+-- --       desc = 'Diagnostics (Trouble)',
+-- --     },
+-- --     {
+-- --       '<leader>xX',
+-- --       '<cmd>Trouble diagnostics toggle filter.buf=0<cr>',
+-- --       desc = 'Buffer Diagnostics (Trouble)',
+-- --     },
+-- --     {
+-- --       '<leader>cs',
+-- --       '<cmd>Trouble symbols toggle focus=false<cr>',
+-- --       desc = 'Symbols (Trouble)',
+-- --     },
+-- --     {
+-- --       '<leader>cl',
+-- --       '<cmd>Trouble lsp toggle focus=false win.position=right<cr>',
+-- --       desc = 'LSP Definitions / references / ... (Trouble)',
+-- --     },
+-- --     {
+-- --       '<leader>xL',
+-- --       '<cmd>Trouble loclist toggle<cr>',
+-- --       desc = 'Location List (Trouble)',
+-- --     },
+-- --     {
+-- --       '<leader>xQ',
+-- --       '<cmd>Trouble qflist toggle<cr>',
+-- --       desc = 'Quickfix List (Trouble)',
+-- --     },
+-- --   }
+-- -- end
 
 function M.setup_lsp_keymaps(event)
   local builtin = require 'telescope.builtin'
@@ -186,192 +207,209 @@ function M.setup_lsp_keymaps(event)
   end
 end
 
+function M.setup_conform_keymaps()
+  return {
+    {
+      '<leader>af',
+      function()
+        require('conform').format { async = true, lsp_fallback = true }
+      end,
+      mode = '',
+      desc = 'format buffer',
+    },
+  }
+end
+
+function M.setup_coderunner_keymaps()
+  map_normal_mode("<leader>rf", ":RunFile term<CR>", "run file")
+end
+
 function M.setup_neotree_keymaps()
   return {
-    { '<leader>eb', ':Neotree source=buffers reveal=true position=left action=focus<cr>', desc = 'explore buffers' },
-    { '<leader>ec', ':Neotree action=close<cr>', desc = 'close explorer' },
-    { '<leader>ee', ':Neotree source=filesystem reveal=true position=left action=focus<cr>', desc = 'explore filesystem' },
-    { '<leader>eg', ':Neotree source=git_status reveal=true position=left action=focus<cr>', desc = 'explore git status' },
+    { '<leader>eb', ':Neotree source=buffers reveal=true position=left action=focus<cr>',          desc = 'explore buffers' },
+    { '<leader>ec', ':Neotree action=close<cr>',                                                   desc = 'close explorer' },
+    { '<leader>eo', ':Neotree source=filesystem reveal=true position=left action=focus<cr>',       desc = 'explore filesystem' },
+    { '<leader>eg', ':Neotree source=git_status reveal=true position=left action=focus<cr>',       desc = 'explore git status' },
     { '<leader>es', ':Neotree source=document_symbols reveal=true position=left action=focus<cr>', desc = 'explore document symbols' },
   }
 end
 
-function M.setup_git_signs_keymaps(bufnr)
-  local gitsigns = require 'gitsigns'
-
-  local function map(mode, l, r, opts)
-    opts = opts or {}
-    opts.buffer = bufnr
-    vim.keymap.set(mode, l, r, opts)
-  end
-
-  -- Navigation
-  map('n', ']g', function()
-    if vim.wo.diff then
-      vim.cmd.normal { ']h', bang = true }
-    else
-      gitsigns.nav_hunk 'next'
-    end
-  end, { desc = 'Jump to next git [c]hange' })
-
-  map('n', '[g', function()
-    if vim.wo.diff then
-      vim.cmd.normal { '[h', bang = true }
-    else
-      gitsigns.nav_hunk 'prev'
-    end
-  end, { desc = 'Jump to previous git [c]hange' })
-
-  -- Actions
-  -- visual mode
-  map('v', '<leader>hs', function()
-    gitsigns.stage_hunk { vim.fn.line '.', vim.fn.line 'v' }
-  end, { desc = 'stage git hunk' })
-  map('v', '<leader>hr', function()
-    gitsigns.reset_hunk { vim.fn.line '.', vim.fn.line 'v' }
-  end, { desc = 'reset git hunk' })
-  -- normal mode
-  map('n', '<leader>hs', gitsigns.stage_hunk, { desc = 'git [s]tage hunk' })
-  map('n', '<leader>hr', gitsigns.reset_hunk, { desc = 'git [r]eset hunk' })
-  map('n', '<leader>hS', gitsigns.stage_buffer, { desc = 'git [S]tage buffer' })
-  map('n', '<leader>hu', gitsigns.undo_stage_hunk, { desc = 'git [u]ndo stage hunk' })
-  map('n', '<leader>hR', gitsigns.reset_buffer, { desc = 'git [R]eset buffer' })
-  map('n', '<leader>hp', gitsigns.preview_hunk, { desc = 'git [p]review hunk' })
-  map('n', '<leader>hb', gitsigns.blame_line, { desc = 'git [b]lame line' })
-  map('n', '<leader>hd', gitsigns.diffthis, { desc = 'git [d]iff against index' })
-  map('n', '<leader>hD', function()
-    gitsigns.diffthis '@'
-  end, { desc = 'git [D]iff against last commit' })
-  -- Toggles
-  map('n', '<leader>tb', gitsigns.toggle_current_line_blame, { desc = '[T]oggle git show [b]lame line' })
-  map('n', '<leader>tD', gitsigns.toggle_deleted, { desc = '[T]oggle git show [D]eleted' })
-end
-
-function M.setup_git_blame_keymaps()
-  return {
-    -- toggle needs to be called twice; https://github.com/f-person/git-blame.nvim/issues/16
-    { '<leader>gbl', ':GitBlameToggle<CR>', desc = 'Blame line (toggle)', silent = true },
-    { '<leader>gbs', ':GitBlameCopySHA<CR>', desc = 'Copy SHA', silent = true },
-    { '<leader>gbc', ':GitBlameCopyCommitURL<CR>', desc = 'Copy commit URL', silent = true },
-    { '<leader>gbf', ':GitBlameCopyFileURL<CR>', desc = 'Copy file URL', silent = true },
-    { '<leader>gbo', ':GitBlameOpenFileURL<CR>', desc = 'Open file URL', silent = true },
-  }
-end
-
-function M.setup_lazygit_keymaps()
-  --   "LazyGit",
-  --   "LazyGitConfig",
-  --   "LazyGitCurrentFile",
-  --   "LazyGitFilter",
-  --   "LazyGitFilterCurrentFile",
-
-  map_normal_mode('<leader>hl', function()
-    -- -- if keymap <Esc><Esc> is set in terminal mode, remove it.
-    -- -- this is to enable <Esc> to navigate in LazyGit which otherwise
-    -- -- is overridden for terminal usage.
-    -- local terminal_keymaps = vim.api.nvim_get_keymap 't'
-    -- for _, keymap in pairs(terminal_keymaps) do
-    --   if keymap.lhs == '<Esc><Esc>' then
-    --     vim.api.nvim_del_keymap('t', '<Esc><Esc>')
-    --   end
-    -- end
-
-    vim.cmd 'LazyGit'
-  end)
-end
-
-function M.setup_neotest_keymaps()
-  return {
-    {
-      '<leader>ta',
-      function()
-        require('neotest').run.attach()
-      end,
-      desc = 'Attach',
-    },
-    {
-      '<leader>tf',
-      function()
-        require('neotest').run.run(vim.fn.expand '%')
-      end,
-      desc = 'Run File',
-    },
-    {
-      '<leader>tA',
-      function()
-        require('neotest').run.run(vim.uv.cwd())
-      end,
-      desc = 'Run All Test Files',
-    },
-    {
-      '<leader>tT',
-      function()
-        require('neotest').run.run { suite = true }
-      end,
-      desc = 'Run Test Suite',
-    },
-    {
-      '<leader>tn',
-      function()
-        require('neotest').run.run()
-      end,
-      desc = 'Run Nearest',
-    },
-    {
-      '<leader>tl',
-      function()
-        require('neotest').run.run_last()
-      end,
-      desc = 'Run Last',
-    },
-    {
-      '<leader>ts',
-      function()
-        require('neotest').summary.toggle()
-      end,
-      desc = 'Toggle Summary',
-    },
-    {
-      '<leader>to',
-      function()
-        require('neotest').output.open { enter = true, auto_close = true }
-      end,
-      desc = 'Show Output',
-    },
-    {
-      '<leader>tO',
-      function()
-        require('neotest').output_panel.toggle()
-      end,
-      desc = 'Toggle Output Panel',
-    },
-    {
-      '<leader>tt',
-      function()
-        require('neotest').run.stop()
-      end,
-      desc = 'Terminate',
-    },
-    {
-      '<leader>td',
-      function()
-        vim.cmd 'Neotree close'
-        require('neotest').summary.close()
-        require('neotest').output_panel.close()
-        require('neotest').run.run { suite = false, strategy = 'dap' }
-      end,
-      desc = 'Debug nearest test',
-    },
-
-    -- -- map_normal_mode("<leader>td", ':lua require("neotest").run.run({vim.fn.expand("%"), strategy = "dap"})<CR>', "[t]est [d]ebug Nearest")
-    -- map_normal_mode("<leader>td", ':lua require("neotest").run.run({ strategy = "dap" })<CR>', "[t]est [d]ebug Nearest")
-    -- map_normal_mode("<leader>tg", function()
-    --   -- FIXME: https://github.com/nvim-neotest/neotest-go/issues/12
-    --   -- Depends on "leoluz/nvim-dap-go"
-    --   require("dap-go").debug_test()
-    -- end, "[d]ebug [g]o (nearest test)")
-  }
-end
+-- function M.setup_git_signs_keymaps(bufnr)
+--   local gitsigns = require 'gitsigns'
+--
+--   local function map(mode, l, r, opts)
+--     opts = opts or {}
+--     opts.buffer = bufnr
+--     vim.keymap.set(mode, l, r, opts)
+--   end
+--
+--   -- Navigation
+--   map('n', ']g', function()
+--     if vim.wo.diff then
+--       vim.cmd.normal { ']h', bang = true }
+--     else
+--       gitsigns.nav_hunk 'next'
+--     end
+--   end, { desc = 'Jump to next git [c]hange' })
+--
+--   map('n', '[g', function()
+--     if vim.wo.diff then
+--       vim.cmd.normal { '[h', bang = true }
+--     else
+--       gitsigns.nav_hunk 'prev'
+--     end
+--   end, { desc = 'Jump to previous git [c]hange' })
+--
+--   -- Actions
+--   -- visual mode
+--   map('v', '<leader>hs', function()
+--     gitsigns.stage_hunk { vim.fn.line '.', vim.fn.line 'v' }
+--   end, { desc = 'stage git hunk' })
+--   map('v', '<leader>hr', function()
+--     gitsigns.reset_hunk { vim.fn.line '.', vim.fn.line 'v' }
+--   end, { desc = 'reset git hunk' })
+--   -- normal mode
+--   map('n', '<leader>hs', gitsigns.stage_hunk, { desc = 'git [s]tage hunk' })
+--   map('n', '<leader>hr', gitsigns.reset_hunk, { desc = 'git [r]eset hunk' })
+--   map('n', '<leader>hS', gitsigns.stage_buffer, { desc = 'git [S]tage buffer' })
+--   map('n', '<leader>hu', gitsigns.undo_stage_hunk, { desc = 'git [u]ndo stage hunk' })
+--   map('n', '<leader>hR', gitsigns.reset_buffer, { desc = 'git [R]eset buffer' })
+--   map('n', '<leader>hp', gitsigns.preview_hunk, { desc = 'git [p]review hunk' })
+--   map('n', '<leader>hb', gitsigns.blame_line, { desc = 'git [b]lame line' })
+--   map('n', '<leader>hd', gitsigns.diffthis, { desc = 'git [d]iff against index' })
+--   map('n', '<leader>hD', function()
+--     gitsigns.diffthis '@'
+--   end, { desc = 'git [D]iff against last commit' })
+--   -- Toggles
+--   map('n', '<leader>tb', gitsigns.toggle_current_line_blame, { desc = '[T]oggle git show [b]lame line' })
+--   map('n', '<leader>tD', gitsigns.toggle_deleted, { desc = '[T]oggle git show [D]eleted' })
+-- end
+--
+-- function M.setup_git_blame_keymaps()
+--   return {
+--     -- toggle needs to be called twice; https://github.com/f-person/git-blame.nvim/issues/16
+--     { '<leader>gbl', ':GitBlameToggle<CR>', desc = 'Blame line (toggle)', silent = true },
+--     { '<leader>gbs', ':GitBlameCopySHA<CR>', desc = 'Copy SHA', silent = true },
+--     { '<leader>gbc', ':GitBlameCopyCommitURL<CR>', desc = 'Copy commit URL', silent = true },
+--     { '<leader>gbf', ':GitBlameCopyFileURL<CR>', desc = 'Copy file URL', silent = true },
+--     { '<leader>gbo', ':GitBlameOpenFileURL<CR>', desc = 'Open file URL', silent = true },
+--   }
+-- end
+--
+-- function M.setup_lazygit_keymaps()
+--   --   "LazyGit",
+--   --   "LazyGitConfig",
+--   --   "LazyGitCurrentFile",
+--   --   "LazyGitFilter",
+--   --   "LazyGitFilterCurrentFile",
+--
+--   map_normal_mode('<leader>hl', function()
+--     -- -- if keymap <Esc><Esc> is set in terminal mode, remove it.
+--     -- -- this is to enable <Esc> to navigate in LazyGit which otherwise
+--     -- -- is overridden for terminal usage.
+--     -- local terminal_keymaps = vim.api.nvim_get_keymap 't'
+--     -- for _, keymap in pairs(terminal_keymaps) do
+--     --   if keymap.lhs == '<Esc><Esc>' then
+--     --     vim.api.nvim_del_keymap('t', '<Esc><Esc>')
+--     --   end
+--     -- end
+--
+--     vim.cmd 'LazyGit'
+--   end)
+-- end
+--
+-- function M.setup_neotest_keymaps()
+--   return {
+--     {
+--       '<leader>ta',
+--       function()
+--         require('neotest').run.attach()
+--       end,
+--       desc = 'Attach',
+--     },
+--     {
+--       '<leader>tf',
+--       function()
+--         require('neotest').run.run(vim.fn.expand '%')
+--       end,
+--       desc = 'Run File',
+--     },
+--     {
+--       '<leader>tA',
+--       function()
+--         require('neotest').run.run(vim.uv.cwd())
+--       end,
+--       desc = 'Run All Test Files',
+--     },
+--     {
+--       '<leader>tT',
+--       function()
+--         require('neotest').run.run { suite = true }
+--       end,
+--       desc = 'Run Test Suite',
+--     },
+--     {
+--       '<leader>tn',
+--       function()
+--         require('neotest').run.run()
+--       end,
+--       desc = 'Run Nearest',
+--     },
+--     {
+--       '<leader>tl',
+--       function()
+--         require('neotest').run.run_last()
+--       end,
+--       desc = 'Run Last',
+--     },
+--     {
+--       '<leader>ts',
+--       function()
+--         require('neotest').summary.toggle()
+--       end,
+--       desc = 'Toggle Summary',
+--     },
+--     {
+--       '<leader>to',
+--       function()
+--         require('neotest').output.open { enter = true, auto_close = true }
+--       end,
+--       desc = 'Show Output',
+--     },
+--     {
+--       '<leader>tO',
+--       function()
+--         require('neotest').output_panel.toggle()
+--       end,
+--       desc = 'Toggle Output Panel',
+--     },
+--     {
+--       '<leader>tt',
+--       function()
+--         require('neotest').run.stop()
+--       end,
+--       desc = 'Terminate',
+--     },
+--     {
+--       '<leader>td',
+--       function()
+--         vim.cmd 'Neotree close'
+--         require('neotest').summary.close()
+--         require('neotest').output_panel.close()
+--         require('neotest').run.run { suite = false, strategy = 'dap' }
+--       end,
+--       desc = 'Debug nearest test',
+--     },
+--
+--     -- -- map_normal_mode("<leader>td", ':lua require("neotest").run.run({vim.fn.expand("%"), strategy = "dap"})<CR>', "[t]est [d]ebug Nearest")
+--     -- map_normal_mode("<leader>td", ':lua require("neotest").run.run({ strategy = "dap" })<CR>', "[t]est [d]ebug Nearest")
+--     -- map_normal_mode("<leader>tg", function()
+--     --   -- FIXME: https://github.com/nvim-neotest/neotest-go/issues/12
+--     --   -- Depends on "leoluz/nvim-dap-go"
+--     --   require("dap-go").debug_test()
+--     -- end, "[d]ebug [g]o (nearest test)")
+--   }
+-- end
 
 function M.setup_go_keymaps()
   local util = require 'utils.go'
@@ -429,23 +467,38 @@ function M.setup_telescope_keymaps()
   end, { desc = 'find neovim files' })
 end
 
-function M.setup_which_key_keymaps()
+function M.setup_dap_ui_keymaps()
+  -- keymaps: https://github.com/mfussenegger/nvim-dap/blob/master/doc/dap.txt#L508
   return {
-    { '<leader>a', group = '[a]ction' },
-    { '<leader>b', group = 'de[b]ug' },
-    { '<leader>c', group = '[c]ode' },
-    { '<leader>d', group = '[d]ocument' },
-    { '<leader>d', group = '[e]xplore' },
-    { '<leader>g', group = '[g]it', mode = { 'n', 'v' } },
-    { '<leader>h', group = 'git[h]ub', mode = { 'n', 'v' } },
-    { '<leader>i', group = '[i]nspect' },
-    { '<leader>j', group = '[j]ump' },
-    { '<leader>l', group = '[l]azy' },
-    { '<leader>n', group = '[n]otes' },
-    { '<leader>r', group = '[r]ename' },
-    { '<leader>s', group = '[f]ind' },
-    { '<leader>t', group = '[t]est' },
-    { '<leader>w', group = '[w]indow' },
+    { "<leader>du", function() require("dapui").toggle({}) end, desc = "DAP UI", },
+    { "<leader>de", function() require("dapui").eval() end,     desc = "DAP Eval", },
+  }
+end
+
+function M.setup_coverage_keymaps()
+  map_normal_mode("<leader>tc", ":Coverage<CR>", "test coverage in gutter")
+  map_normal_mode("<leader>tC", ":CoverageLoad<CR>:CoverageSummary<CR>", "test coverage summary")
+end
+
+function M.setup_dap_keymaps()
+  return {
+    { "<leader>db", function() require("dap").toggle_breakpoint() end,                                    desc = "toggle [d]ebug [b]reakpoint", },
+    { "<leader>dB", function() require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: ")) end, desc = "[d]ebug [B]reakpoint", },
+    { "<leader>dc", function() require("dap").continue() end,                                             desc = "[d]ebug [c]ontinue (start here)", },
+    { "<leader>dC", function() require("dap").run_to_cursor() end,                                        desc = "[d]ebug [C]ursor", },
+    { "<leader>dg", function() require("dap").goto_() end,                                                desc = "[d]ebug [g]o to line", },
+    { "<leader>do", function() require("dap").step_over() end,                                            desc = "[d]ebug step [o]ver", },
+    { "<leader>dO", function() require("dap").step_out() end,                                             desc = "[d]ebug step [O]ut", },
+    { "<leader>di", function() require("dap").step_into() end,                                            desc = "[d]ebug [i]nto", },
+    { "<leader>dj", function() require("dap").down() end,                                                 desc = "[d]ebug [j]ump down", },
+    { "<leader>dk", function() require("dap").up() end,                                                   desc = "[d]ebug [k]ump up", },
+    { "<leader>dl", function() require("dap").run_last() end,                                             desc = "[d]ebug [l]ast", },
+    { "<leader>dp", function() require("dap").pause() end,                                                desc = "[d]ebug [p]ause", },
+    { "<leader>dr", function() require("dap").repl.toggle() end,                                          desc = "[d]ebug [r]epl", },
+    { "<leader>dR", function() require("dap").clear_breakpoints() end,                                    desc = "[d]ebug [R]emove breakpoints", },
+    { "<leader>ds", function() require("dap").session() end,                                              desc = "[d]ebug [s]ession", },
+    { "<leader>dt", function() require("dap").terminate() end,                                            desc = "[d]ebug [t]erminate", },
+    { "<leader>dw", function() require("dap.ui.widgets").hover() end,                                     desc = "[d]ebug [w]idgets", },
   }
 end
 
@@ -505,14 +558,14 @@ function M.setup_cmp_keymaps()
   }
 end
 
-function M.setup_treesitter_keymaps()
-  -- There are additional nvim-treesitter modules that you can use to interact
-  -- with nvim-treesitter. You should go explore a few and see what interests you:
-  --
-  --  - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
-  --  - Show the current context: https://github.com/nvim-treesitter/nvim-treesitter-context
-  --  - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
-  vim.keymap.set('n', '<leader>it', '<cmd>InspectTree<cr>', { desc = '[I]nspect [T]ree' })
-end
+-- function M.setup_treesitter_keymaps()
+--   -- There are additional nvim-treesitter modules that you can use to interact
+--   -- with nvim-treesitter. You should go explore a few and see what interests you:
+--   --
+--   --  - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
+--   --  - Show the current context: https://github.com/nvim-treesitter/nvim-treesitter-context
+--   --  - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+--   vim.keymap.set('n', '<leader>it', '<cmd>InspectTree<cr>', { desc = '[I]nspect [T]ree' })
+-- end
 
 return M

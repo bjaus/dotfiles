@@ -4,7 +4,9 @@
 
 return {
   {
+    -- https://github.com/s1n7ax/nvim-window-picker
     's1n7ax/nvim-window-picker',
+    enabled = true,
     name = 'window-picker',
     event = 'VeryLazy',
     version = '2.*',
@@ -13,13 +15,15 @@ return {
     end,
   },
   {
+    -- https://github.com/nvim-neo-tree/neo-tree.nvim
     'nvim-neo-tree/neo-tree.nvim',
+    enabled = true,
     version = '*',
     dependencies = {
       'nvim-lua/plenary.nvim',
       'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
       'MunifTanjim/nui.nvim',
-      -- '3rd/image.nvim', -- optional image support in preview mode
+      '3rd/image.nvim', -- optional image support in preview mode
       's1n7ax/nvim-window-picker',
     },
     cmd = 'Neotree',
@@ -32,16 +36,10 @@ return {
       open_files_do_not_replace_types = { 'terminal', 'trouble', 'qf' },
       sources = {
         'buffers',
-        -- 'diagnostics',
         'document_symbols',
         'filesystem',
         'git_status',
-        -- 'workspaces',
       },
-      -- diagnostics = {
-      --   enable = true,
-      --   show_on_dirs = false,
-      -- },
       filesystem = {
         bind_to_cwd = false,
         follow_current_file = { enabled = true },

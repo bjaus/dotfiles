@@ -1,7 +1,8 @@
 return {
+  -- https://github.com/iamcco/markdown-preview.nvim
   { -- install with yarn or npm
-    enabled = true,
     'iamcco/markdown-preview.nvim',
+    enabled = false,
     cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
     build = 'cd app && pnpm install',
     init = function()
@@ -10,8 +11,8 @@ return {
     ft = { 'markdown' },
   },
   { -- install without yarn or npm
-    enabled = false,
     'iamcco/markdown-preview.nvim',
+    enabled = false,
     cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
     ft = { 'markdown' },
     build = function()
