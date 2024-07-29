@@ -1,25 +1,32 @@
 return {
   {
+    -- https://github.com/f-person/git-blame.nvim
     'f-person/git-blame.nvim',
+    enabled = false,
     event = 'VeryLazy',
     config = function()
       vim.cmd ':GitBlameToggle' -- disable at startup
     end,
-    keys = require('config.keymaps').setup_git_blame_keymaps(),
+    -- keys = require('config.keymaps').setup_git_blame_keymaps(),
   },
   {
+    -- https://github.com/kdheepak/lazygit.nvim
     'kdheepak/lazygit.nvim',
+    enabled = false,
     event = 'VeryLazy',
     -- optional for floating window border decoration
     dependencies = {
       'nvim-lua/plenary.nvim',
     },
     config = function()
-      require('config.keymaps').setup_lazygit_keymaps()
+      -- require('config.keymaps').setup_lazygit_keymaps()
     end,
   },
-  { -- See `:help gitsigns`
+  {
+    -- https://github.com/lewis6991/gitsigns.nvim
+    -- See `:help gitsigns`
     'lewis6991/gitsigns.nvim',
+    enabled = false,
     opts = {
       signs = {
         add = { text = '+' },
@@ -29,7 +36,7 @@ return {
         changedelete = { text = '~' },
       },
       on_attach = function(bufnr)
-        require('config.keymaps').setup_git_signs_keymaps(bufnr)
+        -- require('config.keymaps').setup_git_signs_keymaps(bufnr)
       end,
     },
   },

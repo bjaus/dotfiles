@@ -1,5 +1,8 @@
 return {
+  -- debugging
+  -- https://github.com/mfussenegger/nvim-dap
   'mfussenegger/nvim-dap',
+  enabled = false,
   dependencies = {
     -- Creates a beautiful debugger UI
     'rcarriga/nvim-dap-ui',
