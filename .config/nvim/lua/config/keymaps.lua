@@ -377,12 +377,34 @@ function M.setup_telescope_keymaps()
   -- See `:help telescope.builtin`
   local builtin = require 'telescope.builtin'
 
+  local function get_current_dir()
+    local buf = vim.api.nvim_buf_get_name(0)
+    local dir = vim.fn.fnamemodify(buf, ":p:h")
+    return dir
+  end
+
+  local function live_grep_in_package()
+    local dir = get_current_dir()
+    builtin.live_grep({
+      search_dirs = { dir },
+    })
+  end
+
+  local function find_files_in_cur_dir()
+    local dir = get_current_dir()
+    builtin.find_files({
+      search_dirs = { dir },
+    })
+  end
+
   vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'find help' })
   vim.keymap.set('n', '<leader>fk', builtin.keymaps, { desc = 'find keymaps' })
   vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'find files' })
+  vim.keymap.set('n', '<leader>fF', find_files_in_cur_dir, { desc = 'find files in current directory' })
   vim.keymap.set('n', '<leader>fst', builtin.builtin, { desc = 'find select telescope' })
   vim.keymap.set('n', '<leader>fw', builtin.grep_string, { desc = 'find word' })
   vim.keymap.set('n', '<leader>fp', builtin.live_grep, { desc = 'find by grep' })
+  vim.keymap.set('n', '<leader>fP', live_grep_in_package, { desc = 'find by grep in current directory' })
   vim.keymap.set('n', '<leader>fd', builtin.diagnostics, { desc = 'find diagnostics' })
   vim.keymap.set('n', '<leader>fr', builtin.resume, { desc = 'find resume' })
   vim.keymap.set('n', '<leader>ft', '<cmd>TodoTelescope<cr>', { desc = 'find todos' })
