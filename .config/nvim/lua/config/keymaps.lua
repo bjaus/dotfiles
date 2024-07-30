@@ -234,60 +234,60 @@ function M.setup_neotree_keymaps()
   }
 end
 
--- function M.setup_git_signs_keymaps(bufnr)
---   local gitsigns = require 'gitsigns'
---
---   local function map(mode, l, r, opts)
---     opts = opts or {}
---     opts.buffer = bufnr
---     vim.keymap.set(mode, l, r, opts)
---   end
---
---   -- Navigation
---   map('n', ']g', function()
---     if vim.wo.diff then
---       vim.cmd.normal { ']h', bang = true }
---     else
---       gitsigns.nav_hunk 'next'
---     end
---   end, { desc = 'Jump to next git [c]hange' })
---
---   map('n', '[g', function()
---     if vim.wo.diff then
---       vim.cmd.normal { '[h', bang = true }
---     else
---       gitsigns.nav_hunk 'prev'
---     end
---   end, { desc = 'Jump to previous git [c]hange' })
---
---   -- Actions
---   -- visual mode
---   map('v', '<leader>hs', function()
---     gitsigns.stage_hunk { vim.fn.line '.', vim.fn.line 'v' }
---   end, { desc = 'stage git hunk' })
---   map('v', '<leader>hr', function()
---     gitsigns.reset_hunk { vim.fn.line '.', vim.fn.line 'v' }
---   end, { desc = 'reset git hunk' })
---   -- normal mode
---   map('n', '<leader>hs', gitsigns.stage_hunk, { desc = 'git [s]tage hunk' })
---   map('n', '<leader>hr', gitsigns.reset_hunk, { desc = 'git [r]eset hunk' })
---   map('n', '<leader>hS', gitsigns.stage_buffer, { desc = 'git [S]tage buffer' })
---   map('n', '<leader>hu', gitsigns.undo_stage_hunk, { desc = 'git [u]ndo stage hunk' })
---   map('n', '<leader>hR', gitsigns.reset_buffer, { desc = 'git [R]eset buffer' })
---   map('n', '<leader>hp', gitsigns.preview_hunk, { desc = 'git [p]review hunk' })
---   map('n', '<leader>hb', gitsigns.blame_line, { desc = 'git [b]lame line' })
---   map('n', '<leader>hd', gitsigns.diffthis, { desc = 'git [d]iff against index' })
---   map('n', '<leader>hD', function()
---     gitsigns.diffthis '@'
---   end, { desc = 'git [D]iff against last commit' })
---   -- Toggles
---   map('n', '<leader>tb', gitsigns.toggle_current_line_blame, { desc = '[T]oggle git show [b]lame line' })
---   map('n', '<leader>tD', gitsigns.toggle_deleted, { desc = '[T]oggle git show [D]eleted' })
--- end
---
+function M.setup_git_signs_keymaps(bufnr)
+  local gitsigns = require 'gitsigns'
+
+  local function map(mode, l, r, opts)
+    opts = opts or {}
+    opts.buffer = bufnr
+    vim.keymap.set(mode, l, r, opts)
+  end
+
+  -- Navigation
+  map('n', ']g', function()
+    if vim.wo.diff then
+      vim.cmd.normal { ']h', bang = true }
+    else
+      gitsigns.nav_hunk 'next'
+    end
+  end, { desc = 'Jump to next git [c]hange' })
+
+  map('n', '[g', function()
+    if vim.wo.diff then
+      vim.cmd.normal { '[h', bang = true }
+    else
+      gitsigns.nav_hunk 'prev'
+    end
+  end, { desc = 'Jump to previous git [c]hange' })
+
+  -- Actions
+  -- visual mode
+  map('v', '<leader>hs', function()
+    gitsigns.stage_hunk { vim.fn.line '.', vim.fn.line 'v' }
+  end, { desc = 'stage git hunk' })
+  map('v', '<leader>hr', function()
+    gitsigns.reset_hunk { vim.fn.line '.', vim.fn.line 'v' }
+  end, { desc = 'reset git hunk' })
+  -- normal mode
+  map('n', '<leader>gs', gitsigns.stage_hunk, { desc = 'git stage hunk' })
+  map('n', '<leader>gr', gitsigns.reset_hunk, { desc = 'git reset hunk' })
+  map('n', '<leader>gS', gitsigns.stage_buffer, { desc = 'git stage buffer' })
+  map('n', '<leader>gu', gitsigns.undo_stage_hunk, { desc = 'git undo stage hunk' })
+  map('n', '<leader>gR', gitsigns.reset_buffer, { desc = 'git reset buffer' })
+  map('n', '<leader>gp', gitsigns.preview_hunk, { desc = 'git preview hunk' })
+  map('n', '<leader>gb', gitsigns.blame_line, { desc = 'git blame line' })
+  map('n', '<leader>gd', gitsigns.diffthis, { desc = 'git diff against index' })
+  map('n', '<leader>gD', function()
+    gitsigns.diffthis '@'
+  end, { desc = 'git diff against last commit' })
+  -- Toggles
+  map('n', '<leader>gtb', gitsigns.toggle_current_line_blame, { desc = 'toggle git show blame line' })
+  map('n', '<leader>gtD', gitsigns.toggle_deleted, { desc = 'toggle git show deleted' })
+end
+
 function M.setup_git_linker_keymaps()
-  -- TODO: Looks like copying github link to clipboard is mapped by default but I'd like to do that and open so I need
-  -- look into how to make both happen
+  -- TODO: Looks like copying github link to clipboard is mapped by default but
+  -- I'd like to do that and open so I need look into how to make both happen.
   --
   -- vim.keymap.set('n', '<leader>gb',
   --   '<cmd>lua require"gitlinker".get_buf_range_url("n", {action_callback = require"gitlinker.actions".open_in_browser})<cr>',
@@ -320,92 +320,32 @@ function M.setup_lazygit_keymaps()
   --   "LazyGitFilterCurrentFile",
 
   map_normal_mode('<leader>gl', function()
-    -- -- if keymap <Esc><Esc> is set in terminal mode, remove it.
-    -- -- this is to enable <Esc> to navigate in LazyGit which otherwise
-    -- -- is overridden for terminal usage.
-    -- local terminal_keymaps = vim.api.nvim_get_keymap 't'
-    -- for _, keymap in pairs(terminal_keymaps) do
-    --   if keymap.lhs == '<Esc><Esc>' then
-    --     vim.api.nvim_del_keymap('t', '<Esc><Esc>')
-    --   end
-    -- end
-
+    -- if keymap <Esc><Esc> is set in terminal mode, remove it.
+    -- this is to enable <Esc> to navigate in LazyGit which otherwise
+    -- is overridden for terminal usage.
+    local terminal_keymaps = vim.api.nvim_get_keymap 't'
+    for _, keymap in pairs(terminal_keymaps) do
+      ---@diagnostic disable-next-line
+      if keymap.lhs == '<Esc><Esc>' then
+        vim.api.nvim_del_keymap('t', '<Esc><Esc>')
+      end
+    end
     vim.cmd 'LazyGit'
-  end)
+  end, "open lazy git")
 end
 
 function M.setup_neotest_keymaps()
   return {
-    {
-      '<leader>ta',
-      function()
-        require('neotest').run.attach()
-      end,
-      desc = 'Attach',
-    },
-    {
-      '<leader>tf',
-      function()
-        require('neotest').run.run(vim.fn.expand '%')
-      end,
-      desc = 'Run File',
-    },
-    {
-      '<leader>tA',
-      function()
-        require('neotest').run.run(vim.uv.cwd())
-      end,
-      desc = 'Run All Test Files',
-    },
-    {
-      '<leader>tT',
-      function()
-        require('neotest').run.run { suite = true }
-      end,
-      desc = 'Run Test Suite',
-    },
-    {
-      '<leader>tn',
-      function()
-        require('neotest').run.run()
-      end,
-      desc = 'Run Nearest',
-    },
-    {
-      '<leader>tl',
-      function()
-        require('neotest').run.run_last()
-      end,
-      desc = 'Run Last',
-    },
-    {
-      '<leader>ts',
-      function()
-        require('neotest').summary.toggle()
-      end,
-      desc = 'Toggle Summary',
-    },
-    {
-      '<leader>to',
-      function()
-        require('neotest').output.open { enter = true, auto_close = true }
-      end,
-      desc = 'Show Output',
-    },
-    {
-      '<leader>tO',
-      function()
-        require('neotest').output_panel.toggle()
-      end,
-      desc = 'Toggle Output Panel',
-    },
-    {
-      '<leader>tt',
-      function()
-        require('neotest').run.stop()
-      end,
-      desc = 'Terminate',
-    },
+    { '<leader>ta', function() require('neotest').run.attach() end,                                    desc = 'Attach', },
+    { '<leader>tf', function() require('neotest').run.run(vim.fn.expand '%') end,                      desc = 'Run File', },
+    { '<leader>tA', function() require('neotest').run.run(vim.uv.cwd()) end,                           desc = 'Run All Test Files', },
+    { '<leader>tT', function() require('neotest').run.run { suite = true } end,                        desc = 'Run Test Suite', },
+    { '<leader>tn', function() require('neotest').run.run() end,                                       desc = 'Run Nearest', },
+    { '<leader>tl', function() require('neotest').run.run_last() end,                                  desc = 'Run Last', },
+    { '<leader>ts', function() require('neotest').summary.toggle() end,                                desc = 'Toggle Summary', },
+    { '<leader>to', function() require('neotest').output.open { enter = true, auto_close = true } end, desc = 'Show Output', },
+    { '<leader>tO', function() require('neotest').output_panel.toggle() end,                           desc = 'Toggle Output Panel', },
+    { '<leader>tt', function() require('neotest').run.stop() end,                                      desc = 'Terminate', },
     {
       '<leader>td',
       function()

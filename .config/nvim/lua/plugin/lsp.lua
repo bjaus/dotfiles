@@ -18,8 +18,8 @@ return {
       { 'williamboman/mason.nvim', config = true },
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
-      { 'j-hui/fidget.nvim', opts = {} }, -- Useful status updates for LSP.
-      { 'Bilal2453/luvit-meta', lazy = true },
+      { 'j-hui/fidget.nvim',       opts = {} }, -- Useful status updates for LSP.
+      { 'Bilal2453/luvit-meta',    lazy = true },
       {
         'folke/lazydev.nvim',
         ft = 'lua',
@@ -115,9 +115,10 @@ return {
 
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
-        { 'goimports', auto_update = true },
+        { 'goimports',         auto_update = true },
         { 'goimports-reviser', auto_update = true },
-        { 'stylua', auto_update = true }, -- Used to format Lua code
+        { 'delve',             auto_update = true },
+        { 'stylua',            auto_update = true }, -- Used to format Lua code
       })
       require('mason-tool-installer').setup {
         run_on_start = true,
