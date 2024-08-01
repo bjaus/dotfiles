@@ -1,6 +1,7 @@
 return {
   {
     'ruifm/gitlinker.nvim',
+    event = "VeryLazy",
     dependencies = {
       'nvim-lua/plenary.nvim',
     },
@@ -11,7 +12,6 @@ return {
     end
   },
   {
-    -- https://github.com/f-person/git-blame.nvim
     'f-person/git-blame.nvim',
     enabled = false,
     event = 'VeryLazy',
@@ -21,7 +21,6 @@ return {
     -- keys = require('config.keymaps').setup_git_blame_keymaps(),
   },
   {
-    -- https://github.com/kdheepak/lazygit.nvim
     'kdheepak/lazygit.nvim',
     enabled = true,
     event = 'VeryLazy',
@@ -34,17 +33,16 @@ return {
     end,
   },
   {
-    -- https://github.com/lewis6991/gitsigns.nvim
-    -- See `:help gitsigns`
     'lewis6991/gitsigns.nvim',
-    enabled = false,
+    enabled = true,
     opts = {
+      numhl = true,
       signs = {
-        add = { text = '+' },
-        change = { text = '~' },
-        delete = { text = '_' },
-        topdelete = { text = '‾' },
-        changedelete = { text = '~' },
+        -- add = { text = '+' },
+        -- change = { text = '~' },
+        -- delete = { text = 'x' },
+        -- topdelete = { text = '‾' },
+        -- changedelete = { text = '~' },
       },
       on_attach = function(bufnr)
         require('config.keymaps').setup_git_signs_keymaps(bufnr)
