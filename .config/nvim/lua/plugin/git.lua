@@ -47,7 +47,7 @@ return {
         changedelete = { text = '~' },
       },
       on_attach = function(bufnr)
-        -- require('config.keymaps').setup_git_signs_keymaps(bufnr)
+        require('config.keymaps').setup_git_signs_keymaps(bufnr)
       end,
     },
   },

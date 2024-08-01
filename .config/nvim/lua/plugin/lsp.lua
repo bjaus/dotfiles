@@ -115,7 +115,7 @@ return {
 
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
-        { 'goimports',         auto_update = true },
+        -- { 'goimports',         auto_update = true },
         { 'goimports-reviser', auto_update = true },
         { 'delve',             auto_update = true },
         { 'stylua',            auto_update = true }, -- Used to format Lua code
