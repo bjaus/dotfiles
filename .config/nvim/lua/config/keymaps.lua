@@ -261,13 +261,18 @@ function M.setup_git_signs_keymaps(bufnr)
   end, { desc = 'Jump to previous git [c]hange' })
 
   -- Actions
+
   -- visual mode
-  map('v', '<leader>hs', function()
+  map('v', '<leader>gs', function()
     gitsigns.stage_hunk { vim.fn.line '.', vim.fn.line 'v' }
   end, { desc = 'stage git hunk' })
-  map('v', '<leader>hr', function()
+  map('v', '<leader>gr', function()
     gitsigns.reset_hunk { vim.fn.line '.', vim.fn.line 'v' }
   end, { desc = 'reset git hunk' })
+  map('v', '<leader>gu', function()
+    gitsigns.undo_stage_hunk { vim.fn.line '.', vim.fn.line 'v' }
+  end, { desc = 'git undo stage hunk' })
+
   -- normal mode
   map('n', '<leader>gs', gitsigns.stage_hunk, { desc = 'git stage hunk' })
   map('n', '<leader>gr', gitsigns.reset_hunk, { desc = 'git reset hunk' })
@@ -277,9 +282,8 @@ function M.setup_git_signs_keymaps(bufnr)
   map('n', '<leader>gp', gitsigns.preview_hunk, { desc = 'git preview hunk' })
   map('n', '<leader>gb', gitsigns.blame_line, { desc = 'git blame line' })
   map('n', '<leader>gd', gitsigns.diffthis, { desc = 'git diff against index' })
-  map('n', '<leader>gD', function()
-    gitsigns.diffthis '@'
-  end, { desc = 'git diff against last commit' })
+  map('n', '<leader>gD', function() gitsigns.diffthis '@' end, { desc = 'git diff against last commit' })
+
   -- Toggles
   map('n', '<leader>gtb', gitsigns.toggle_current_line_blame, { desc = 'toggle git show blame line' })
   map('n', '<leader>gtD', gitsigns.toggle_deleted, { desc = 'toggle git show deleted' })
