@@ -12,15 +12,6 @@ return {
     end
   },
   {
-    'f-person/git-blame.nvim',
-    enabled = false,
-    event = 'VeryLazy',
-    config = function()
-      vim.cmd ':GitBlameToggle' -- disable at startup
-    end,
-    -- keys = require('config.keymaps').setup_git_blame_keymaps(),
-  },
-  {
     'kdheepak/lazygit.nvim',
     enabled = true,
     event = 'VeryLazy',
@@ -47,6 +38,15 @@ return {
       on_attach = function(bufnr)
         require('config.keymaps').setup_git_signs_keymaps(bufnr)
       end,
+    },
+    {
+      'f-person/git-blame.nvim',
+      enabled = false,
+      event = 'VeryLazy',
+      config = function()
+        vim.cmd ':GitBlameToggle' -- disable at startup
+      end,
+      -- keys = require('config.keymaps').setup_git_blame_keymaps(),
     },
   },
 }
