@@ -53,6 +53,9 @@ vim.opt.wrap = true
 vim.opt.linebreak = true
 vim.opt.textwidth = 120
 
+-- session options
+vim.opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+
 -- format options
 vim.opt.formatoptions = '1cjnpqr'
 
