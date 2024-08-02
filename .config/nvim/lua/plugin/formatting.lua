@@ -11,11 +11,12 @@ return {
       timeout_ms = 500,
       lsp_format = "fallback",
     },
+    formatters_by_ft = {
+      go = { "goimports-reviser" },
+    },
   },
   config = function(_, opts)
     local conform = require('conform')
-
-    print(opts)
 
     vim.api.nvim_create_autocmd('BufWritePre', {
       pattern = '*',
