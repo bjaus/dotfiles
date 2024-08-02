@@ -9,6 +9,9 @@ vim.g.have_nerd_font = true
 -- [[ Setting options ]]
 -- See `:help vim.opt` and/or `:help option-list`
 
+-- Set mouse to disabled to allow selecting text in terminal
+vim.opt.mouse = ''
+
 -- skip startup screen
 vim.opt.shortmess:append 'I'
 
