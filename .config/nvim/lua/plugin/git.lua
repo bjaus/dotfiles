@@ -26,27 +26,33 @@ return {
   {
     'lewis6991/gitsigns.nvim',
     enabled = true,
-    opts = {
-      numhl = true,
-      signs = {
-        -- add = { text = '+' },
-        -- change = { text = '~' },
-        -- delete = { text = 'x' },
-        -- topdelete = { text = '‾' },
-        -- changedelete = { text = '~' },
-      },
-      on_attach = function(bufnr)
-        require('config.keymaps').setup_git_signs_keymaps(bufnr)
-      end,
+    dependencies = {
+      'nvim-lua/plenary.nvim',
     },
-    {
-      'f-person/git-blame.nvim',
-      enabled = false,
-      event = 'VeryLazy',
-      config = function()
-        vim.cmd ':GitBlameToggle' -- disable at startup
-      end,
-      -- keys = require('config.keymaps').setup_git_blame_keymaps(),
-    },
+    config = function()
+      local gitsigns = require('gitsigns')
+      gitsigns.setup({
+        numhl = true,
+        signs = {
+          -- add = { text = '+' },
+          -- change = { text = '~' },
+          -- delete = { text = 'x' },
+          -- topdelete = { text = '‾' },
+          -- changedelete = { text = '~' },
+        },
+        on_attach = function(bufnr)
+          require('config.keymaps').setup_git_signs_keymaps(bufnr)
+        end,
+      })
+    end,
+  },
+  {
+    'f-person/git-blame.nvim',
+    enabled = false,
+    event = 'VeryLazy',
+    config = function()
+      vim.cmd ':GitBlameToggle' -- disable at startup
+    end,
+    -- keys = require('config.keymaps').setup_git_blame_keymaps(),
   },
 }
