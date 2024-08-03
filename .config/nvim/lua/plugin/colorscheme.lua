@@ -1,5 +1,5 @@
 return { -- To see what colorschemes are already installed: `:Telescope colorscheme`.
-  { -- https://github.com/scottmckendry/cyberdream.nvim
+  {
     'scottmckendry/cyberdream.nvim',
     lazy = false,
     enabled = true,
@@ -22,7 +22,7 @@ return { -- To see what colorschemes are already installed: `:Telescope colorsch
       vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
     end,
   },
-  { -- https://github.com/rebelot/kanagawa.nvim
+  {
     'rebelot/kanagawa.nvim',
     lazy = false,
     enabled = false,
