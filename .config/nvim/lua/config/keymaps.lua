@@ -275,7 +275,7 @@ function M.setup_gitsigns(bufnr)
   map('n', '<leader>gu', gitsigns.undo_stage_hunk, { desc = 'git undo stage hunk' })
   map('n', '<leader>gR', gitsigns.reset_buffer, { desc = 'git reset buffer' })
   map('n', '<leader>gp', gitsigns.preview_hunk, { desc = 'git preview hunk' })
-  map('n', '<leader>gb', gitsigns.blame_line, { desc = 'git blame line' })
+  map('n', '<leader>gB', gitsigns.blame_line, { desc = 'git blame line' })
   map('n', '<leader>gd', gitsigns.diffthis, { desc = 'git diff against index' })
   map('n', '<leader>gD', function()
     gitsigns.diffthis '@'
@@ -303,16 +303,16 @@ function M.setup_gitlinker()
   )
 end
 
--- function M.setup_git_blame()
---   return {
---     -- toggle needs to be called twice; https://github.com/f-person/git-blame.nvim/issues/16
---     { '<leader>gbl', ':GitBlameToggle<CR>', desc = 'Blame line (toggle)', silent = true },
---     { '<leader>gbs', ':GitBlameCopySHA<CR>', desc = 'Copy SHA', silent = true },
---     { '<leader>gbc', ':GitBlameCopyCommitURL<CR>', desc = 'Copy commit URL', silent = true },
---     { '<leader>gbf', ':GitBlameCopyFileURL<CR>', desc = 'Copy file URL', silent = true },
---     { '<leader>gbo', ':GitBlameOpenFileURL<CR>', desc = 'Open file URL', silent = true },
---   }
--- end
+function M.setup_git_blame()
+  return {
+    -- toggle needs to be called twice; https://github.com/f-person/git-blame.nvim/issues/16
+    { '<leader>gb', ':GitBlameToggle<CR>', desc = 'blame line (toggle)', silent = true },
+    { '<leader>gcs', ':GitBlameCopySHA<CR>', desc = 'copy commit SHA', silent = true },
+    { '<leader>gcu', ':GitBlameCopyCommitURL<CR>', desc = 'copy commit URL', silent = true },
+    { '<leader>gcy', ':GitBlameCopyFileURL<CR>', desc = 'copy file URL', silent = true },
+    { '<leader>gco', ':GitBlameOpenFileURL<CR>', desc = 'open file URL', silent = true },
+  }
+end
 
 function M.setup_lazygit()
   --   "LazyGit",

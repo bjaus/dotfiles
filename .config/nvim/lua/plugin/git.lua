@@ -48,11 +48,11 @@ return {
   },
   {
     'f-person/git-blame.nvim',
-    enabled = false,
+    enabled = true,
     event = 'VeryLazy',
     config = function()
       vim.cmd ':GitBlameToggle' -- disable at startup
     end,
-    -- keys = require('config.keymaps').setup_git_blame_keymaps(),
+    keys = require('config.keymaps').setup_git_blame(),
   },
 }
