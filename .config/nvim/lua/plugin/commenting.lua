@@ -1,6 +1,4 @@
-return {
-  -- Highlight todo, notes, etc in comments
-  -- https://github.com/folke/todo-comments.nvim
+return { -- Highlight todo, notes, etc in comments
   'folke/todo-comments.nvim',
   enabled = true,
   event = 'VimEnter',
