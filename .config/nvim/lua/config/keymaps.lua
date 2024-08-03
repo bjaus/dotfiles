@@ -20,10 +20,11 @@ function M.setup_which_key()
     { '<leader>g', group = '[g]it', mode = { 'n', 'v' } },
     { '<leader>h', group = '[h]arpoon' },
     { '<leader>j', group = '[j]ump' },
-    { '<leader>r', group = '[r]un' },
-    { '<leader>t', group = '[t]est' },
-    { '<leader>s', group = '[s]ession', mode = { 'n' } },
+    { '<leader>m', group = 'book[m]ark' },
     { '<leader>o', group = 't[o]ggle' },
+    { '<leader>r', group = '[r]un' },
+    { '<leader>s', group = '[s]ession', mode = { 'n' } },
+    { '<leader>t', group = '[t]est' },
     { '<leader>w', group = '[w]indow' },
   }
 end
@@ -708,6 +709,25 @@ function M.setup_toggleterm(trim_spaces)
   end)
   vim.keymap.set('n', '<leader>ot', '<cmd>ToggleTerm<CR>', { desc = 'toggle terminal window' })
   vim.keymap.set('t', '<esc>', '<C-\\><C-n>', { desc = 'exit terminal mode' })
+end
+
+function M.setup_bookmarks()
+  return {
+    toggle = '<leader>om', -- Toggle bookmarks(global keymap)
+    add = '<leader>ma', -- Add bookmarks(global keymap)
+    add_global = '<leader>mA', -- Add global bookmarks(global keymap), global bookmarks will appear in all projects. Identified with the symbol '󰯾'
+    show_desc = '<leader>ms', -- show bookmark desc(global keymap)
+    delete_on_virt = '<leader>md', -- Delete bookmark at virt text line(global keymap)
+
+    close = 'q', -- close bookmarks (buf keymap)
+    delete = 'dd', -- Delete bookmarks(buf keymap)
+    jump = '<cr>', -- Jump from bookmarks(buf keymap)
+    order = '<space><space>', -- Order bookmarks by frequency or updated_time(buf keymap)
+
+    focus_tags = 'h', -- focus tags window
+    focus_bookmarks = 'l', -- focus bookmarks window
+    toogle_focus = '<tab>', -- toggle window focus (tags-window <-> bookmarks-window)
+  }
 end
 
 -- function M.setup_treesitter()
