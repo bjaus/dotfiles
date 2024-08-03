@@ -221,15 +221,15 @@ function M.setup_conform_keymaps()
 end
 
 function M.setup_coderunner_keymaps()
-  map_normal_mode("<leader>rf", ":RunFile term<CR>", "run file")
+  map_normal_mode('<leader>rf', ':RunFile term<CR>', 'run file')
 end
 
 function M.setup_neotree_keymaps()
   return {
-    { '<leader>eb', ':Neotree source=buffers reveal=true position=left action=focus<cr>',          desc = 'explore buffers' },
-    { '<leader>ec', ':Neotree action=close<cr>',                                                   desc = 'close explorer' },
-    { '<leader>eo', ':Neotree source=filesystem reveal=true position=left action=focus<cr>',       desc = 'explore filesystem' },
-    { '<leader>eg', ':Neotree source=git_status reveal=true position=left action=focus<cr>',       desc = 'explore git status' },
+    { '<leader>eb', ':Neotree source=buffers reveal=true position=left action=focus<cr>', desc = 'explore buffers' },
+    { '<leader>ec', ':Neotree action=close<cr>', desc = 'close explorer' },
+    { '<leader>eo', ':Neotree source=filesystem reveal=true position=left action=focus<cr>', desc = 'explore filesystem' },
+    { '<leader>eg', ':Neotree source=git_status reveal=true position=left action=focus<cr>', desc = 'explore git status' },
     { '<leader>es', ':Neotree source=document_symbols reveal=true position=left action=focus<cr>', desc = 'explore document symbols' },
   }
 end
@@ -282,7 +282,9 @@ function M.setup_git_signs_keymaps(bufnr)
   map('n', '<leader>gp', gitsigns.preview_hunk, { desc = 'git preview hunk' })
   map('n', '<leader>gb', gitsigns.blame_line, { desc = 'git blame line' })
   map('n', '<leader>gd', gitsigns.diffthis, { desc = 'git diff against index' })
-  map('n', '<leader>gD', function() gitsigns.diffthis '@' end, { desc = 'git diff against last commit' })
+  map('n', '<leader>gD', function()
+    gitsigns.diffthis '@'
+  end, { desc = 'git diff against last commit' })
 
   -- Toggles
   map('n', '<leader>gtb', gitsigns.toggle_current_line_blame, { desc = 'toggle git show blame line' })
@@ -335,21 +337,81 @@ function M.setup_lazygit_keymaps()
       end
     end
     vim.cmd 'LazyGit'
-  end, "open lazy git")
+  end, 'open lazy git')
 end
 
 function M.setup_neotest_keymaps()
   return {
-    { '<leader>ta', function() require('neotest').run.attach() end,                                    desc = 'Attach', },
-    { '<leader>tf', function() require('neotest').run.run(vim.fn.expand '%') end,                      desc = 'Run File', },
-    { '<leader>tA', function() require('neotest').run.run(vim.uv.cwd()) end,                           desc = 'Run All Test Files', },
-    { '<leader>tT', function() require('neotest').run.run { suite = true } end,                        desc = 'Run Test Suite', },
-    { '<leader>tn', function() require('neotest').run.run() end,                                       desc = 'Run Nearest', },
-    { '<leader>tl', function() require('neotest').run.run_last() end,                                  desc = 'Run Last', },
-    { '<leader>ts', function() require('neotest').summary.toggle() end,                                desc = 'Toggle Summary', },
-    { '<leader>to', function() require('neotest').output.open { enter = true, auto_close = true } end, desc = 'Show Output', },
-    { '<leader>tO', function() require('neotest').output_panel.toggle() end,                           desc = 'Toggle Output Panel', },
-    { '<leader>tt', function() require('neotest').run.stop() end,                                      desc = 'Terminate', },
+    {
+      '<leader>ta',
+      function()
+        require('neotest').run.attach()
+      end,
+      desc = 'Attach',
+    },
+    {
+      '<leader>tf',
+      function()
+        require('neotest').run.run(vim.fn.expand '%')
+      end,
+      desc = 'Run File',
+    },
+    {
+      '<leader>tA',
+      function()
+        require('neotest').run.run(vim.uv.cwd())
+      end,
+      desc = 'Run All Test Files',
+    },
+    {
+      '<leader>tT',
+      function()
+        require('neotest').run.run { suite = true }
+      end,
+      desc = 'Run Test Suite',
+    },
+    {
+      '<leader>tn',
+      function()
+        require('neotest').run.run()
+      end,
+      desc = 'Run Nearest',
+    },
+    {
+      '<leader>tl',
+      function()
+        require('neotest').run.run_last()
+      end,
+      desc = 'Run Last',
+    },
+    {
+      '<leader>ts',
+      function()
+        require('neotest').summary.toggle()
+      end,
+      desc = 'Toggle Summary',
+    },
+    {
+      '<leader>to',
+      function()
+        require('neotest').output.open { enter = true, auto_close = true }
+      end,
+      desc = 'Show Output',
+    },
+    {
+      '<leader>tO',
+      function()
+        require('neotest').output_panel.toggle()
+      end,
+      desc = 'Toggle Output Panel',
+    },
+    {
+      '<leader>tt',
+      function()
+        require('neotest').run.stop()
+      end,
+      desc = 'Terminate',
+    },
     {
       '<leader>td',
       function()
@@ -383,22 +445,22 @@ function M.setup_telescope_keymaps()
 
   local function get_current_dir()
     local buf = vim.api.nvim_buf_get_name(0)
-    local dir = vim.fn.fnamemodify(buf, ":p:h")
+    local dir = vim.fn.fnamemodify(buf, ':p:h')
     return dir
   end
 
   local function live_grep_in_package()
     local dir = get_current_dir()
-    builtin.live_grep({
+    builtin.live_grep {
       search_dirs = { dir },
-    })
+    }
   end
 
   local function find_files_in_cur_dir()
     local dir = get_current_dir()
-    builtin.find_files({
+    builtin.find_files {
       search_dirs = { dir },
-    })
+    }
   end
 
   vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'find help' })
@@ -452,35 +514,62 @@ end
 function M.setup_dap_ui_keymaps()
   -- keymaps: https://github.com/mfussenegger/nvim-dap/blob/master/doc/dap.txt#L508
   return {
-    { "<leader>du", function() require("dapui").toggle({}) end, desc = "DAP UI", },
-    { "<leader>de", function() require("dapui").eval() end,     desc = "DAP Eval", },
+    {
+      '<leader>du',
+      function()
+        require('dapui').toggle {}
+      end,
+      desc = 'DAP UI',
+    },
+    {
+      '<leader>de',
+      function()
+        require('dapui').eval()
+      end,
+      desc = 'DAP Eval',
+    },
   }
 end
 
 function M.setup_coverage_keymaps()
-  map_normal_mode("<leader>tc", ":Coverage<CR>", "test coverage in gutter")
-  map_normal_mode("<leader>tC", ":CoverageLoad<CR>:CoverageSummary<CR>", "test coverage summary")
+  map_normal_mode('<leader>tc', ':Coverage<CR>', 'test coverage in gutter')
+  map_normal_mode('<leader>tC', ':CoverageLoad<CR>:CoverageSummary<CR>', 'test coverage summary')
 end
 
-function M.setup_dap_keymaps()
+function M.setup_dap_keymaps(keys)
+  local dap = require 'dap'
   return {
-    { "<leader>db", function() require("dap").toggle_breakpoint() end,                                    desc = "toggle [d]ebug [b]reakpoint", },
-    { "<leader>dB", function() require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: ")) end, desc = "[d]ebug [B]reakpoint", },
-    { "<leader>dc", function() require("dap").continue() end,                                             desc = "[d]ebug [c]ontinue (start here)", },
-    { "<leader>dC", function() require("dap").run_to_cursor() end,                                        desc = "[d]ebug [C]ursor", },
-    { "<leader>dg", function() require("dap").goto_() end,                                                desc = "[d]ebug [g]o to line", },
-    { "<leader>do", function() require("dap").step_over() end,                                            desc = "[d]ebug step [o]ver", },
-    { "<leader>dO", function() require("dap").step_out() end,                                             desc = "[d]ebug step [O]ut", },
-    { "<leader>di", function() require("dap").step_into() end,                                            desc = "[d]ebug [i]nto", },
-    { "<leader>dj", function() require("dap").down() end,                                                 desc = "[d]ebug [j]ump down", },
-    { "<leader>dk", function() require("dap").up() end,                                                   desc = "[d]ebug [k]ump up", },
-    { "<leader>dl", function() require("dap").run_last() end,                                             desc = "[d]ebug [l]ast", },
-    { "<leader>dp", function() require("dap").pause() end,                                                desc = "[d]ebug [p]ause", },
-    { "<leader>dr", function() require("dap").repl.toggle() end,                                          desc = "[d]ebug [r]epl", },
-    { "<leader>dR", function() require("dap").clear_breakpoints() end,                                    desc = "[d]ebug [R]emove breakpoints", },
-    { "<leader>ds", function() require("dap").session() end,                                              desc = "[d]ebug [s]ession", },
-    { "<leader>dt", function() require("dap").terminate() end,                                            desc = "[d]ebug [t]erminate", },
-    { "<leader>dw", function() require("dap.ui.widgets").hover() end,                                     desc = "[d]ebug [w]idgets", },
+    { '<leader>bb', dap.toggle_breakpoint, desc = 'toggle debug breakpoint' },
+    {
+      '<leader>bB',
+      function()
+        dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
+      end,
+      desc = 'debug breakpoint continue',
+    },
+    { '<leader>bc', dap.continue, desc = 'debug continue' },
+    { '<leader>bC', dap.run_to_cursor, desc = 'debug cursor' },
+    { '<leader>bg', dap.goto_, desc = 'debug goto line' },
+    { '<leader>bo', dap.step_over, desc = 'debug step over' },
+    { '<leader>bO', dap.step_out, desc = 'debug step out' },
+    { '<leader>bi', dap.step_into, desc = 'debug into' },
+    { '<leader>bjd', dap.down, desc = 'debug jump down' },
+    { '<leader>bju', dap.up, desc = 'debug jump up' },
+    { '<leader>bl', dap.run_last, desc = 'debug last' },
+    {
+      '<leader>bL',
+      function()
+        dap.set_breakpoint(nil, nil, vim.fn.input 'Log point message: ')
+      end,
+      desc = 'debug log point message',
+    },
+    { '<leader>bp', dap.pause, desc = 'debug pause' },
+    { '<leader>br', dap.repl.toggle, desc = 'debug repl' },
+    { '<leader>bR', dap.clear_breakpoints, desc = 'debug remove breakpoints' },
+    { '<leader>bs', dap.session, desc = 'debug session' },
+    { '<leader>bt', dap.terminate, desc = 'debug terminate' },
+    { '<leader>bw', require('dap.ui.widgets').hover, desc = 'debug widgets' },
+    unpack(keys),
   }
 end
 
