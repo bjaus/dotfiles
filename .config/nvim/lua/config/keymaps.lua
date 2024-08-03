@@ -286,20 +286,20 @@ function M.setup_gitsigns(bufnr)
   map('n', '<leader>gtD', gitsigns.toggle_deleted, { desc = 'toggle git show deleted' })
 end
 
-function M.setup_git_linker()
-  -- TODO: Looks like copying github link to clipboard is mapped by default but
-  -- I'd like to do that and open so I need look into how to make both happen.
-  --
-  -- vim.keymap.set('n', '<leader>gb',
-  --   '<cmd>lua require"gitlinker".get_buf_range_url("n", {action_callback = require"gitlinker.actions".open_in_browser})<cr>',
-  --   { silent = true })
-  -- vim.keymap.set('v', '<leader>gb',
-  --   '<cmd>lua require"gitlinker".get_buf_range_url("v", {action_callback = require"gitlinker.actions".open_in_browser})<cr>',
-  --   {})
-  -- vim.keymap.set('n', '<leader>gY', '<cmd>lua require"gitlinker".get_repo_url()<cr>', { silent = true })
-  -- vim.keymap.set('n', '<leader>gB',
-  --   '<cmd>lua require"gitlinker".get_repo_url({action_callback = require"gitlinker.actions".open_in_browser})<cr>',
-  --   { silent = true })
+function M.setup_gitlinker()
+  vim.keymap.set(
+    'v',
+    '<leader>go',
+    '<cmd>lua require"gitlinker".get_buf_range_url("v", {action_callback = require"gitlinker.actions".open_in_browser})<cr>',
+    {}
+  )
+  vim.keymap.set('n', '<leader>gy', '<cmd>lua require"gitlinker".get_repo_url()<cr>', { silent = true })
+  vim.keymap.set(
+    'n',
+    '<leader>go',
+    '<cmd>lua require"gitlinker".get_repo_url({action_callback = require"gitlinker.actions".open_in_browser})<cr>',
+    { silent = true }
+  )
 end
 
 -- function M.setup_git_blame()

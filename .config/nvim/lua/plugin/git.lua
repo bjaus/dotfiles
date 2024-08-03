@@ -8,7 +8,7 @@ return {
     config = function()
       local linker = require 'gitlinker'
       linker.setup()
-      require('config.keymaps').setup_git_linker()
+      require('config.keymaps').setup_gitlinker()
     end,
   },
   {
