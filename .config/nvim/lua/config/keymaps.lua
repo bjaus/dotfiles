@@ -630,6 +630,16 @@ function M.setup_dadbod()
   }
 end
 
+function M.setup_persistence()
+  local persistence = require 'persistence'
+  vim.keymap.set('n', '<leader>ss', persistence.load, { desc = 'load session from pwd' })
+  vim.keymap.set('n', '<leader>sv', persistence.select, { desc = 'select session to load' })
+  vim.keymap.set('n', '<leader>sd', persistence.stop, { desc = 'do not save session on exit' })
+  vim.keymap.set('n', '<leader>sl', function()
+    persistence.load { last = true }
+  end, { desc = 'load the last session' })
+end
+
 -- function M.setup_treesitter_keymaps()
 --   -- There are additional nvim-treesitter modules that you can use to interact
 --   -- with nvim-treesitter. You should go explore a few and see what interests you:
