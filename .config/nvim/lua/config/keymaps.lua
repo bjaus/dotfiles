@@ -13,7 +13,6 @@ function M.setup_which_key()
     -- { '<leader>l', group = '[l]azy' },
     -- { '<leader>n', group = '[n]otes' },
     -- { '<leader>o', group = '[o]rder', mode = { 'v' } },
-    -- { '<leader>r', group = '[r]ename' },
     { '<leader>a', group = '[a]ction' },
     { '<leader>b', group = 'de[b]ug' },
     { '<leader>e', group = '[e]xplore' },
@@ -21,8 +20,10 @@ function M.setup_which_key()
     { '<leader>g', group = '[g]it', mode = { 'n', 'v' } },
     { '<leader>h', group = '[h]arpoon' },
     { '<leader>j', group = '[j]ump' },
+    { '<leader>r', group = '[r]un' },
+    { '<leader>rt', group = '[t]est' },
     { '<leader>s', group = '[s]ession', mode = { 'n' } },
-    { '<leader>t', group = '[t]est' },
+    { '<leader>t', group = '[t]oggle' },
     { '<leader>w', group = '[w]indow' },
   }
 end
@@ -196,7 +197,7 @@ function M.setup_lsp(event)
   if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
     map('<leader>th', function()
       vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
-    end, '[T]oggle Inlay [H]ints')
+    end, 'toggle inlay hints')
   end
 end
 
@@ -336,93 +337,85 @@ end
 function M.setup_neotest()
   return {
     {
-      '<leader>ta',
+      '<leader>rta',
       function()
         require('neotest').run.attach()
       end,
-      desc = 'Attach',
+      desc = 'attach test',
     },
     {
-      '<leader>tf',
+      '<leader>rtf',
       function()
         require('neotest').run.run(vim.fn.expand '%')
       end,
-      desc = 'Run File',
+      desc = 'run test file',
     },
     {
-      '<leader>tA',
+      '<leader>rtA',
       function()
         require('neotest').run.run(vim.uv.cwd())
       end,
-      desc = 'Run All Test Files',
+      desc = 'run all test files',
     },
     {
-      '<leader>tT',
+      '<leader>rtT',
       function()
         require('neotest').run.run { suite = true }
       end,
-      desc = 'Run Test Suite',
+      desc = 'run test suite',
     },
     {
-      '<leader>tn',
+      '<leader>rtn',
       function()
         require('neotest').run.run()
       end,
-      desc = 'Run Nearest',
+      desc = 'run nearest test',
     },
     {
-      '<leader>tl',
+      '<leader>rtl',
       function()
         require('neotest').run.run_last()
       end,
-      desc = 'Run Last',
+      desc = 'run last test',
     },
     {
-      '<leader>ts',
+      '<leader>rts',
       function()
         require('neotest').summary.toggle()
       end,
-      desc = 'Toggle Summary',
+      desc = 'toggle test summary',
     },
     {
-      '<leader>to',
+      '<leader>rto',
       function()
         require('neotest').output.open { enter = true, auto_close = true }
       end,
-      desc = 'Show Output',
+      desc = 'show test output',
     },
     {
-      '<leader>tO',
+      '<leader>rtO',
       function()
         require('neotest').output_panel.toggle()
       end,
-      desc = 'Toggle Output Panel',
+      desc = 'toggle test output panel',
     },
     {
-      '<leader>tt',
+      '<leader>rtt',
       function()
         require('neotest').run.stop()
       end,
-      desc = 'Terminate',
+      desc = 'terminate test',
     },
     {
-      '<leader>td',
+      '<leader>rtd',
       function()
         vim.cmd 'Neotree close'
         require('neotest').summary.close()
         require('neotest').output_panel.close()
         require('neotest').run.run { suite = false, strategy = 'dap' }
       end,
-      desc = 'Debug nearest test',
+      desc = 'debug nearest test',
     },
-
-    -- -- map_normal_mode("<leader>td", ':lua require("neotest").run.run({vim.fn.expand("%"), strategy = "dap"})<CR>', "[t]est [d]ebug Nearest")
-    -- map_normal_mode("<leader>td", ':lua require("neotest").run.run({ strategy = "dap" })<CR>', "[t]est [d]ebug Nearest")
-    -- map_normal_mode("<leader>tg", function()
-    --   -- FIXME: https://github.com/nvim-neotest/neotest-go/issues/12
-    --   -- Depends on "leoluz/nvim-dap-go"
-    --   require("dap-go").debug_test()
-    -- end, "[d]ebug [g]o (nearest test)")
   }
 end
 
@@ -508,25 +501,25 @@ function M.setup_dap_ui()
   -- keymaps: https://github.com/mfussenegger/nvim-dap/blob/master/doc/dap.txt#L508
   return {
     {
-      '<leader>du',
+      '<leader>bdu',
       function()
         require('dapui').toggle {}
       end,
-      desc = 'DAP UI',
+      desc = 'dap ui',
     },
     {
-      '<leader>de',
+      '<leader>bde',
       function()
         require('dapui').eval()
       end,
-      desc = 'DAP Eval',
+      desc = 'dap eval',
     },
   }
 end
 
 function M.setup_coverage()
-  map_normal_mode('<leader>tc', ':Coverage<CR>', 'test coverage in gutter')
-  map_normal_mode('<leader>tC', ':CoverageLoad<CR>:CoverageSummary<CR>', 'test coverage summary')
+  map_normal_mode('<leader>rtc', ':Coverage<CR>', 'test coverage in gutter')
+  map_normal_mode('<leader>rtC', ':CoverageLoad<CR>:CoverageSummary<CR>', 'test coverage summary')
 end
 
 function M.setup_dap(keys)
@@ -701,6 +694,12 @@ function M.setup_harpoon(harpoon)
   vim.keymap.set('n', ']h', function()
     harpoon:list():next()
   end, { desc = 'next harpoon' })
+end
+
+function M.setup_undotree()
+  return {
+    { '<leader>tu', '<cmd>UndotreeToggle<cr>', desc = 'toggle undotree' },
+  }
 end
 
 -- function M.setup_treesitter()

@@ -1,8 +1,6 @@
 return {
-  "mbbill/undotree",
+  'mbbill/undotree',
   lazy = false,
-  cmd = "UndotreeToggle",
-  keys = {
-    { "<leader>uu", "<cmd>UndotreeToggle<cr>", desc = "Undotree Toggle" },
-  },
+  cmd = 'UndotreeToggle',
+  keys = require('config.keymaps').setup_undotree(),
 }
