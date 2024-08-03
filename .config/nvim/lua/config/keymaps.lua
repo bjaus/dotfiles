@@ -643,6 +643,10 @@ function M.setup_persistence()
   end, { desc = 'load the last session' })
 end
 
+function M.setup_open(mod)
+  vim.keymap.set('n', 'gx', mod.open_cword, { desc = 'open url' })
+end
+
 -- function M.setup_treesitter_keymaps()
 --   -- There are additional nvim-treesitter modules that you can use to interact
 --   -- with nvim-treesitter. You should go explore a few and see what interests you:
