@@ -29,6 +29,20 @@ function M.setup_which_key()
   }
 end
 
+-- Smoother scrolling keymaps
+vim.keymap.set('n', '<C-d>', '10<c-d>zz', { desc = 'scroll 10 lines down', noremap = true, silent = true })
+vim.keymap.set('n', '<C-u>', '10<c-u>zz', { desc = 'scroll 10 lines up', noremap = true, silent = true })
+
+-- Scroll down by half a page with centered cursor
+vim.keymap.set('n', '<C-f>', '<C-f>zz', { desc = 'scroll half-page down', noremap = true, silent = true })
+-- Scroll up by half a page with centered cursor
+vim.keymap.set('n', '<C-b>', '<C-b>zz', { desc = 'scoll half-page up', noremap = true, silent = true })
+
+-- Scroll down by one line and center the cursor
+vim.keymap.set('n', '<C-e>', 'jzz', { desc = 'scroll down with center cursor', noremap = true, silent = true })
+-- Scroll up by one line and center the cursor
+vim.keymap.set('n', '<C-y>', 'kzz', { desc = 'scroll up with center cursor', noremap = true, silent = true })
+
 -- stack navigation
 vim.keymap.set('n', '<C-n>', '<C-i>', { desc = 'next frame in stack' })
 vim.keymap.set('n', '<C-p>', '<C-o>', { desc = 'prev frame in stack' })
