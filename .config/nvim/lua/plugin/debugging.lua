@@ -8,7 +8,7 @@ return {
       'jay-babu/mason-nvim-dap.nvim',
     },
     keys = function(_, keys)
-      return require('config.keymaps').setup_dap_keymaps(keys)
+      return require('config.keymaps').setup_dap(keys)
     end,
     config = function()
       require('mason-nvim-dap').setup {
@@ -70,7 +70,7 @@ return {
         },
       },
     },
-    keys = require('config.keymaps').setup_dap_ui_keymaps(),
+    keys = require('config.keymaps').setup_dap_ui(),
     config = function(_, opts)
       require('dapui').setup(opts)
     end,

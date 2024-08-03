@@ -27,7 +27,7 @@ return {
       's1n7ax/nvim-window-picker',
     },
     cmd = 'Neotree',
-    keys = require('config.keymaps').setup_neotree_keymaps(),
+    keys = require('config.keymaps').setup_neotree(),
     opts = {
       close_if_last_window = true,
       enable_git_status = true,

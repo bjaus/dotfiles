@@ -74,7 +74,7 @@ return {
       )
       require('neotest').setup(opts)
     end,
-    keys = require('config.keymaps').setup_neotest_keymaps(),
+    keys = require('config.keymaps').setup_neotest(),
   },
   {
     'vim-test/vim-test',

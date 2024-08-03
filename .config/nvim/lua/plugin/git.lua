@@ -1,15 +1,15 @@
 return {
   {
     'ruifm/gitlinker.nvim',
-    event = "VeryLazy",
+    event = 'VeryLazy',
     dependencies = {
       'nvim-lua/plenary.nvim',
     },
     config = function()
-      local linker = require('gitlinker')
+      local linker = require 'gitlinker'
       linker.setup()
-      require('config.keymaps').setup_git_linker_keymaps()
-    end
+      require('config.keymaps').setup_git_linker()
+    end,
   },
   {
     'kdheepak/lazygit.nvim',
@@ -20,7 +20,7 @@ return {
       'nvim-lua/plenary.nvim',
     },
     config = function()
-      require('config.keymaps').setup_lazygit_keymaps()
+      require('config.keymaps').setup_lazygit()
     end,
   },
   {
@@ -30,8 +30,8 @@ return {
       'nvim-lua/plenary.nvim',
     },
     config = function()
-      local gitsigns = require('gitsigns')
-      gitsigns.setup({
+      local gitsigns = require 'gitsigns'
+      gitsigns.setup {
         numhl = true,
         signs = {
           -- add = { text = '+' },
@@ -41,9 +41,9 @@ return {
           -- changedelete = { text = '~' },
         },
         on_attach = function(bufnr)
-          require('config.keymaps').setup_git_signs_keymaps(bufnr)
+          require('config.keymaps').setup_gitsigns(bufnr)
         end,
-      })
+      }
     end,
   },
   {
