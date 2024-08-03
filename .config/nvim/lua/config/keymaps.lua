@@ -573,29 +573,25 @@ function M.setup_dap_keymaps(keys)
   }
 end
 
-function M.setup_cmp_keymaps()
+function M.cmp()
   local cmp = require 'cmp'
   local ls = require 'luasnip'
   return {
-    -- Select the [n]ext item
+    -- Select the next item
     ['<C-n>'] = cmp.mapping.select_next_item(),
-    -- Select the [p]revious item
+    -- Select the previous item
     ['<C-p>'] = cmp.mapping.select_prev_item(),
 
-    -- Scroll the documentation window [b]ack / [f]orward
-    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    -- Scroll the documentation window back / forward
+    ['<C-b>'] = cmp.mapping.scroll_docs(-5),
+    ['<C-f>'] = cmp.mapping.scroll_docs(5),
 
-    -- Accept ([y]es) the completion.
+    -- Accept (yes) the completion.
     --  This will auto-import if your LSP supports it.
     --  This will expand snippets if the LSP sent a snippet.
     ['<C-y>'] = cmp.mapping.confirm { select = true },
 
-    -- For more traditional completion keymaps,
-    -- you can uncomment the following lines
-    --['<CR>'] = cmp.mapping.confirm { select = true },
-    --['<Tab>'] = cmp.mapping.select_next_item(),
-    --['<S-Tab>'] = cmp.mapping.select_prev_item(),
+    ['<C-x>'] = cmp.mapping.abort(),
 
     -- Manually trigger a completion from nvim-cmp.
     ['<C-Space>'] = cmp.mapping.complete {},
@@ -618,7 +614,6 @@ function M.setup_cmp_keymaps()
         ls.jump(-1)
       end
     end, { 'i', 's' }),
-
     -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
     --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
     ['<C-c>'] = cmp.mapping(function()
