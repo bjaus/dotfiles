@@ -21,9 +21,9 @@ function M.setup_which_key()
     { '<leader>h', group = '[h]arpoon' },
     { '<leader>j', group = '[j]ump' },
     { '<leader>r', group = '[r]un' },
-    { '<leader>rt', group = '[t]est' },
+    { '<leader>t', group = '[t]est' },
     { '<leader>s', group = '[s]ession', mode = { 'n' } },
-    { '<leader>t', group = '[t]oggle' },
+    { '<leader>o', group = 't[o]ggle' },
     { '<leader>w', group = '[w]indow' },
   }
 end
@@ -195,7 +195,7 @@ function M.setup_lsp(event)
   -- The following autocommand is used to enable inlay hints in the
   -- code, if the language server you are using supports them
   if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
-    map('<leader>th', function()
+    map('<leader>oh', function()
       vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
     end, 'toggle inlay hints')
   end
@@ -337,77 +337,77 @@ end
 function M.setup_neotest()
   return {
     {
-      '<leader>rta',
+      '<leader>ta',
       function()
         require('neotest').run.attach()
       end,
       desc = 'attach test',
     },
     {
-      '<leader>rtf',
+      '<leader>tf',
       function()
         require('neotest').run.run(vim.fn.expand '%')
       end,
       desc = 'run test file',
     },
     {
-      '<leader>rtA',
+      '<leader>tA',
       function()
         require('neotest').run.run(vim.uv.cwd())
       end,
       desc = 'run all test files',
     },
     {
-      '<leader>rtT',
+      '<leader>tT',
       function()
         require('neotest').run.run { suite = true }
       end,
       desc = 'run test suite',
     },
     {
-      '<leader>rtn',
+      '<leader>tn',
       function()
         require('neotest').run.run()
       end,
       desc = 'run nearest test',
     },
     {
-      '<leader>rtl',
+      '<leader>tl',
       function()
         require('neotest').run.run_last()
       end,
       desc = 'run last test',
     },
     {
-      '<leader>rts',
+      '<leader>ts',
       function()
         require('neotest').summary.toggle()
       end,
       desc = 'toggle test summary',
     },
     {
-      '<leader>rto',
+      '<leader>to',
       function()
         require('neotest').output.open { enter = true, auto_close = true }
       end,
       desc = 'show test output',
     },
     {
-      '<leader>rtO',
+      '<leader>tO',
       function()
         require('neotest').output_panel.toggle()
       end,
       desc = 'toggle test output panel',
     },
     {
-      '<leader>rtt',
+      '<leader>tt',
       function()
         require('neotest').run.stop()
       end,
       desc = 'terminate test',
     },
     {
-      '<leader>rtd',
+      '<leader>td',
       function()
         vim.cmd 'Neotree close'
         require('neotest').summary.close()
@@ -698,7 +698,7 @@ end
 
 function M.setup_undotree()
   return {
-    { '<leader>tu', '<cmd>UndotreeToggle<cr>', desc = 'toggle undotree' },
+    { '<leader>ou', '<cmd>UndotreeToggle<cr>', desc = 'toggle undotree' },
   }
 end
 
