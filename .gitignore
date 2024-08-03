@@ -1,2 +1,3 @@
 .zsh-secrets
 lazy-lock.json
+db.lua

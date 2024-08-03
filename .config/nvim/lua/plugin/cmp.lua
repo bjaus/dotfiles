@@ -58,7 +58,7 @@ local config = function()
         follow_cursor = true,
       },
     },
-    mapping = cmp.mapping.preset.insert(require('config.keymaps').cmp()),
+    mapping = cmp.mapping.preset.insert(require('config.keymaps').setup_cmp()),
     sources = {
       {
         name = 'luasnip',
