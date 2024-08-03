@@ -2,25 +2,27 @@
 
 M = {}
 
-function M.setup_which_key_keymaps()
+function M.setup_which_key()
+  vim.keymap.set('n', '<leader>wk', '<cmd>WhichKey<cr>', { desc = 'show which key' })
+
   return {
-    -- { ';', group = 'meta' },
-    -- { '<leader>a', group = '[a]ction' },
-    -- { '<leader>b', group = 'de[b]ug' },
     -- { '<leader>c', group = '[c]ode' },
     -- { '<leader>d', group = '[d]ocument' },
-    -- { '<leader>d', group = '[e]xplore' },
-    -- { '<leader>g', group = '[g]it', mode = { 'n', 'v' } },
-    -- { '<leader>h', group = 'git[h]ub', mode = { 'n', 'v' } },
     -- { '<leader>i', group = '[i]nspect' },
-    -- { '<leader>j', group = '[j]ump' },
     -- { '<leader>k', group = '[k]ey' },
     -- { '<leader>l', group = '[l]azy' },
     -- { '<leader>n', group = '[n]otes' },
     -- { '<leader>r', group = '[r]ename' },
-    -- { '<leader>s', group = '[f]ind' },
-    -- { '<leader>t', group = '[t]est' },
     -- { '<leader>w', group = '[w]indow' },
+    { '<leader>a', group = '[a]ction' },
+    { '<leader>b', group = 'de[b]ug' },
+    { '<leader>e', group = '[e]xplore' },
+    { '<leader>f', group = '[f]ind' },
+    { '<leader>g', group = '[g]it', mode = { 'n', 'v' } },
+    { '<leader>j', group = '[j]ump' },
+    { '<leader>o', group = '[o]rder', mode = { 'v' } },
+    { '<leader>t', group = '[t]est' },
+    { '<leader>s', group = '[s]ession', mode = { 'n' } },
   }
 end
 
@@ -28,14 +30,14 @@ end
 vim.keymap.set('n', '<C-n>', '<C-i>', { desc = 'next frame in stack' })
 vim.keymap.set('n', '<C-p>', '<C-o>', { desc = 'prev frame in stack' })
 
--- -- sort alphabetically
-vim.keymap.set('v', '<leader>so', ':sort i<cr>', { desc = 'sort order alphabetically' })
-vim.keymap.set('v', '<leader>su', ':sort ui<cr>', { desc = 'sort unique alphabetically' })
+-- sort alphabetically
+vim.keymap.set('v', '<leader>oi', '<cmd>sort i<cr>', { desc = 'sort order alphabetically' })
+vim.keymap.set('v', '<leader>ou', '<cmd>sort ui<cr>', { desc = 'sort unique alphabetically' })
 
 -- set highlight on search, but clear on pressing <Esc> in normal mode
 vim.keymap.set({ 'i', 'n' }, '<esc>', '<cmd>nohlsearch<cr><esc>', { desc = 'escape and clear hlsearch' })
 
--- -- Diagnostic keymaps
+-- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'open diagnostic quickfix list' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
@@ -56,7 +58,7 @@ vim.keymap.set('i', '<A-k>', '<esc><cmd>m .-2<cr>==gi', { desc = 'move line(s) u
 vim.keymap.set('v', '<A-j>', ":m '>+1<cr>gv=gv", { desc = 'move line(s) down', silent = true })
 vim.keymap.set('v', '<A-k>', ":m '<-2<cr>gv=gv", { desc = 'move line(s) up', silent = true })
 
--- -- buffers
+-- buffers
 vim.keymap.set('n', '[b', '<cmd>bprevious<cr>', { desc = 'previous buffer' })
 vim.keymap.set('n', ']b', '<cmd>bnext<cr>', { desc = 'next buffer' })
 -- vim.keymap.set('n', '<leader>wx', '<cmd>bd!<cr>', { desc = 'close buffer' })
@@ -66,8 +68,8 @@ vim.keymap.set('n', ']b', '<cmd>bnext<cr>', { desc = 'next buffer' })
 -- vim.keymap.set('n', '<leader>wh', '<cmd>split<cr>', { desc = 'split window horizontally' })
 
 -- -- tabs
--- vim.keymap.set('n', '<tab>n', '<cmd>tabnew<cr>', { desc = 'new tab', silent = true })
--- vim.keymap.set('n', '<tab>x', '<cmd>tabclose<cr>', { desc = 'close tab', silent = true })
+vim.keymap.set('n', '<tab>n', '<cmd>tabnew<cr>', { desc = 'new tab', silent = true })
+vim.keymap.set('n', '<tab>x', '<cmd>tabclose<cr>', { desc = 'close tab', silent = true })
 vim.keymap.set('n', ']t', '<cmd>tabnext<cr>', { desc = 'next tab', silent = true })
 vim.keymap.set('n', '[t', '<cmd>tabprevious<cr>', { desc = 'previous tab', silent = true })
 
@@ -632,7 +634,8 @@ end
 
 function M.setup_persistence()
   local persistence = require 'persistence'
-  vim.keymap.set('n', '<leader>ss', persistence.load, { desc = 'load session from pwd' })
+  vim.keymap.set('n', '<leader>ss', persistence.save, { desc = 'save session' })
+  -- vim.keymap.set('n', '<leader>sp', persistence.load, { desc = 'load session from pwd' })
   vim.keymap.set('n', '<leader>sv', persistence.select, { desc = 'select session to load' })
   vim.keymap.set('n', '<leader>sd', persistence.stop, { desc = 'do not save session on exit' })
   vim.keymap.set('n', '<leader>sl', function()
