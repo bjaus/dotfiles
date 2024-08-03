@@ -613,9 +613,8 @@ function M.setup_cmp()
 end
 
 function M.setup_dadbod()
-  return {
-    { 'n', '<leader>db', '<cmd>DBUI<cr>' },
-  }
+  vim.keymap.set('n', '<leader>wd', '<cmd>DBUI<cr>', { desc = 'open DB UI' })
+  vim.keymap.set('n', '<leader>od', '<cmd>DBUIToggle<cr>', { desc = 'toggle DB UI' })
 end
 
 function M.setup_persistence()
