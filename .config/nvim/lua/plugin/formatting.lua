@@ -5,19 +5,19 @@ return {
   enabled = true,
   event = { 'BufWritePre' },
   cmd = { 'ConformInfo' },
-  keys = require('config.keymaps').setup_conform_keymaps(),
+  keys = require('config.keymaps').setup_conform(),
   opts = {
     format_on_save = {
       timeout_ms = 500,
-      lsp_format = "fallback",
+      lsp_format = 'fallback',
     },
     formatters_by_ft = {
-      go = { "goimports-reviser" },
+      go = { 'goimports-reviser' },
       lua = { 'stylua' },
     },
   },
   config = function(_, opts)
-    local conform = require('conform')
+    local conform = require 'conform'
 
     vim.api.nvim_create_autocmd('BufWritePre', {
       pattern = '*',

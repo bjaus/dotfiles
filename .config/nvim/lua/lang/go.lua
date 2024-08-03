@@ -1,4 +1,4 @@
-require('config.keymaps').setup_go_keymaps()
+require('config.keymaps').setup_go()
 
 local ls = require 'luasnip'
 

@@ -1,15 +1,15 @@
 return {
-  "CRAG666/code_runner.nvim",
-  event = "VeryLazy",
+  'CRAG666/code_runner.nvim',
+  event = 'VeryLazy',
   config = function()
-    require("code_runner").setup({
+    require('code_runner').setup {
       focus = false,
       filetype = {
         go = {
-          "go run",
+          'go run',
         },
       },
-    })
+    }
   end,
-  require("config.keymaps").setup_coderunner_keymaps(),
+  require('config.keymaps').setup_coderunner(),
 }

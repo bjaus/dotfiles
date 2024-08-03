@@ -12,8 +12,8 @@ function M.setup_which_key()
     -- { '<leader>k', group = '[k]ey' },
     -- { '<leader>l', group = '[l]azy' },
     -- { '<leader>n', group = '[n]otes' },
+    -- { '<leader>o', group = '[o]rder', mode = { 'v' } },
     -- { '<leader>r', group = '[r]ename' },
-    -- { '<leader>w', group = '[w]indow' },
     { '<leader>a', group = '[a]ction' },
     { '<leader>b', group = 'de[b]ug' },
     { '<leader>e', group = '[e]xplore' },
@@ -21,9 +21,9 @@ function M.setup_which_key()
     { '<leader>g', group = '[g]it', mode = { 'n', 'v' } },
     { '<leader>h', group = '[h]arpoon' },
     { '<leader>j', group = '[j]ump' },
-    { '<leader>o', group = '[o]rder', mode = { 'v' } },
     { '<leader>s', group = '[s]ession', mode = { 'n' } },
     { '<leader>t', group = '[t]est' },
+    { '<leader>w', group = '[w]indow' },
   }
 end
 
@@ -31,9 +31,11 @@ end
 vim.keymap.set('n', '<C-n>', '<C-i>', { desc = 'next frame in stack' })
 vim.keymap.set('n', '<C-p>', '<C-o>', { desc = 'prev frame in stack' })
 
--- sort alphabetically
-vim.keymap.set('v', '<leader>oi', '<cmd>sort i<cr>', { desc = 'sort order alphabetically' })
-vim.keymap.set('v', '<leader>ou', '<cmd>sort ui<cr>', { desc = 'sort unique alphabetically' })
+-- order alphabetically
+-- vim.keymap.set('v', '<leader>os', '<cmd>sort<cr>', { desc = 'order' })
+-- vim.keymap.set('v', '<leader>ou', '<cmd>sort u<cr>', { desc = 'order unique' })
+-- vim.keymap.set('v', '<leader>oi', '<cmd>sort i<cr><esc>', { desc = 'order case-insensitive' })
+-- vim.keymap.set('v', '<leader>ov', '<cmd>sort ui<cr><esc>', { desc = 'order alphabetically unique case-insensitive' })
 
 -- set highlight on search, but clear on pressing <Esc> in normal mode
 vim.keymap.set({ 'i', 'n' }, '<esc>', '<cmd>nohlsearch<cr><esc>', { desc = 'escape and clear hlsearch' })
@@ -62,11 +64,11 @@ vim.keymap.set('v', '<A-k>', ":m '<-2<cr>gv=gv", { desc = 'move line(s) up', sil
 -- buffers
 vim.keymap.set('n', '[b', '<cmd>bprevious<cr>', { desc = 'previous buffer' })
 vim.keymap.set('n', ']b', '<cmd>bnext<cr>', { desc = 'next buffer' })
--- vim.keymap.set('n', '<leader>wx', '<cmd>bd!<cr>', { desc = 'close buffer' })
+vim.keymap.set('n', '<leader>wx', '<cmd>bd!<cr>', { desc = 'close buffer' })
 
 -- -- windows
--- vim.keymap.set('n', '<leader>wv', '<cmd>vsplit<cr>', { desc = 'split window vertically' })
--- vim.keymap.set('n', '<leader>wh', '<cmd>split<cr>', { desc = 'split window horizontally' })
+vim.keymap.set('n', '<leader>wv', '<cmd>vsplit<cr>', { desc = 'split window vertically' })
+vim.keymap.set('n', '<leader>ws', '<cmd>split<cr>', { desc = 'split window horizontally' })
 
 -- -- tabs
 vim.keymap.set('n', '<tab>n', '<cmd>tabnew<cr>', { desc = 'new tab', silent = true })
@@ -80,25 +82,13 @@ vim.keymap.set('n', '[t', '<cmd>tabprevious<cr>', { desc = 'previous tab', silen
 -- save
 vim.keymap.set({ 'i', 'x', 'n', 's' }, '<C-s>', '<cmd>w<cr><esc>', { desc = 'save file' })
 
--- -- lists
--- vim.keymap.set('n', '[q', vim.cmd.cprev, { desc = 'previous quickfix' })
--- vim.keymap.set('n', ']q', vim.cmd.cnext, { desc = 'next quickfix' })
+-- lists
+vim.keymap.set('n', '[q', vim.cmd.cprev, { desc = 'previous quickfix' })
+vim.keymap.set('n', ']q', vim.cmd.cnext, { desc = 'next quickfix' })
 
--- -- indentation
--- -- vim.keymap.set({ 'n', 'v' }, '<', '<gv', { desc = 'indent left' })
--- -- vim.keymap.set({ 'n', 'v' }, '>', '>gv', { desc = 'indent right' })
-
--- -- lazy
--- vim.keymap.set('n', '<leader>lc', '<cmd>Lazy clean<cr>', { desc = 'run clean' })
--- vim.keymap.set('n', '<leader>ld', '<cmd>Lazy debug<cr>', { desc = 'show debug info' })
--- vim.keymap.set('n', '<leader>lh', '<cmd>Lazy show<cr>', { desc = 'show home' })
--- vim.keymap.set('n', '<leader>li', '<cmd>Lazy install<cr>', { desc = 'run install' })
--- vim.keymap.set('n', '<leader>lk', '<cmd>Lazy check<cr>', { desc = 'check for updates' })
--- vim.keymap.set('n', '<leader>ll', '<cmd>Lazy log<cr>', { desc = 'show logs' })
--- vim.keymap.set('n', '<leader>lp', '<cmd>Lazy profile<cr>', { desc = 'show profile' })
--- vim.keymap.set('n', '<leader>lr', '<cmd>Lazy restore<cr>', { desc = 'restore to lockfile' })
--- vim.keymap.set('n', '<leader>ls', '<cmd>Lazy sync<cr>', { desc = 'run install, clean, and update' })
--- vim.keymap.set('n', '<leader>lu', '<cmd>Lazy update<cr>', { desc = 'run update' })
+-- indentation
+vim.keymap.set({ 'n', 'v' }, '<', '<gv', { desc = 'indent left' })
+vim.keymap.set({ 'n', 'v' }, '>', '>gv', { desc = 'indent right' })
 
 -- diagnostic
 local function goto_diagnostic(next, sev)
@@ -123,7 +113,7 @@ local function map_normal_mode(lhs, rhs, desc)
   vim.keymap.set('n', lhs, rhs, { desc = desc, noremap = false, silent = true })
 end
 
--- -- function M.setup_trouble_keymaps()
+-- -- function M.setup_trouble()
 -- --   return {
 -- --     {
 -- --       '<leader>xx',
@@ -158,7 +148,7 @@ end
 -- --   }
 -- -- end
 
-function M.setup_lsp_keymaps(event)
+function M.setup_lsp(event)
   local builtin = require 'telescope.builtin'
   local map = function(keys, func, desc)
     vim.keymap.set('n', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc, nowait = true })
@@ -210,7 +200,7 @@ function M.setup_lsp_keymaps(event)
   end
 end
 
-function M.setup_conform_keymaps()
+function M.setup_conform()
   return {
     {
       '<leader>af',
@@ -223,11 +213,11 @@ function M.setup_conform_keymaps()
   }
 end
 
-function M.setup_coderunner_keymaps()
+function M.setup_coderunner()
   map_normal_mode('<leader>rf', ':RunFile term<CR>', 'run file')
 end
 
-function M.setup_neotree_keymaps()
+function M.setup_neotree()
   return {
     { '<leader>eb', ':Neotree source=buffers reveal=true position=left action=focus<cr>', desc = 'explore buffers' },
     { '<leader>ec', ':Neotree action=close<cr>', desc = 'close explorer' },
@@ -237,7 +227,7 @@ function M.setup_neotree_keymaps()
   }
 end
 
-function M.setup_git_signs_keymaps(bufnr)
+function M.setup_gitsigns(bufnr)
   local gitsigns = require 'gitsigns'
 
   local function map(mode, l, r, opts)
@@ -294,7 +284,7 @@ function M.setup_git_signs_keymaps(bufnr)
   map('n', '<leader>gtD', gitsigns.toggle_deleted, { desc = 'toggle git show deleted' })
 end
 
-function M.setup_git_linker_keymaps()
+function M.setup_git_linker()
   -- TODO: Looks like copying github link to clipboard is mapped by default but
   -- I'd like to do that and open so I need look into how to make both happen.
   --
@@ -310,7 +300,7 @@ function M.setup_git_linker_keymaps()
   --   { silent = true })
 end
 
--- function M.setup_git_blame_keymaps()
+-- function M.setup_git_blame()
 --   return {
 --     -- toggle needs to be called twice; https://github.com/f-person/git-blame.nvim/issues/16
 --     { '<leader>gbl', ':GitBlameToggle<CR>', desc = 'Blame line (toggle)', silent = true },
@@ -321,7 +311,7 @@ end
 --   }
 -- end
 
-function M.setup_lazygit_keymaps()
+function M.setup_lazygit()
   --   "LazyGit",
   --   "LazyGitConfig",
   --   "LazyGitCurrentFile",
@@ -343,7 +333,7 @@ function M.setup_lazygit_keymaps()
   end, 'open lazy git')
 end
 
-function M.setup_neotest_keymaps()
+function M.setup_neotest()
   return {
     {
       '<leader>ta',
@@ -436,7 +426,7 @@ function M.setup_neotest_keymaps()
   }
 end
 
-function M.setup_go_keymaps()
+function M.setup_go()
   local util = require 'util.go'
   vim.keymap.set('n', '<leader>wgf', util.switch_go_test_file, { desc = 'switch between test file' })
   vim.keymap.set('n', '<leader>wgv', util.vsplit_go_test_file, { desc = 'switch between test file' })
@@ -514,7 +504,7 @@ function M.setup_telescope()
   end, { desc = 'find neovim files' })
 end
 
-function M.setup_dap_ui_keymaps()
+function M.setup_dap_ui()
   -- keymaps: https://github.com/mfussenegger/nvim-dap/blob/master/doc/dap.txt#L508
   return {
     {
@@ -534,12 +524,12 @@ function M.setup_dap_ui_keymaps()
   }
 end
 
-function M.setup_coverage_keymaps()
+function M.setup_coverage()
   map_normal_mode('<leader>tc', ':Coverage<CR>', 'test coverage in gutter')
   map_normal_mode('<leader>tC', ':CoverageLoad<CR>:CoverageSummary<CR>', 'test coverage summary')
 end
 
-function M.setup_dap_keymaps(keys)
+function M.setup_dap(keys)
   local dap = require 'dap'
   return {
     { '<leader>bb', dap.toggle_breakpoint, desc = 'toggle debug breakpoint' },
@@ -713,7 +703,7 @@ function M.setup_harpoon(harpoon)
   end, { desc = 'next harpoon' })
 end
 
--- function M.setup_treesitter_keymaps()
+-- function M.setup_treesitter()
 --   -- There are additional nvim-treesitter modules that you can use to interact
 --   -- with nvim-treesitter. You should go explore a few and see what interests you:
 --   --
