@@ -291,14 +291,15 @@ function M.setup_gitlinker()
     'v',
     '<leader>go',
     '<cmd>lua require"gitlinker".get_buf_range_url("v", {action_callback = require"gitlinker.actions".open_in_browser})<cr>',
-    {}
+    { desc = 'open in github' }
   )
-  vim.keymap.set('n', '<leader>gy', '<cmd>lua require"gitlinker".get_repo_url()<cr>', { silent = true })
+  vim.keymap.set('v', '<leader>gy', '<cmd>lua require"gitlinker".get_buf_range_url("v")<cr>', { silent = true, desc = 'copy github link' })
+  vim.keymap.set('n', '<leader>gy', '<cmd>lua require"gitlinker".get_repo_url()<cr>', { silent = true, desc = 'copy github link' })
   vim.keymap.set(
     'n',
     '<leader>go',
     '<cmd>lua require"gitlinker".get_repo_url({action_callback = require"gitlinker.actions".open_in_browser})<cr>',
-    { silent = true }
+    { silent = true, desc = 'open in github' }
   )
 end
 
