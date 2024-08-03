@@ -221,11 +221,11 @@ end
 
 function M.setup_neotree()
   return {
-    { '<leader>eb', ':Neotree source=buffers reveal=true position=left action=focus<cr>', desc = 'explore buffers' },
-    { '<leader>ec', ':Neotree action=close<cr>', desc = 'close explorer' },
-    { '<leader>eo', ':Neotree source=filesystem reveal=true position=left action=focus<cr>', desc = 'explore filesystem' },
-    { '<leader>eg', ':Neotree source=git_status reveal=true position=left action=focus<cr>', desc = 'explore git status' },
-    { '<leader>es', ':Neotree source=document_symbols reveal=true position=left action=focus<cr>', desc = 'explore document symbols' },
+    { '<leader>eb', '<cmd>Neotree source=buffers reveal=true position=left action=focus<cr>', desc = 'explore buffers' },
+    { '<leader>ec', '<cmd>Neotree action=close<cr>', desc = 'close explorer' },
+    { '<leader>eo', '<cmd>Neotree source=filesystem reveal=true position=left action=focus<cr>', desc = 'explore filesystem' },
+    { '<leader>eg', '<cmd>Neotree source=git_status reveal=true position=left action=focus<cr>', desc = 'explore git status' },
+    { '<leader>es', '<cmd>Neotree source=document_symbols reveal=true position=left action=focus<cr>', desc = 'explore document symbols' },
   }
 end
 
