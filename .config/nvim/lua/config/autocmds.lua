@@ -1,12 +1,16 @@
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
+local util = require('util')
+local augroup = util.create_augroup
+local autocmd = vim.api.nvim_create_autocmd
+
 M = {}
 
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
 --  See `:help vim.highlight.on_yank()`
-vim.api.nvim_create_autocmd('TextYankPost', {
+autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
   group = vim.api.nvim_create_augroup('highlight-yank', { clear = true }),
   callback = function()
@@ -23,19 +27,19 @@ function M.setup_lsp_highlight(event)
   local client = vim.lsp.get_client_by_id(event.data.client_id)
   if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
     local highlight_augroup = vim.api.nvim_create_augroup('lsp-highlight', { clear = false })
-    vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+    autocmd({ 'CursorHold', 'CursorHoldI' }, {
       buffer = event.buf,
       group = highlight_augroup,
       callback = vim.lsp.buf.document_highlight,
     })
 
-    vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+    autocmd({ 'CursorMoved', 'CursorMovedI' }, {
       buffer = event.buf,
       group = highlight_augroup,
       callback = vim.lsp.buf.clear_references,
     })
 
-    vim.api.nvim_create_autocmd('LspDetach', {
+    autocmd('LspDetach', {
       group = vim.api.nvim_create_augroup('lsp-detach', { clear = true }),
       callback = function(event2)
         vim.lsp.buf.clear_references()
@@ -46,11 +50,11 @@ function M.setup_lsp_highlight(event)
 end
 
 -- https://github.com/golang/tools/blob/master/gopls/doc/vim.md#imports-and-formatting
-vim.api.nvim_create_autocmd("BufWritePre", {
+autocmd("BufWritePre", {
   pattern = "*.go",
   callback = function()
     local params = vim.lsp.util.make_range_params()
-    params.context = {only = {"source.organizeImports"}}
+    params.context = { only = { "source.organizeImports" } }
     -- buf_request_sync defaults to a 1000ms timeout. Depending on your
     -- machine and codebase, you may want longer. Add an additional
     -- argument after params if you find that you have to write the file
@@ -65,8 +69,23 @@ vim.api.nvim_create_autocmd("BufWritePre", {
         end
       end
     end
-    vim.lsp.buf.format({async = false})
+    vim.lsp.buf.format({ async = false })
   end
+})
+
+-- Lua reload
+local write_source = augroup("ConfigWritePostReload")
+autocmd({ "BufWritePost" }, {
+  group = write_source,
+  pattern = {
+    "*/nvim/lua/config/*.lua",
+    "*/nvim/lua/util/*.lua",
+  },
+  callback = function()
+    if not util.diag_error() then
+      util.reload_lua()
+    end
+  end,
 })
 
 return M
