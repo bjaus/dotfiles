@@ -5,7 +5,7 @@ return {
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
       vim.cmd 'colorscheme cyberdream'
-      local colors = require('utils.colors').colors
+      local colors = require('util.colors').colors
       require('lualine').setup {
         options = {
           theme = {
