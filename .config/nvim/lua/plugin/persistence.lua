@@ -11,6 +11,7 @@ local config = function()
   require('config.keymaps').setup_persistence()
 end
 
+-- https://github.com/folke/persistence.nvim?tab=readme-ov-file#-events
 return {
   'folke/persistence.nvim',
   enabled = true,
