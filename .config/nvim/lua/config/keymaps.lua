@@ -29,14 +29,14 @@ vim.keymap.set('n', '<C-n>', '<C-i>', { desc = 'next frame in stack' })
 vim.keymap.set('n', '<C-p>', '<C-o>', { desc = 'prev frame in stack' })
 
 -- -- sort alphabetically
--- vim.keymap.set('v', '<leader>so', ':sort i<cr>', { desc = 'sort order alphabetically' })
--- VIP.keymap.set('v', '<leader>su', ':sort ui<cr>', { desc = 'sort unique alphabetically' })
+vim.keymap.set('v', '<leader>so', ':sort i<cr>', { desc = 'sort order alphabetically' })
+vim.keymap.set('v', '<leader>su', ':sort ui<cr>', { desc = 'sort unique alphabetically' })
 
 -- set highlight on search, but clear on pressing <Esc> in normal mode
 vim.keymap.set({ 'i', 'n' }, '<esc>', '<cmd>nohlsearch<cr><esc>', { desc = 'escape and clear hlsearch' })
 
 -- -- Diagnostic keymaps
--- vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'open diagnostic quickfix list' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { desc = 'quit terminal mode' })
@@ -573,7 +573,7 @@ function M.setup_dap_keymaps(keys)
   }
 end
 
-function M.cmp()
+function M.setup_cmp()
   local cmp = require 'cmp'
   local ls = require 'luasnip'
   return {
@@ -621,6 +621,12 @@ function M.cmp()
         ls.change_choice(1)
       end
     end),
+  }
+end
+
+function M.setup_dadbod()
+  return {
+    { 'n', '<leader>db', '<cmd>DBUI<cr>' },
   }
 end
 
