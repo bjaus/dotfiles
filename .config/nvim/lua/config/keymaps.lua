@@ -74,8 +74,8 @@ vim.keymap.set('n', '<leader>ws', '<cmd>split<cr>', { desc = 'split window horiz
 -- -- tabs
 vim.keymap.set('n', '<tab>n', '<cmd>tabnew<cr>', { desc = 'new tab', silent = true })
 vim.keymap.set('n', '<tab>x', '<cmd>tabclose<cr>', { desc = 'close tab', silent = true })
-vim.keymap.set('n', ']t', '<cmd>tabnext<cr>', { desc = 'next tab', silent = true })
-vim.keymap.set('n', '[t', '<cmd>tabprevious<cr>', { desc = 'previous tab', silent = true })
+vim.keymap.set({ 'n', 't' }, ']t', '<cmd>tabnext<cr>', { desc = 'next tab', silent = true })
+vim.keymap.set({ 'n', 't' }, '[t', '<cmd>tabprevious<cr>', { desc = 'previous tab', silent = true })
 
 -- -- files
 -- vim.keymap.set('n', '<leader>fn', '<cmd>enew<cr', { desc = 'new file' })
@@ -700,6 +700,14 @@ function M.setup_undotree()
   return {
     { '<leader>ou', '<cmd>UndotreeToggle<cr>', desc = 'toggle undotree' },
   }
+end
+
+function M.setup_toggleterm(trim_spaces)
+  vim.keymap.set('v', '<C-s>', function()
+    require('toggleterm').send_lines_to_terminal('visual_lines', trim_spaces, { args = vim.v.count, desc = 'send lines to terminal' })
+  end)
+  vim.keymap.set('n', '<leader>ot', '<cmd>ToggleTerm<CR>', { desc = 'toggle terminal window' })
+  vim.keymap.set('t', '<esc>', '<C-\\><C-n>', { desc = 'exit terminal mode' })
 end
 
 -- function M.setup_treesitter()
