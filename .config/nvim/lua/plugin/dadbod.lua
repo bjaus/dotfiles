@@ -28,9 +28,10 @@ return {
     'DBUIAddConnection',
     'DBUIFindBuffer',
   },
-  keys = require('config.keymaps').setup_dadbod(),
+  -- keys = require('config.keymaps').setup_dadbod(),
   init = function()
     vim.g.db_ui_use_nerd_fonts = 1
+    require('config.keymaps').setup_dadbod()
   end,
   lazy = true,
 }
