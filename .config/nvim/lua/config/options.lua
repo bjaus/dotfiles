@@ -6,6 +6,8 @@ vim.g.maplocalleader = ';'
 
 vim.g.have_nerd_font = true
 
+vim.opt.conceallevel = 1
+
 -- [[ Setting options ]]
 -- See `:help vim.opt` and/or `:help option-list`
 
@@ -57,7 +59,7 @@ vim.opt.linebreak = true
 vim.opt.textwidth = 120
 
 -- session options
-vim.opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+vim.opt.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
 
 -- format options
 vim.opt.formatoptions = '1cjnpqr'

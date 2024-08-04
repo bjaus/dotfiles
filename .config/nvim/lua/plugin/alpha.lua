@@ -20,6 +20,7 @@ local config = function()
   -- Set menu
   dashboard.section.buttons.val = {
     dashboard.button('n', '  > new file', '<cmd>ene<cr>'),
+    dashboard.button('d', '  > daily note', '<cmd>ObsidianToday<cr>'),
     dashboard.button('o', '  > open file explorer', '<cmd>Neotree source=filesystem reveal=true position=left action=focus<cr>'),
     dashboard.button('f', '󰱼  > find file', '<cmd>Telescope find_files<cr>'),
     dashboard.button('w', '  > find word', '<cmd>Telescope live_grep<cr>'),
