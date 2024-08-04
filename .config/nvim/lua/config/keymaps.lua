@@ -744,6 +744,14 @@ function M.setup_bookmarks()
   }
 end
 
+function M.setup_peek(toggle)
+  vim.keymap.set('n', '<leader>op', toggle, { desc = 'toggle markdown previewer' })
+end
+
+function M.setup_render_markdown()
+  vim.keymap.set('n', '<leader>om', require('render-markdown').toggle, { desc = 'toggle markdown' })
+end
+
 -- function M.setup_treesitter()
 --   -- There are additional nvim-treesitter modules that you can use to interact
 --   -- with nvim-treesitter. You should go explore a few and see what interests you:
