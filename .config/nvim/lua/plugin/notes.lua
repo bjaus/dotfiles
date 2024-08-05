@@ -18,8 +18,8 @@ return {
     workspaces = {
       { name = 'notes', path = '~/notes' },
     },
-    notes_subdir = 'notes',
-    new_notes_location = 'notes_subdir',
+    -- notes_subdir = 'notes',
+    -- new_notes_location = 'notes_subdir',
     sort_by = 'modified',
     sort_reversed = true,
     search_max_lines = 10000,
@@ -29,7 +29,7 @@ return {
     end,
     daily_notes = {
       -- Optional, if you keep daily notes in a separate directory.
-      folder = 'notes/dailies',
+      folder = 'daily',
       -- Optional, if you want to change the date format for the ID of daily notes.
       date_format = '%Y-%m-%d',
       -- Optional, if you want to change the date format of the default alias of daily notes.
@@ -39,6 +39,15 @@ return {
       -- Optional, if you want to automatically insert a template from your template directory like 'daily.md'
       template = nil,
     },
+    -- templates = {
+    --   folder = 'notes/templates',
+    --   date_format = '%Y-%m-%d',
+    --   time_format = '%H:%M',
+    -- },
+    note_id_func = function(title)
+      -- Generate a filename based on the title
+      return title:gsub(' ', '_'):lower() -- replace spaces with underscores and convert to lowercase
+    end,
     mappings = {
       -- Overrides the 'gf' mapping to work on markdown/wiki links within your vault.
       ['gf'] = {
