@@ -289,7 +289,7 @@ function M.setup_gitsigns(bufnr)
   map('n', '<leader>gu', gitsigns.undo_stage_hunk, { desc = 'git undo stage hunk' })
   map('n', '<leader>gR', gitsigns.reset_buffer, { desc = 'git reset buffer' })
   map('n', '<leader>gp', gitsigns.preview_hunk, { desc = 'git preview hunk' })
-  map('n', '<leader>gB', gitsigns.blame_line, { desc = 'git blame line' })
+  map('n', '<leader>gb', gitsigns.blame_line, { desc = 'git blame line' })
   map('n', '<leader>gd', gitsigns.diffthis, { desc = 'git diff against index' })
   map('n', '<leader>gD', function()
     gitsigns.diffthis '@'
@@ -320,7 +320,7 @@ end
 function M.setup_git_blame()
   return {
     -- toggle needs to be called twice; https://github.com/f-person/git-blame.nvim/issues/16
-    { '<leader>gb', ':GitBlameToggle<CR>', desc = 'blame line (toggle)', silent = true },
+    { '<leader>gB', ':GitBlameToggle<CR>', desc = 'blame line (toggle)', silent = true },
     { '<leader>gcs', ':GitBlameCopySHA<CR>', desc = 'copy commit SHA', silent = true },
     { '<leader>gcu', ':GitBlameCopyCommitURL<CR>', desc = 'copy commit URL', silent = true },
     { '<leader>gcy', ':GitBlameCopyFileURL<CR>', desc = 'copy file URL', silent = true },
