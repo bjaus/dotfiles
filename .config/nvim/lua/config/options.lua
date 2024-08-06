@@ -6,6 +6,9 @@ vim.g.maplocalleader = ';'
 
 vim.g.have_nerd_font = true
 
+-- Set swap file directory to the same directory as the actual file
+vim.o.directory = '.'
+
 vim.opt.conceallevel = 1
 
 -- [[ Setting options ]]
