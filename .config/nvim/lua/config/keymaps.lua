@@ -297,7 +297,7 @@ function M.setup_gitsigns(bufnr)
 
   -- Toggles
   map('n', '<leader>gtb', gitsigns.toggle_current_line_blame, { desc = 'toggle git show blame line' })
-  map('n', '<leader>gtD', gitsigns.toggle_deleted, { desc = 'toggle git show deleted' })
+  map('n', '<leader>gtd', gitsigns.toggle_deleted, { desc = 'toggle git show deleted' })
 end
 
 function M.setup_gitlinker()
