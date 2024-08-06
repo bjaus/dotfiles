@@ -283,9 +283,9 @@ function M.setup_gitsigns(bufnr)
   end, { desc = 'git undo stage hunk' })
 
   -- normal mode
-  map('n', '<leader>gS', gitsigns.stage_hunk, { desc = 'git stage hunk' })
+  map('n', '<leader>gs', gitsigns.stage_hunk, { desc = 'git stage hunk' })
   map('n', '<leader>gr', gitsigns.reset_hunk, { desc = 'git reset hunk' })
-  map('n', '<leader>gs', gitsigns.stage_buffer, { desc = 'git stage buffer' })
+  map('n', '<leader>gS', gitsigns.stage_buffer, { desc = 'git stage buffer' })
   map('n', '<leader>gu', gitsigns.undo_stage_hunk, { desc = 'git undo stage hunk' })
   map('n', '<leader>gR', gitsigns.reset_buffer, { desc = 'git reset buffer' })
   map('n', '<leader>gp', gitsigns.preview_hunk, { desc = 'git preview hunk' })
