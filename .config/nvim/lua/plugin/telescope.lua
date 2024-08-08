@@ -5,11 +5,11 @@ local config = function()
   local telescope = require 'telescope'
 
   telescope.setup {
-    -- defaults = {
-    --   mappings = {
-    --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-    --   },
-    -- },
+    defaults = {
+      mappings = {
+        i = { ['<c-enter>'] = 'to_fuzzy_refine' },
+      },
+    },
     pickers = {
       find_files = {
         hidden = true,

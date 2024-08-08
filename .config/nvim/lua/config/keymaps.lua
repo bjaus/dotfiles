@@ -117,6 +117,8 @@ end
 
 vim.keymap.set('n', ']d', goto_diagnostic(true), { desc = 'next diagnostic', silent = true })
 vim.keymap.set('n', '[d', goto_diagnostic(false), { desc = 'previous diagnostic', silent = true })
+vim.keymap.set('i', '<C-f>', goto_diagnostic(true), { desc = 'next diagnostic', silent = true })
+vim.keymap.set('n', '<C-d>', goto_diagnostic(false), { desc = 'previous diagnostic', silent = true })
 vim.keymap.set('n', ']e', goto_diagnostic(true, 'ERROR'), { desc = 'next error diagnostic', silent = true })
 vim.keymap.set('n', '[e', goto_diagnostic(false, 'ERROR'), { desc = 'previous error diagnostic', silent = true })
 vim.keymap.set('n', ']w', goto_diagnostic(true, 'WARN'), { desc = 'next warning diagnostic', silent = true })
@@ -192,6 +194,10 @@ function M.setup_lsp(event)
   -- Fuzzy find all the symbols in current file.
   --  Symbols are things like variables, functions, types, etc.
   map('<leader>fsd', builtin.lsp_document_symbols, 'find document symbols')
+
+  map('<leader>fm', function()
+    builtin.lsp_document_symbols { symbols = 'method' }
+  end, 'find method')
 
   -- Fuzzy find all the symbols in the current workspace.
   --  Similar to document symbols, except searches over the entire project.
@@ -465,23 +471,26 @@ function M.setup_telescope()
     }
   end
 
-  vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'find help' })
-  vim.keymap.set('n', '<leader>fk', builtin.keymaps, { desc = 'find keymaps' })
+  vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] find in buffers' })
+  vim.keymap.set('n', '<leader>fd', builtin.diagnostics, { desc = 'find diagnostics' })
   vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'find files' })
   vim.keymap.set('n', '<leader>fF', find_files_in_cur_dir, { desc = 'find files in current directory' })
-  vim.keymap.set('n', '<leader>fst', builtin.builtin, { desc = 'find select telescope' })
-  vim.keymap.set('n', '<leader>fw', builtin.grep_string, { desc = 'find word' })
-  vim.keymap.set('n', '<leader>fp', builtin.live_grep, { desc = 'find by grep' })
-  vim.keymap.set('n', '<leader>fP', live_grep_in_package, { desc = 'find by grep in current directory' })
-  vim.keymap.set('n', '<leader>fd', builtin.diagnostics, { desc = 'find diagnostics' })
-  vim.keymap.set('n', '<leader>fr', builtin.resume, { desc = 'find resume' })
-  vim.keymap.set('n', '<leader>ft', '<cmd>TodoTelescope<cr>', { desc = 'find todos' })
-  vim.keymap.set('n', '<leader>fo', builtin.oldfiles, { desc = 'find old files' })
   vim.keymap.set('n', '<leader>fgb', builtin.git_branches, { desc = 'find git branches' })
+  vim.keymap.set('n', '<leader>fgc', builtin.git_commits, { desc = 'find git commits' })
   vim.keymap.set('n', '<leader>fgf', builtin.git_files, { desc = 'find git files' })
   vim.keymap.set('n', '<leader>fgs', builtin.git_stash, { desc = 'find git staus' })
-  vim.keymap.set('n', '<leader>fgc', builtin.git_commits, { desc = 'find git commits' })
-  vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] find in buffers' })
+  vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'find help' })
+  vim.keymap.set('n', '<leader>fk', builtin.keymaps, { desc = 'find keymaps' })
+  -- vim.keymap.set('n', '<leader>fm', function()
+  --   builtin.lsp_document_symbols { symbols = 'method' }
+  -- end, { desc = 'find method' })
+  vim.keymap.set('n', '<leader>fo', builtin.oldfiles, { desc = 'find old files' })
+  vim.keymap.set('n', '<leader>fp', builtin.live_grep, { desc = 'find by grep' })
+  vim.keymap.set('n', '<leader>fP', live_grep_in_package, { desc = 'find by grep in current directory' })
+  vim.keymap.set('n', '<leader>fr', builtin.resume, { desc = 'find resume' })
+  vim.keymap.set('n', '<leader>fst', builtin.builtin, { desc = 'find select telescope' })
+  vim.keymap.set('n', '<leader>ft', '<cmd>TodoTelescope<cr>', { desc = 'find todos' })
+  vim.keymap.set('n', '<leader>fw', builtin.grep_string, { desc = 'find word' })
 
   vim.keymap.set('n', '<leader>/', function()
     builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
