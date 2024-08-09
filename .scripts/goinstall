@@ -1,22 +1,24 @@
 #!/bin/bash
 
-action=${2:-install}
-
 case $1 in
+  golangci-lint)
+    go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+    ;;
+
   gopls)
-    go "$action" golang.org/x/tools/gopls@latest
+    go install golang.org/x/tools/gopls@latest
     ;;
 
   revive)
-    go "$action" github.com/mgechev/revive@latest
+    go install github.com/mgechev/revive@latest
     ;;
 
   structslop)
-    go "$action" github.com/orijtech/structslop/cmd/structslop@latest
+    go install github.com/orijtech/structslop/cmd/structslop@latest
     ;;
 
   staticcheck)
-    go "$action" honnef.co/go/tools/cmd/staticcheck@latest
+    go install honnef.co/go/tools/cmd/staticcheck@latest
     ;;
 
   gotestsum)
