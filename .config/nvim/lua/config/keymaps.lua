@@ -803,7 +803,7 @@ function M.setup_obsidian()
   vim.keymap.set('n', '<leader>nD', '<cmd>ObsidianToday<cr>', { desc = "open today's daily note" })
 
   -- :ObsidianYesterday to open/create the daily note for the previous working day.
-  vim.keymap.set('n', '<leader>nY', '<cmd>ObsidianToday<cr>', { desc = "open yesterday's daily note" })
+  vim.keymap.set('n', '<leader>nY', '<cmd>ObsidianYesterday<cr>', { desc = "open yesterday's daily note" })
 
   -- :ObsidianTomorrow to open/create the daily note for the next working day.
   vim.keymap.set('n', '<leader>nT', '<cmd>ObsidianTomorrow<cr>', { desc = "open tomorrow's daily note" })
