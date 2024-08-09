@@ -16,11 +16,11 @@ function M.setup_which_key()
     { '<leader>b', group = 'de[b]ug' },
     { '<leader>e', group = '[e]xplore' },
     { '<leader>f', group = '[f]ind' },
-    { '<leader>g', group = '[g]it', mode = { 'n', 'v' } },
+    { '<leader>g', group = '[g]it',     mode = { 'n', 'v' } },
     { '<leader>h', group = '[h]arpoon' },
     { '<leader>j', group = '[j]ump' },
     { '<leader>m', group = 'book[m]ark' },
-    { '<leader>n', group = '[n]otes', mode = { 'n', 'v' } },
+    { '<leader>n', group = '[n]otes',   mode = { 'n', 'v' } },
     { '<leader>o', group = 't[o]ggle' },
     { '<leader>r', group = '[r]un' },
     { '<leader>s', group = '[s]ession', mode = { 'n' } },
@@ -199,9 +199,11 @@ function M.setup_lsp(event)
     builtin.lsp_document_symbols { symbols = 'method' }
   end, 'find method')
 
+  map('<leader>fsw', builtin.lsp_workspace_symbols, 'find workspace symbols')
+
   -- Fuzzy find all the symbols in the current workspace.
   --  Similar to document symbols, except searches over the entire project.
-  map('<leader>fsw', builtin.lsp_dynamic_workspace_symbols, 'find workspace symbols')
+  map('<leader>fsW', builtin.lsp_dynamic_workspace_symbols, 'find dynamic workspace symbols')
 
   -- Rename the variable under the cursor.
   --  Most Language Servers support renaming across files, etc.
@@ -241,10 +243,10 @@ end
 
 function M.setup_neotree()
   return {
-    { '<leader>eb', '<cmd>Neotree source=buffers reveal=true position=left action=focus<cr>', desc = 'explore buffers' },
-    { '<leader>ec', '<cmd>Neotree action=close<cr>', desc = 'close explorer' },
-    { '<leader>eo', '<cmd>Neotree source=filesystem reveal=true position=left action=focus<cr>', desc = 'explore filesystem' },
-    { '<leader>eg', '<cmd>Neotree source=git_status reveal=true position=left action=focus<cr>', desc = 'explore git status' },
+    { '<leader>eb', '<cmd>Neotree source=buffers reveal=true position=left action=focus<cr>',          desc = 'explore buffers' },
+    { '<leader>ec', '<cmd>Neotree action=close<cr>',                                                   desc = 'close explorer' },
+    { '<leader>eo', '<cmd>Neotree source=filesystem reveal=true position=left action=focus<cr>',       desc = 'explore filesystem' },
+    { '<leader>eg', '<cmd>Neotree source=git_status reveal=true position=left action=focus<cr>',       desc = 'explore git status' },
     { '<leader>es', '<cmd>Neotree source=document_symbols reveal=true position=left action=focus<cr>', desc = 'explore document symbols' },
   }
 end
@@ -313,8 +315,10 @@ function M.setup_gitlinker()
     '<cmd>lua require"gitlinker".get_buf_range_url("v", {action_callback = require"gitlinker.actions".open_in_browser})<cr>',
     { desc = 'open in github' }
   )
-  vim.keymap.set('v', '<leader>gy', '<cmd>lua require"gitlinker".get_buf_range_url("v")<cr>', { silent = true, desc = 'copy github link' })
-  vim.keymap.set('n', '<leader>gy', '<cmd>lua require"gitlinker".get_repo_url()<cr>', { silent = true, desc = 'copy github link' })
+  vim.keymap.set('v', '<leader>gy', '<cmd>lua require"gitlinker".get_buf_range_url("v")<cr>',
+    { silent = true, desc = 'copy github link' })
+  vim.keymap.set('n', '<leader>gy', '<cmd>lua require"gitlinker".get_repo_url()<cr>',
+    { silent = true, desc = 'copy github link' })
   vim.keymap.set(
     'n',
     '<leader>go',
@@ -326,11 +330,11 @@ end
 function M.setup_git_blame()
   return {
     -- toggle needs to be called twice; https://github.com/f-person/git-blame.nvim/issues/16
-    { '<leader>gB', ':GitBlameToggle<CR>', desc = 'blame line (toggle)', silent = true },
-    { '<leader>gcs', ':GitBlameCopySHA<CR>', desc = 'copy commit SHA', silent = true },
-    { '<leader>gcu', ':GitBlameCopyCommitURL<CR>', desc = 'copy commit URL', silent = true },
-    { '<leader>gcy', ':GitBlameCopyFileURL<CR>', desc = 'copy file URL', silent = true },
-    { '<leader>gco', ':GitBlameOpenFileURL<CR>', desc = 'open file URL', silent = true },
+    { '<leader>gB',  ':GitBlameToggle<CR>',        desc = 'blame line (toggle)', silent = true },
+    { '<leader>gcs', ':GitBlameCopySHA<CR>',       desc = 'copy commit SHA',     silent = true },
+    { '<leader>gcu', ':GitBlameCopyCommitURL<CR>', desc = 'copy commit URL',     silent = true },
+    { '<leader>gcy', ':GitBlameCopyFileURL<CR>',   desc = 'copy file URL',       silent = true },
+    { '<leader>gco', ':GitBlameOpenFileURL<CR>',   desc = 'open file URL',       silent = true },
   }
 end
 
@@ -472,24 +476,32 @@ function M.setup_telescope()
   end
 
   vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] find in buffers' })
+  vim.keymap.set('n', '<leader>fcm', builtin.commands, { desc = 'find commands' })
+  vim.keymap.set('n', '<leader>fch', builtin.command_history, { desc = 'find command history' })
   vim.keymap.set('n', '<leader>fd', builtin.diagnostics, { desc = 'find diagnostics' })
   vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'find files' })
   vim.keymap.set('n', '<leader>fF', find_files_in_cur_dir, { desc = 'find files in current directory' })
   vim.keymap.set('n', '<leader>fgb', builtin.git_branches, { desc = 'find git branches' })
   vim.keymap.set('n', '<leader>fgc', builtin.git_commits, { desc = 'find git commits' })
   vim.keymap.set('n', '<leader>fgf', builtin.git_files, { desc = 'find git files' })
-  vim.keymap.set('n', '<leader>fgs', builtin.git_stash, { desc = 'find git staus' })
+  vim.keymap.set('n', '<leader>fgS', builtin.git_stash, { desc = 'find git staus' })
+  vim.keymap.set('n', '<leader>fgs', builtin.git_status, { desc = 'find git staus' })
   vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'find help' })
   vim.keymap.set('n', '<leader>fk', builtin.keymaps, { desc = 'find keymaps' })
-  -- vim.keymap.set('n', '<leader>fm', function()
-  --   builtin.lsp_document_symbols { symbols = 'method' }
-  -- end, { desc = 'find method' })
+  vim.keymap.set('n', '<leader>fmd', function()
+    builtin.lsp_document_symbols { symbols = 'method' }
+  end, { desc = 'find method' })
+  vim.keymap.set('n', '<leader>fmk', builtin.marks, { desc = 'find marks' })
+  vim.keymap.set('n', '<leader>fmp', builtin.man_pages, { desc = 'find man pages' })
   vim.keymap.set('n', '<leader>fo', builtin.oldfiles, { desc = 'find old files' })
   vim.keymap.set('n', '<leader>fp', builtin.live_grep, { desc = 'find by grep' })
   vim.keymap.set('n', '<leader>fP', live_grep_in_package, { desc = 'find by grep in current directory' })
   vim.keymap.set('n', '<leader>fr', builtin.resume, { desc = 'find resume' })
-  vim.keymap.set('n', '<leader>fst', builtin.builtin, { desc = 'find select telescope' })
+  vim.keymap.set('n', '<leader>fs', builtin.spell_suggest, { desc = 'find select telescope' })
+  vim.keymap.set('n', '<leader>fS', builtin.builtin, { desc = 'find select telescope' })
+  vim.keymap.set('n', '<leader>fT', builtin.treesitter, { desc = 'find treesitter' })
   vim.keymap.set('n', '<leader>ft', '<cmd>TodoTelescope<cr>', { desc = 'find todos' })
+  vim.keymap.set('n', '<leader>fvo', builtin.vim_options, { desc = 'find vim options' })
   vim.keymap.set('n', '<leader>fw', builtin.grep_string, { desc = 'find word' })
 
   vim.keymap.set('n', '<leader>/', function()
@@ -550,7 +562,7 @@ end
 function M.setup_dap(keys)
   local dap = require 'dap'
   return {
-    { '<leader>bb', dap.toggle_breakpoint, desc = 'toggle debug breakpoint' },
+    { '<leader>bb',  dap.toggle_breakpoint, desc = 'toggle debug breakpoint' },
     {
       '<leader>bB',
       function()
@@ -558,15 +570,15 @@ function M.setup_dap(keys)
       end,
       desc = 'debug breakpoint continue',
     },
-    { '<leader>bc', dap.continue, desc = 'debug continue' },
-    { '<leader>bC', dap.run_to_cursor, desc = 'debug cursor' },
-    { '<leader>bg', dap.goto_, desc = 'debug goto line' },
-    { '<leader>bo', dap.step_over, desc = 'debug step over' },
-    { '<leader>bO', dap.step_out, desc = 'debug step out' },
-    { '<leader>bi', dap.step_into, desc = 'debug into' },
-    { '<leader>bjd', dap.down, desc = 'debug jump down' },
-    { '<leader>bju', dap.up, desc = 'debug jump up' },
-    { '<leader>bl', dap.run_last, desc = 'debug last' },
+    { '<leader>bc',  dap.continue,          desc = 'debug continue' },
+    { '<leader>bC',  dap.run_to_cursor,     desc = 'debug cursor' },
+    { '<leader>bg',  dap.goto_,             desc = 'debug goto line' },
+    { '<leader>bo',  dap.step_over,         desc = 'debug step over' },
+    { '<leader>bO',  dap.step_out,          desc = 'debug step out' },
+    { '<leader>bi',  dap.step_into,         desc = 'debug into' },
+    { '<leader>bjd', dap.down,              desc = 'debug jump down' },
+    { '<leader>bju', dap.up,                desc = 'debug jump up' },
+    { '<leader>bl',  dap.run_last,          desc = 'debug last' },
     {
       '<leader>bL',
       function()
@@ -574,11 +586,11 @@ function M.setup_dap(keys)
       end,
       desc = 'debug log point message',
     },
-    { '<leader>bp', dap.pause, desc = 'debug pause' },
-    { '<leader>br', dap.repl.toggle, desc = 'debug repl' },
-    { '<leader>bR', dap.clear_breakpoints, desc = 'debug remove breakpoints' },
-    { '<leader>bs', dap.session, desc = 'debug session' },
-    { '<leader>bt', dap.terminate, desc = 'debug terminate' },
+    { '<leader>bp', dap.pause,                       desc = 'debug pause' },
+    { '<leader>br', dap.repl.toggle,                 desc = 'debug repl' },
+    { '<leader>bR', dap.clear_breakpoints,           desc = 'debug remove breakpoints' },
+    { '<leader>bs', dap.session,                     desc = 'debug session' },
+    { '<leader>bt', dap.terminate,                   desc = 'debug terminate' },
     { '<leader>bw', require('dap.ui.widgets').hover, desc = 'debug widgets' },
     unpack(keys),
   }
@@ -664,15 +676,15 @@ function M.setup_harpoon(harpoon)
     end
 
     require('telescope.pickers')
-      .new({}, {
-        prompt_title = 'Harpoon',
-        finder = require('telescope.finders').new_table {
-          results = file_paths,
-        },
-        previewer = conf.file_previewer {},
-        sorter = conf.generic_sorter {},
-      })
-      :find()
+        .new({}, {
+          prompt_title = 'Harpoon',
+          finder = require('telescope.finders').new_table {
+            results = file_paths,
+          },
+          previewer = conf.file_previewer {},
+          sorter = conf.generic_sorter {},
+        })
+        :find()
   end
 
   vim.keymap.set('n', '<leader>hf', function()
@@ -728,7 +740,8 @@ end
 
 function M.setup_toggleterm(trim_spaces)
   vim.keymap.set('v', '<C-s>', function()
-    require('toggleterm').send_lines_to_terminal('visual_lines', trim_spaces, { args = vim.v.count, desc = 'send lines to terminal' })
+    require('toggleterm').send_lines_to_terminal('visual_lines', trim_spaces,
+      { args = vim.v.count, desc = 'send lines to terminal' })
   end)
   vim.keymap.set('n', '<leader>ot', '<cmd>ToggleTerm<CR>', { desc = 'toggle terminal window' })
   vim.keymap.set('t', '<esc>', '<C-\\><C-n>', { desc = 'exit terminal mode' })
@@ -736,20 +749,20 @@ end
 
 function M.setup_bookmarks()
   return {
-    toggle = '<leader>om', -- Toggle bookmarks(global keymap)
-    add = '<leader>ma', -- Add bookmarks(global keymap)
-    add_global = '<leader>mA', -- Add global bookmarks(global keymap), global bookmarks will appear in all projects. Identified with the symbol '󰯾'
-    show_desc = '<leader>ms', -- show bookmark desc(global keymap)
+    toggle = '<leader>om',         -- Toggle bookmarks(global keymap)
+    add = '<leader>ma',            -- Add bookmarks(global keymap)
+    add_global = '<leader>mA',     -- Add global bookmarks(global keymap), global bookmarks will appear in all projects. Identified with the symbol '󰯾'
+    show_desc = '<leader>ms',      -- show bookmark desc(global keymap)
     delete_on_virt = '<leader>md', -- Delete bookmark at virt text line(global keymap)
 
-    close = 'q', -- close bookmarks (buf keymap)
-    delete = 'dd', -- Delete bookmarks(buf keymap)
-    jump = '<cr>', -- Jump from bookmarks(buf keymap)
-    order = '<space><space>', -- Order bookmarks by frequency or updated_time(buf keymap)
+    close = 'q',                   -- close bookmarks (buf keymap)
+    delete = 'dd',                 -- Delete bookmarks(buf keymap)
+    jump = '<cr>',                 -- Jump from bookmarks(buf keymap)
+    order = '<space><space>',      -- Order bookmarks by frequency or updated_time(buf keymap)
 
-    focus_tags = 'h', -- focus tags window
-    focus_bookmarks = 'l', -- focus bookmarks window
-    toogle_focus = '<tab>', -- toggle window focus (tags-window <-> bookmarks-window)
+    focus_tags = 'h',              -- focus tags window
+    focus_bookmarks = 'l',         -- focus bookmarks window
+    toogle_focus = '<tab>',        -- toggle window focus (tags-window <-> bookmarks-window)
   }
 end
 
@@ -831,7 +844,7 @@ function M.setup_obsidian()
   local function delete_current_note()
     local current_file = vim.api.nvim_buf_get_name(0)
     if current_file ~= '' and vim.fn.confirm('Delete ' .. current_file .. '?', '&Yes\n&No', 2) == 1 then
-      vim.cmd 'bd!' -- Close the buffer
+      vim.cmd 'bd!'           -- Close the buffer
       os.remove(current_file) -- Delete the file
       print(current_file .. ' deleted.')
     else
@@ -841,7 +854,8 @@ function M.setup_obsidian()
 
   vim.api.nvim_create_user_command('ObsidianDelete', delete_current_note, {})
 
-  vim.api.nvim_set_keymap('n', '<leader>nd', '<cmd>ObsidianDelete<CR>', { noremap = true, silent = true, desc = 'Delete Obsidian note' })
+  vim.api.nvim_set_keymap('n', '<leader>nd', '<cmd>ObsidianDelete<CR>',
+    { noremap = true, silent = true, desc = 'Delete Obsidian note' })
 end
 
 -- function M.setup_treesitter()
