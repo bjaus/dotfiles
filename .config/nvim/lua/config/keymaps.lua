@@ -861,6 +861,16 @@ function M.setup_obsidian()
   vim.api.nvim_set_keymap('n', '<leader>nd', '<cmd>ObsidianDelete<CR>', { noremap = true, silent = true, desc = 'Delete Obsidian note' })
 end
 
+function M.setup_treesitter_context()
+  vim.keymap.set('n', '[c', function()
+    require('treesitter-context').go_to_context(vim.v.count1)
+  end, { desc = 'previous context', silent = true })
+
+  -- vim.keymap.set('n', ']c', function()
+  --   require('treesitter-context').go_to_context(-vim.v.count1)
+  -- end, { desc = 'next context', silent = true })
+end
+
 -- function M.setup_treesitter()
 --   -- There are additional nvim-treesitter modules that you can use to interact
 --   -- with nvim-treesitter. You should go explore a few and see what interests you:
