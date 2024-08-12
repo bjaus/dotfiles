@@ -29,6 +29,10 @@ case $1 in
     go install github.com/go-delve/delve/cmd/dlv@latest
     ;;
 
+  gum)
+    go install github.com/charmbracelet/gum@latest
+    ;;
+
   *)
     echo "please provide executable to install"
     exit 1
