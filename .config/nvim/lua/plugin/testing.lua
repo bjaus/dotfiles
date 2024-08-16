@@ -9,6 +9,7 @@ return {
       'antoinemadec/FixCursorHold.nvim',
       'klen/nvim-test',
       'nvim-neotest/neotest-go',
+      -- 'fredrikaverpil/neotest-golang',
     },
     opts = {
       discovery = {
@@ -72,6 +73,21 @@ return {
           },
         }
       )
+      -- table.insert(
+      --   opts.adapters,
+      --   require 'neotest-golang' {
+      --     go_test_args = {
+      --       '-count=1',
+      --       '-race',
+      --       '-cover',
+      --       '-coverpkg=./...',
+      --       '-coverfile=coverage.out',
+      --     },
+      --     testify_enabled = true,
+      --     warn_test_name_dupes = true,
+      --     warn_test_not_executed = true,
+      --   }
+      -- )
       require('neotest').setup(opts)
     end,
     keys = require('config.keymaps').setup_neotest(),
