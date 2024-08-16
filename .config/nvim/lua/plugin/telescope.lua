@@ -23,7 +23,9 @@ local config = function()
     },
     pickers = {
       find_files = {
-        hidden = true,
+        hidden = true, -- Show hidden files
+        no_ignore = true, -- Don't ignore files from .gitignore
+        no_ignore_parent = true, -- Don't ignore files from .gitignore in parent directories
       },
     },
     -- path_display = 'shorten',
