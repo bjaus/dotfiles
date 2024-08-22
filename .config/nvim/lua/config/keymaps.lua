@@ -377,6 +377,7 @@ function M.setup_neotest()
     {
       '<leader>tf',
       function()
+        vim.cmd 'write'
         require('neotest').run.run(vim.fn.expand '%')
       end,
       desc = 'run test file',
@@ -384,6 +385,7 @@ function M.setup_neotest()
     {
       '<leader>tA',
       function()
+        vim.cmd 'write'
         require('neotest').run.run(vim.uv.cwd())
       end,
       desc = 'run all test files',
@@ -391,6 +393,7 @@ function M.setup_neotest()
     {
       '<leader>tT',
       function()
+        vim.cmd 'write'
         require('neotest').run.run { suite = true }
       end,
       desc = 'run test suite',
@@ -398,6 +401,7 @@ function M.setup_neotest()
     {
       '<leader>tn',
       function()
+        vim.cmd 'write'
         require('neotest').run.run()
       end,
       desc = 'run nearest test',
@@ -405,6 +409,7 @@ function M.setup_neotest()
     {
       '<leader>tl',
       function()
+        vim.cmd 'write'
         require('neotest').run.run_last()
       end,
       desc = 'run last test',
@@ -440,6 +445,7 @@ function M.setup_neotest()
     {
       '<leader>td',
       function()
+        vim.cmd 'write'
         vim.cmd 'Neotree close'
         require('neotest').summary.close()
         require('neotest').output_panel.close()
@@ -500,8 +506,8 @@ function M.setup_telescope()
   vim.keymap.set('n', '<leader>fmk', builtin.marks, { desc = 'find marks' })
   vim.keymap.set('n', '<leader>fmp', builtin.man_pages, { desc = 'find man pages' })
   vim.keymap.set('n', '<leader>fo', builtin.oldfiles, { desc = 'find old files' })
-  vim.keymap.set('n', '<leader>fp', builtin.live_grep, { desc = 'find by grep' })
-  vim.keymap.set('n', '<leader>fP', live_grep_in_package, { desc = 'find by grep in current directory' })
+  vim.keymap.set('n', '<leader>fP', builtin.live_grep, { desc = 'find by grep' })
+  vim.keymap.set('n', '<leader>fp', live_grep_in_package, { desc = 'find by grep in current directory' })
   vim.keymap.set('n', '<leader>fr', builtin.resume, { desc = 'find resume' })
   vim.keymap.set('n', '<leader>fS', builtin.spell_suggest, { desc = 'find select telescope' })
   vim.keymap.set('n', '<leader>fst', builtin.builtin, { desc = 'find select telescope' })
