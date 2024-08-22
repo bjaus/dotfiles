@@ -4,6 +4,7 @@ return {
     enabled = true,
     dependencies = {
       'nvim-treesitter/nvim-treesitter',
+      'nvim-treesitter/nvim-treesitter-textobjects',
     },
     opts = {
       enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
