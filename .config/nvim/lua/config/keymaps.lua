@@ -561,8 +561,8 @@ function M.setup_dap_ui()
 end
 
 function M.setup_coverage()
-  map_normal_mode('<leader>rtc', ':Coverage<CR>', 'test coverage in gutter')
-  map_normal_mode('<leader>rtC', ':CoverageLoad<CR>:CoverageSummary<CR>', 'test coverage summary')
+  map_normal_mode('<leader>tc', ':Coverage<CR>', 'test coverage in gutter')
+  map_normal_mode('<leader>tC', ':CoverageLoad<CR>:CoverageSummary<CR>', 'test coverage summary')
 end
 
 function M.setup_dap(keys)

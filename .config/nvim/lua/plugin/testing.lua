@@ -8,10 +8,34 @@ return {
       'nvim-treesitter/nvim-treesitter',
       'antoinemadec/FixCursorHold.nvim',
       'klen/nvim-test',
-      'nvim-neotest/neotest-go',
-      -- 'fredrikaverpil/neotest-golang',
+      -- 'nvim-neotest/neotest-go',
+      'fredrikaverpil/neotest-golang',
+      'marilari88/neotest-vitest',
     },
     opts = {
+      adapters = {
+        -- ['neotest-go'] = {
+        --   experimental = {
+        --     test_table = true,
+        --   },
+        -- },
+        -- ['neotest-golang'] = {
+        --   -- args = {
+        --   --
+        --   -- },
+        --   go_test_args = {
+        --     '-count=1',
+        --     '-race',
+        --     '-cover',
+        --     '-coverpkg=./...',
+        --     '-coverprofile=coverage.out',
+        --   },
+        --   testify_enabled = true,
+        --   warn_test_name_dupes = true,
+        --   warn_test_not_executed = true,
+        -- },
+        ['neotest-vitest'] = {},
+      },
       discovery = {
         enabled = true,
         concurrent = 0,
@@ -75,29 +99,29 @@ return {
       }, neotest_ns)
 
       opts.adapters = opts.adapters or {}
-      table.insert(
-        opts.adapters,
-        require 'neotest-go' {
-          experimental = {
-            test_table = true,
-          },
-        }
-      )
       -- table.insert(
       --   opts.adapters,
-      --   require 'neotest-golang' {
-      --     go_test_args = {
-      --       '-count=1',
-      --       '-race',
-      --       '-cover',
-      --       '-coverpkg=./...',
-      --       '-coverfile=coverage.out',
+      --   require 'neotest-go' {
+      --     experimental = {
+      --       test_table = true,
       --     },
-      --     testify_enabled = true,
-      --     warn_test_name_dupes = true,
-      --     warn_test_not_executed = true,
       --   }
       -- )
+      table.insert(
+        opts.adapters,
+        require 'neotest-golang' {
+          go_test_args = {
+            '-count=1',
+            '-race',
+            '-cover',
+            '-coverpkg=./...',
+            '-coverprofile=/tmp/coverage.out',
+          },
+          testify_enabled = true,
+          warn_test_name_dupes = true,
+          warn_test_not_executed = true,
+        }
+      )
       require('neotest').setup(opts)
     end,
     keys = require('config.keymaps').setup_neotest(),
