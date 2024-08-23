@@ -82,6 +82,7 @@ return {
         gopls = { auto_update = true },
         pyright = { auto_update = true },
         rust_analyzer = { auto_update = true },
+        intelephense = { auto_update = true },
         yamlls = {
           auto_update = true,
           settings = {
@@ -177,6 +178,7 @@ return {
           'gopls',
           'pyright',
           'yamlls',
+          'intelephense',
         },
         handlers = {
           function(server_name)
