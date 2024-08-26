@@ -115,11 +115,11 @@ if not vim.g.vscode then
   vim.opt.timeoutlen = 300 -- lower than default (1000) to quickly trigger which-key
 end
 
-M.setup_folding_options = function()
-  vim.opt.foldcolumn = '0'
-  vim.opt.foldlevel = 99
-  vim.opt.foldlevelstart = 99
-  vim.opt.foldenable = true
-end
+-- vim.opt.foldmethod = 'expr'
+-- vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+vim.opt.foldcolumn = '0'
+vim.opt.foldenable = true
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
 
 return M
