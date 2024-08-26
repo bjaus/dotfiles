@@ -94,6 +94,7 @@ return {
         additional_vim_regex_highlighting = false,
       },
       indent = { enable = true },
+      fold = { enable = true },
     },
     config = function(_, opts)
       -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
