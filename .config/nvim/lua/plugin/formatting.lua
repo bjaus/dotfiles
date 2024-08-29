@@ -8,11 +8,12 @@ return {
   keys = require('config.keymaps').setup_conform(),
   opts = {
     format_on_save = {
-      timeout_ms = 500,
+      timeout_ms = 5000,
       lsp_format = 'fallback',
     },
     formatters_by_ft = {
       go = { 'goimports-reviser' },
+      python = { 'black', timeout_ms = 10000 },
       lua = { 'stylua' },
     },
   },
