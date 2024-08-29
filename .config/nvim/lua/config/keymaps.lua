@@ -458,8 +458,7 @@ end
 
 function M.setup_go()
   local util = require 'util.go'
-  vim.keymap.set('n', '<leader>wgf', util.switch_go_test_file, { desc = 'switch between test file' })
-  vim.keymap.set('n', '<leader>wgv', util.vsplit_go_test_file, { desc = 'switch between test file' })
+  vim.keymap.set('n', '<leader>ga', util.switch_go_test_file, { desc = 'switch between test file' })
 end
 
 function M.setup_telescope()
