@@ -148,6 +148,10 @@ else
   export EDITOR='nvim'
 fi
 
+. "$HOME/.atuin/bin/env"
+
+eval "$(atuin init zsh)"
+
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
