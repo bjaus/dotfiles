@@ -134,6 +134,7 @@ return {
         --
         -- But for many setups, the LSP (`tsserver`) will work just fine
         tsserver = {},
+        svelte = {},
 
         lua_ls = {
           settings = {
