@@ -148,9 +148,15 @@ else
   export EDITOR='nvim'
 fi
 
-. "$HOME/.atuin/bin/env"
+if [ -f $HOME/.config/atuin/config.toml ];
+  . "$HOME/.atuin/bin/env"
 
-eval "$(atuin init zsh)"
+  eval "$(atuin init zsh)"
+fi
+
+if [ -f $HOME/.tnsrc ]; then 
+    source $HOME/.tnsrc 
+fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
