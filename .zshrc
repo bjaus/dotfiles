@@ -112,6 +112,7 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 export PATH="$HOME/.scripts:$PATH"
+export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 
 # Setup autojump
 [ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
@@ -148,9 +149,8 @@ else
   export EDITOR='nvim'
 fi
 
-if [ -f $HOME/.config/atuin/config.toml ];
-  . "$HOME/.atuin/bin/env"
-
+if [ -f $HOME/.config/atuin/config.toml ]; then
+  source "$HOME/.atuin/bin/env"
   eval "$(atuin init zsh)"
 fi
 
