@@ -12,9 +12,11 @@ return {
       lsp_format = 'fallback',
     },
     formatters_by_ft = {
+      javascript = { 'prettier' },
+      typescript = { 'prettier' },
       go = { 'goimports-reviser' },
-      python = { 'black', timeout_ms = 10000 },
       lua = { 'stylua' },
+      python = { 'black', timeout_ms = 10000 },
     },
   },
   config = function(_, opts)
