@@ -150,7 +150,9 @@ else
 fi
 
 if [ -f $HOME/.config/atuin/config.toml ]; then
-  source "$HOME/.atuin/bin/env"
+  if [ -f $HOME/.atuin/bin/env ]; then
+    source "$HOME/.atuin/bin/env"
+  fi
   eval "$(atuin init zsh)"
 fi
 
