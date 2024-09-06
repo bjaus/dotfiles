@@ -9,6 +9,7 @@ return {
     require('bookmarks').setup {
       mapping_enabled = true,
       keymap = require('config.keymaps').setup_bookmarks(),
+      fix_enable = true,
       virt_pattern = {
         '*.go',
         '*.js',
@@ -18,6 +19,9 @@ return {
         '*.sh',
         '*.sql',
         '*.ts',
+      },
+      virt_ignore_pattern = {
+        '.',
       },
     }
     require('telescope').load_extension 'bookmarks'
