@@ -35,6 +35,10 @@ case $1 in
     go install github.com/charmbracelet/gum@$version
     ;;
 
+  goose)
+    go install github.com/pressly/goose/v3/cmd/goose@latest
+    ;;
+
   *)
     echo "please provide executable to install"
     exit 1
