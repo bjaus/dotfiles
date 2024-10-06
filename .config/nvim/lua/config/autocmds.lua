@@ -7,6 +7,8 @@ local autocmd = vim.api.nvim_create_autocmd
 
 M = {}
 
+vim.api.nvim_create_autocmd({ 'BufWritePre' }, { pattern = { '*.templ' }, callback = vim.lsp.buf.format })
+
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
 --  See `:help vim.highlight.on_yank()`
