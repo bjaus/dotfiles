@@ -43,6 +43,11 @@ return {
       local lspconfig = require 'lspconfig'
       local configs = require 'lspconfig/configs'
 
+      -- Ensure `templ` files are recognized
+      vim.cmd [[
+      autocmd BufRead,BufNewFile *.templ set filetype=templ
+    ]]
+
       -- https://github.com/nametake/golangci-lint-langserver?tab=readme-ov-file#configuration-for-nvim-lspconfig
       if not configs.golangcilsp then
         configs.golangcilsp = {
@@ -83,6 +88,30 @@ return {
         pyright = { auto_update = true },
         rust_analyzer = { auto_update = true },
         intelephense = { auto_update = true },
+        cmake = { auto_update = true },
+        templ = { auto_update = true },
+        emmet_ls = {
+          auto_update = true,
+          filetypes = { 'html', 'css', 'templ' },
+        },
+        html = {
+          auto_update = true,
+          filetypes = { 'html', 'templ' },
+        },
+        htmx = {
+          auto_update = true,
+          filetypes = { 'html', 'templ' },
+        },
+        tailwindcss = {
+          filetypes = { 'templ', 'astro', 'javascript', 'typescript', 'react' },
+          settings = {
+            tailwindCSS = {
+              includeLanguages = {
+                templ = 'html',
+              },
+            },
+          },
+        },
         yamlls = {
           auto_update = true,
           settings = {

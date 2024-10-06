@@ -5,6 +5,7 @@ return {
     dependencies = {
       'nvim-treesitter/nvim-treesitter',
       'nvim-treesitter/nvim-treesitter-textobjects',
+      'vrischmann/tree-sitter-templ',
     },
     opts = {
       enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
@@ -70,6 +71,7 @@ return {
         'scala',
         -- 'sql',
         'svelte',
+        'templ',
         'thrift',
         'tsv',
         'tsx',
