@@ -63,6 +63,13 @@ vim.opt.wrap = true
 vim.opt.linebreak = true
 vim.opt.textwidth = 120
 
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'txt', 'yml', 'yaml', 'markdown', 'md' },
+  callback = function()
+    vim.opt_local.wrap = false
+  end,
+})
+
 -- session options
 vim.opt.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
 
