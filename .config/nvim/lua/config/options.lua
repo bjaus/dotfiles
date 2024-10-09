@@ -1,5 +1,7 @@
 M = {}
 
+--  vim.env.PATH = os.getenv 'HOME' .. '/.goenv/shims:' .. vim.env.PATH
+
 -- See `:help mapleader`
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ';'
