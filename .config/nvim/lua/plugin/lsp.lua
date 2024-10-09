@@ -127,6 +127,7 @@ return {
                 '!Base64',
                 '!Cidr',
                 '!Condition sequence',
+                '!Condition',
                 '!Equals sequence',
                 '!Equals',
                 '!FindInMap sequence',
