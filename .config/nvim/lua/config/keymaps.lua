@@ -583,6 +583,7 @@ function M.setup_dap(keys)
       desc = 'debug breakpoint continue',
     },
     { '<leader>bc', dap.continue, desc = 'debug continue' },
+    { '<leader>bl', dap.list_breakpoints, desc = 'debug list breakpoints' },
     { '<leader>bC', dap.run_to_cursor, desc = 'debug cursor' },
     { '<leader>bg', dap.goto_, desc = 'debug goto line' },
     { '<leader>bo', dap.step_over, desc = 'debug step over' },
@@ -590,9 +591,9 @@ function M.setup_dap(keys)
     { '<leader>bi', dap.step_into, desc = 'debug into' },
     { '<leader>bjd', dap.down, desc = 'debug jump down' },
     { '<leader>bju', dap.up, desc = 'debug jump up' },
-    { '<leader>bl', dap.run_last, desc = 'debug last' },
+    { '<leader>bL', dap.run_last, desc = 'debug last' },
     {
-      '<leader>bL',
+      '<leader>bM',
       function()
         dap.set_breakpoint(nil, nil, vim.fn.input 'Log point message: ')
       end,
