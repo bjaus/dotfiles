@@ -85,6 +85,8 @@ return {
         -- clangd = {},
         golangci_lint_ls = { auto_update = true },
         gopls = { auto_update = true },
+        bufls = { auto_update = true, filetypes = { 'proto' } },
+        serve = { auto_update = true, filetypes = { 'proto' } },
         pyright = { auto_update = true },
         rust_analyzer = { auto_update = true },
         intelephense = { auto_update = true },

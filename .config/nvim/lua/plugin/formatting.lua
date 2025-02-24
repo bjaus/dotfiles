@@ -17,6 +17,7 @@ return {
       lua = { 'stylua' },
       python = { 'black', timeout_ms = 10000 },
       typescript = { 'prettier' },
+      proto = { 'buf' },
     },
   },
   config = function(_, opts)
