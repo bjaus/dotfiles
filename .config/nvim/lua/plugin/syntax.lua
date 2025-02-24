@@ -7,4 +7,8 @@ return {
       'othree/html5.vim',
     },
   },
+  {
+    'uarun/vim-protobuf',
+    ft = 'proto',
+  },
 }
