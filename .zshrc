@@ -175,5 +175,7 @@ alias cat="bat"
 alias clip="tr -d '\n' | pbcopy"
 alias pn="pnpm"
 # alias vim="nvim"
+alias nv=nvim
+alias rmswp="rm -f /tmp/*.swp"
 
 [ -f "$HOME/.zshrc.extended" ] && . "$HOME/.zshrc.extended"

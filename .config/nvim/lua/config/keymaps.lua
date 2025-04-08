@@ -106,6 +106,15 @@ vim.keymap.set('n', ']q', vim.cmd.cnext, { desc = 'next quickfix' })
 vim.keymap.set({ 'n', 'v' }, '<', '<gv', { desc = 'indent left' })
 vim.keymap.set({ 'n', 'v' }, '>', '>gv', { desc = 'indent right' })
 
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'markdown',
+  callback = function()
+    vim.keymap.set('n', '<leader>pi', function()
+      require('config.paste_image').paste_image()
+    end, { desc = 'paste screenshot', buffer = true })
+  end,
+})
+
 -- diagnostic
 local function goto_diagnostic(next, sev)
   local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
@@ -219,6 +228,8 @@ function M.setup_lsp(event)
   -- Execute a code action, usually the cursor needs to be on top of an error
   -- or a suggestion from the LSP for this to activate.
   map('<leader>ac', vim.lsp.buf.code_action, 'action code')
+
+  map('K', vim.lsp.buf.hover, 'read docs')
 
   local client = vim.lsp.get_client_by_id(event.data.client_id)
 
