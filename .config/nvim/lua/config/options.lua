@@ -69,6 +69,7 @@ vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'txt', 'yml', 'yaml', 'markdown', 'md' },
   callback = function()
     vim.opt_local.wrap = false
+    vim.opt.textwidth = 0
   end,
 })
 
