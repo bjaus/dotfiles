@@ -87,13 +87,7 @@ return {
         -- clangd = {},
         golangci_lint_ls = { auto_update = true },
         gopls = { auto_update = true },
-        bufls = {
-          auto_update = true,
-          filetypes = { 'proto' },
-          cmd = { 'bufls', 'serve' },
-          root_dir = lspconfig.util.root_pattern('buf.work.yaml', 'buf.yaml', '.git'),
-        },
-        serve = { auto_update = true, filetypes = { 'proto' } },
+        buf_ls = { auto_update = true, filetypes = { 'proto' } },
         pyright = { auto_update = true },
         rust_analyzer = { auto_update = true },
         intelephense = { auto_update = true },
@@ -214,6 +208,7 @@ return {
           'pyright',
           'yamlls',
           'intelephense',
+          'buf_ls',
         },
         handlers = {
           function(server_name)

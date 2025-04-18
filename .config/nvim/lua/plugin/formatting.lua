@@ -12,12 +12,22 @@ return {
       lsp_format = 'fallback',
     },
     formatters_by_ft = {
-      go = { 'goimports-reviser' },
+      -- go = {
+      --   'goimports-reviser',
+      --   args = {
+      --     '--format',
+      --     '--imports-order',
+      --     'std,rewardStyle,other',
+      --     '--local',
+      --     'github.com/rewardStyle',
+      --     '--verbose',
+      --   },
+      -- },
       javascript = { 'prettier' },
       lua = { 'stylua' },
       python = { 'black', timeout_ms = 10000 },
       typescript = { 'prettier' },
-      proto = { 'buf' },
+      -- proto = { 'buf' },
     },
   },
   config = function(_, opts)
