@@ -4,6 +4,9 @@ ZSH_THEME="zhann"
 plugins=(git aliases autojump emoji emotty)
 source $ZSH/oh-my-zsh.sh
 
+# Enable vi mode
+bindkey -v
+
 # Setup autojump
 [[ -f /opt/homebrew/etc/profile.d/autojump.sh ]] && source /opt/homebrew/etc/profile.d/autojump.sh
 
