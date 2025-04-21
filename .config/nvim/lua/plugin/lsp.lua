@@ -50,25 +50,25 @@ return {
       })
 
       -- Custom LSP: golangci-lint-langserver
-      vim.schedule(function()
-        if not lspconfig.golangcilsp then
-          require('lspconfig.configs').golangcilsp = {
-            default_config = {
-              cmd = { 'golangci-lint-langserver' },
-              root_dir = util.root_pattern('.git', 'go.mod'),
-              init_options = {
-                command = {
-                  'golangci-lint',
-                  'run',
-                  '--out-format',
-                  'json',
-                  '--issues-exit-code=1',
-                },
-              },
-            },
-          }
-        end
-      end)
+      -- vim.schedule(function()
+      --   if not lspconfig.golangcilsp then
+      --     require('lspconfig.configs').golangcilsp = {
+      --       default_config = {
+      --         cmd = { 'golangci-lint-langserver' },
+      --         root_dir = util.root_pattern('.git', 'go.mod'),
+      --         init_options = {
+      --           command = {
+      --             'golangci-lint',
+      --             'run',
+      --             '--out-format',
+      --             'json',
+      --             '--issues-exit-code=1',
+      --           },
+      --         },
+      --       },
+      --     }
+      --   end
+      -- end)
 
       -- Capabilities (e.g. for cmp)
       local capabilities = vim.lsp.protocol.make_client_capabilities()
