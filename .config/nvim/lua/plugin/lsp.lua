@@ -15,8 +15,8 @@ return {
       { 'williamboman/mason.nvim', config = true },
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
-      { 'j-hui/fidget.nvim', opts = {} },
-      { 'Bilal2453/luvit-meta', lazy = true },
+      { 'j-hui/fidget.nvim',       opts = {} },
+      { 'Bilal2453/luvit-meta',    lazy = true },
       {
         'folke/lazydev.nvim',
         ft = 'lua',
@@ -50,26 +50,25 @@ return {
       })
 
       -- Custom LSP: golangci-lint-langserver
-      if not lspconfig.golangcilsp then
-        require('lspconfig.configs').golangcilsp = {
-          default_config = {
-            cmd = { 'golangci-lint-langserver' },
-            root_dir = util.root_pattern('.git', 'go.mod'),
-            init_options = {
-              command = {
-                'golangci-lint',
-                'run',
-                -- '--enable-all',
-                -- '--disable',
-                -- 'lll',
-                '--out-format',
-                'json',
-                '--issues-exit-code=1',
+      vim.schedule(function()
+        if not lspconfig.golangcilsp then
+          require('lspconfig.configs').golangcilsp = {
+            default_config = {
+              cmd = { 'golangci-lint-langserver' },
+              root_dir = util.root_pattern('.git', 'go.mod'),
+              init_options = {
+                command = {
+                  'golangci-lint',
+                  'run',
+                  '--out-format',
+                  'json',
+                  '--issues-exit-code=1',
+                },
               },
             },
-          },
-        }
-      end
+          }
+        end
+      end)
 
       -- Capabilities (e.g. for cmp)
       local capabilities = vim.lsp.protocol.make_client_capabilities()
