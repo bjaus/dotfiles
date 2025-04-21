@@ -23,7 +23,10 @@ local config = function()
         require('luasnip').lsp_expand(args.body)
       end,
     },
-    completion = { completeopt = 'menu,menuone,noinsert' },
+    completion = {
+      autocomplete = false, -- cmp won't auto-trigger, only with <C-Space>
+      completeopt = 'menu,menuone,noinsert'
+    },
     window = {
       completion = cmp.config.window.bordered(),
       documentation = cmp.config.window.bordered(),
@@ -47,7 +50,7 @@ local config = function()
       },
       {
         name = 'luasnip',
-        group_index = 1,
+        group_index = 2,
         option = { use_show_condition = true },
         entry_filter = function()
           local context = require 'cmp.config.context'
@@ -139,7 +142,18 @@ return {
       cmd = 'Copilot',
       build = ':Copilot auth',
       opts = {
-        suggestion = { enabled = false },
+        suggestion = {
+          enabled = true,
+          auto_trigger = true,
+          debounce = 50,
+          keymap = {
+            accept = "<C-y>",
+            accept_word = "<C-u>",
+            next = "<C-j>",
+            prev = "<C-k>",
+            dismiss = "<C-d>",
+          },
+        },
         panel = { enabled = false },
       },
     },
