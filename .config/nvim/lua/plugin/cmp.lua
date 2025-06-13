@@ -25,7 +25,7 @@ local config = function()
     },
     completion = {
       autocomplete = false, -- cmp won't auto-trigger, only with <C-Space>
-      completeopt = 'menu,menuone,noinsert'
+      completeopt = 'menu,menuone,noinsert',
     },
     window = {
       completion = cmp.config.window.bordered(),
@@ -39,7 +39,7 @@ local config = function()
       },
     },
     mapping = cmp.mapping.preset.insert(require('config.keymaps').setup_cmp()),
-    sources = cmp.config.sources({
+    sources = cmp.config.sources {
       {
         name = 'copilot',
         group_index = 1,
@@ -90,7 +90,7 @@ local config = function()
         keyword_length = 2,
         group_index = 4,
       },
-    }),
+    },
     ---@diagnostic disable-next-line: missing-fields
     formatting = {
       format = lspkind.cmp_format {
@@ -142,19 +142,43 @@ return {
       cmd = 'Copilot',
       build = ':Copilot auth',
       opts = {
+        panel = {
+          enabled = true,
+          auto_refresh = true,
+          keymap = {
+            open = '<leader>cp',
+            accept = '<CR>',
+            jump_prev = '[[',
+            jump_next = ']]',
+            refresh = 'gr',
+          },
+          layout = {
+            position = 'bottom',
+            ratio = 0.5,
+          },
+        },
         suggestion = {
           enabled = true,
           auto_trigger = true,
+          hide_during_completion = true,
           debounce = 50,
+          trigger_on_accept = true,
           keymap = {
-            accept = "<C-y>",
-            accept_word = "<C-u>",
-            next = "<C-j>",
-            prev = "<C-k>",
-            dismiss = "<C-d>",
+            accept = '<C-y>',
+            accept_word = '<C-u>',
+            accept_line = '<C-l>',
+            next = '<C-n>',
+            prev = '<C-p>',
+            dismiss = '<C-d>',
           },
         },
-        panel = { enabled = false },
+        filetypes = {
+          yaml = true,
+          markdown = true,
+          help = false,
+          gitcommit = true,
+          ['*'] = true,
+        },
       },
     },
     {
