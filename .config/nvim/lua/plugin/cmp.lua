@@ -138,50 +138,6 @@ return {
       end,
     },
     {
-      'zbirenbaum/copilot.lua',
-      cmd = 'Copilot',
-      build = ':Copilot auth',
-      opts = {
-        panel = {
-          enabled = true,
-          auto_refresh = true,
-          keymap = {
-            open = '<leader>cp',
-            accept = '<CR>',
-            jump_prev = '[[',
-            jump_next = ']]',
-            refresh = 'gr',
-          },
-          layout = {
-            position = 'bottom',
-            ratio = 0.5,
-          },
-        },
-        suggestion = {
-          enabled = true,
-          auto_trigger = true,
-          hide_during_completion = true,
-          debounce = 50,
-          trigger_on_accept = true,
-          keymap = {
-            accept = '<C-y>',
-            accept_word = '<C-u>',
-            accept_line = '<C-l>',
-            next = '<C-n>',
-            prev = '<C-p>',
-            dismiss = '<C-d>',
-          },
-        },
-        filetypes = {
-          yaml = true,
-          markdown = true,
-          help = false,
-          gitcommit = true,
-          ['*'] = true,
-        },
-      },
-    },
-    {
       'zbirenbaum/copilot-cmp',
       dependencies = { 'zbirenbaum/copilot.lua' },
       config = function()
