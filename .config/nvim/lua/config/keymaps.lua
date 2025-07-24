@@ -6,13 +6,14 @@ function M.setup_which_key()
   vim.keymap.set('n', '<leader>wk', '<cmd>WhichKey<cr>', { desc = 'show which key' })
 
   return {
-    { '<leader>z', group = 'copilot' },
+    { '<leader>a', group = '[a]i tools' },
+    { '<leader>ap', group = 'co[p]ilot' },
+    { '<leader>ag', group = '[g]emini' },
+    { '<leader>ac', group = '[c]laude' },
     -- { '<leader>d', group = '[d]ocument' },
     -- { '<leader>i', group = '[i]nspect' },
     -- { '<leader>k', group = '[k]ey' },
-    -- { '<leader>l', group = '[l]azy' },
-    -- { '<leader>o', group = '[o]rder', mode = { 'v' } },
-    { '<leader>a', group = '[a]ction' },
+    { '<leader>l', group = '[l]sp actions' },
     { '<leader>b', group = 'de[b]ug' },
     { '<leader>e', group = '[e]xplore' },
     { '<leader>f', group = '[f]ind' },
@@ -223,11 +224,11 @@ function M.setup_lsp(event)
 
   -- Rename the variable under the cursor.
   --  Most Language Servers support renaming across files, etc.
-  map('<leader>ar', vim.lsp.buf.rename, 'action rename')
+  map('<leader>lr', vim.lsp.buf.rename, 'lsp rename')
 
   -- Execute a code action, usually the cursor needs to be on top of an error
   -- or a suggestion from the LSP for this to activate.
-  map('<leader>ac', vim.lsp.buf.code_action, 'action code')
+  map('<leader>lc', vim.lsp.buf.code_action, 'lsp code action')
 
   map('K', vim.lsp.buf.hover, 'read docs')
 
@@ -245,7 +246,7 @@ end
 function M.setup_conform()
   return {
     {
-      '<leader>af',
+      '<leader>lf',
       function()
         require('conform').format { async = true, lsp_fallback = true }
       end,
@@ -888,6 +889,27 @@ function M.setup_treesitter_context()
   -- vim.keymap.set('n', ']c', function()
   --   require('treesitter-context').go_to_context(-vim.v.count1)
   -- end, { desc = 'next context', silent = true })
+end
+
+-- AI Tools Keybindings
+function M.setup_gemini()
+  vim.keymap.set('n', '<leader>agc', ':GeminiChat<CR>', { desc = 'Gemini Chat' })
+  vim.keymap.set('v', '<leader>age', ':GeminiExplain<CR>', { desc = 'Explain with Gemini' })
+  vim.keymap.set('v', '<leader>agf', ':GeminiFix<CR>', { desc = 'Fix with Gemini' })
+  vim.keymap.set('v', '<leader>ago', ':GeminiOptimize<CR>', { desc = 'Optimize with Gemini' })
+  vim.keymap.set('v', '<leader>agt', ':GeminiTest<CR>', { desc = 'Generate Tests with Gemini' })
+  vim.keymap.set('v', '<leader>agr', ':GeminiReview<CR>', { desc = 'Review with Gemini' })
+end
+
+function M.setup_claude()
+  vim.keymap.set('n', '<leader>acc', ':ClaudeCode<CR>', { desc = 'Toggle Claude' })
+  vim.keymap.set('n', '<leader>acf', ':ClaudeCodeFocus<CR>', { desc = 'Focus Claude terminal' })
+  vim.keymap.set('n', '<leader>acr', ':ClaudeCodeResume<CR>', { desc = 'Resume Claude' })
+  vim.keymap.set('n', '<leader>acC', ':ClaudeCodeContinue<CR>', { desc = 'Continue Claude' })
+  vim.keymap.set('n', '<leader>acb', ':ClaudeCodeAdd<CR>', { desc = 'Add current buffer' })
+  vim.keymap.set('v', '<leader>acs', ':ClaudeCodeSend<CR>', { desc = 'Send selection to Claude' })
+  vim.keymap.set('n', '<leader>aca', ':ClaudeCodeDiffAccept<CR>', { desc = 'Accept diff changes' })
+  vim.keymap.set('n', '<leader>acd', ':ClaudeCodeDiffDeny<CR>', { desc = 'Reject diff changes' })
 end
 
 -- function M.setup_treesitter()
