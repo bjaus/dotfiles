@@ -102,62 +102,6 @@ return {
             },
           },
         },
-        -- vtsls = {
-        --   filetypes = {
-        --     'javascript',
-        --     'javascriptreact',
-        --     'typescript',
-        --     'typescriptreact',
-        --     'vue',
-        --   },
-        --   settings = {
-        --     vtsls = {
-        --       enableVueSupport = true,
-        --     },
-        --   },
-        --   init_options = {
-        --     languageFeatures = {
-        --       references = true,
-        --       definition = true,
-        --       typeDefinition = true,
-        --       callHierarchy = true,
-        --       hover = true,
-        --       rename = true,
-        --       signatureHelp = true,
-        --       codeAction = true,
-        --       completion = {
-        --         defaultTagNameCase = 'both',
-        --         defaultAttrNameCase = 'kebabCase',
-        --         getDocumentNameCasesRequest = true,
-        --         getDocumentSelectionRequest = true,
-        --       },
-        --       schemaRequestService = true,
-        --       documentHighlight = true,
-        --       documentLink = true,
-        --       codeLens = {
-        --         showReferencesNotification = true,
-        --       },
-        --       semanticTokens = true,
-        --     },
-        --     vue = {
-        --       features = {
-        --         documentHighlight = true,
-        --         documentLink = true,
-        --         codeLens = { references = true, pugTools = true },
-        --         codeActions = true,
-        --         callHierarchy = true,
-        --         rename = true,
-        --         semanticTokens = true,
-        --         diagnostics = true,
-        --         completion = {
-        --           defaultAttrNameCase = 'kebabCase',
-        --           defaultTagNameCase = 'both',
-        --         },
-        --       },
-        --     },
-        --   },
-        -- },
-        --
         lua_ls = {
           settings = {
             Lua = {
