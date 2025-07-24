@@ -34,4 +34,19 @@ return {                -- random plugins that don't need their own files
       debug = false                 -- Prints errors and the command which is run.
     }
   },
+  {
+    'kiddos/gemini.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    config = function()
+      require('gemini').setup({
+        api_key = vim.env.GEMINI_API_KEY,
+      })
+    end,
+  },
+  {
+    'coder/claudecode.nvim',
+    config = function()
+      require('claudecode').setup()
+    end,
+  },
 }
