@@ -74,25 +74,25 @@ return {
     -- See Commands section for default commands if you want to lazy load on them
     keys = {
       -- 🔁 Core actions
-      { '<leader>zc', ':CopilotChat<CR>', mode = 'n', desc = 'Chat with Copilot' },
-      { '<leader>zz', ':CopilotChatToggle<CR>', mode = 'n', desc = 'Toggle Chat Window' },
-      { '<leader>zr', ':CopilotChatReset<CR>', mode = 'n', desc = 'Reset Chat' },
+      { '<leader>apc', ':CopilotChat<CR>', mode = 'n', desc = 'Chat with Copilot' },
+      { '<leader>apz', ':CopilotChatToggle<CR>', mode = 'n', desc = 'Toggle Chat Window' },
+      { '<leader>apr', ':CopilotChatReset<CR>', mode = 'n', desc = 'Reset Chat' },
 
       -- 🤖 Visual selection prompts
-      { '<leader>ze', ':CopilotChatExplain<CR>', mode = 'v', desc = 'Explain Code' },
-      { '<leader>zf', ':CopilotChatFix<CR>', mode = 'v', desc = 'Fix Code Issues' },
-      { '<leader>zo', ':CopilotChatOptimize<CR>', mode = 'v', desc = 'Optimize Code' },
-      { '<leader>zd', ':CopilotChatDocs<CR>', mode = 'v', desc = 'Generate Docs' },
-      { '<leader>zn', ':CopilotChatReview<CR>', mode = 'v', desc = 'Review Code' },
-      { '<leader>zt', ':CopilotChatTests<CR>', mode = 'v', desc = 'Generate Tests' },
-      { '<leader>zs', ':CopilotChatCommit<CR>', mode = 'v', desc = 'Generate Commit for Selection' },
+      { '<leader>ape', ':CopilotChatExplain<CR>', mode = 'v', desc = 'Explain Code' },
+      { '<leader>apf', ':CopilotChatFix<CR>', mode = 'v', desc = 'Fix Code Issues' },
+      { '<leader>apo', ':CopilotChatOptimize<CR>', mode = 'v', desc = 'Optimize Code' },
+      { '<leader>apd', ':CopilotChatDocs<CR>', mode = 'v', desc = 'Generate Docs' },
+      { '<leader>apn', ':CopilotChatReview<CR>', mode = 'v', desc = 'Review Code' },
+      { '<leader>apt', ':CopilotChatTests<CR>', mode = 'v', desc = 'Generate Tests' },
+      { '<leader>aps', ':CopilotChatCommit<CR>', mode = 'v', desc = 'Generate Commit for Selection' },
 
       -- 🧠 Agent/model tools
-      { '<leader>za', ':CopilotChatAgents<CR>', mode = 'n', desc = 'Select Agent' },
-      { '<leader>zm', ':CopilotChatModels<CR>', mode = 'n', desc = 'Select Copilot Model' },
+      { '<leader>apa', ':CopilotChatAgents<CR>', mode = 'n', desc = 'Select Agent' },
+      { '<leader>apm', ':CopilotChatModels<CR>', mode = 'n', desc = 'Select Copilot Model' },
 
       -- 📝 Whole-buffer commit message
-      { '<leader>zM', ':CopilotChatCommit<CR>', mode = 'n', desc = 'Generate Commit Message' },
+      { '<leader>apM', ':CopilotChatCommit<CR>', mode = 'n', desc = 'Generate Commit Message' },
     },
   },
 }
