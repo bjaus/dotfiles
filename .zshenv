@@ -31,13 +31,12 @@ export AWS_SDK_LOAD_CONFIG=true
 export HISTSIZE=20000
 export HISTCONTROL=ignoredups
 
-# Secrets
-[[ -f "$HOME/.zsh-secrets" ]] && source "$HOME/.zsh-secrets"
-[[ -f "$HOME/.zsh-ltk" ]] && source "$HOME/.zsh-ltk"
-
 #AWSume alias to source the AWSume script
 alias awsume="source \$(pyenv which awsume)"
 
 #Auto-Complete function for AWSume
-#Auto-Complete function for AWSume
 fpath=(~/.awsume/zsh-autocomplete/ $fpath)
+
+# Secrets
+[[ -f "$HOME/.zsh-secrets" ]] && source "$HOME/.zsh-secrets"
+[[ -f "$HOME/.zsh-ltk" ]] && source "$HOME/.zsh-ltk"
