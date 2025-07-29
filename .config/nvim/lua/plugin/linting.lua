@@ -1,13 +1,20 @@
 return {
   -- https://github.com/mfussenegger/nvim-lint
   'mfussenegger/nvim-lint',
-  enabled = false,
+  enabled = true,
   event = { 'BufReadPre', 'BufNewFile' },
   config = function()
     local lint = require 'lint'
     lint.linters_by_ft = {
-      -- markdown = { 'markdownlint' },
+      javascript = { 'eslint_d' },
+      javascriptreact = { 'eslint_d' },
+      typescript = { 'eslint_d' },
+      typescriptreact = { 'eslint_d' },
       go = { 'golangcilint' },
+      python = { 'ruff', 'mypy' },
+      yaml = { 'yamllint' },
+      json = { 'jsonlint' },
+      toml = { 'taplo' },
     }
 
     -- Create autocommand which carries out the actual linting on the specified events.

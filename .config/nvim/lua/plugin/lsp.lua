@@ -100,6 +100,34 @@ return {
               enableVueSupport = true,
               takeOverMode = true,
             },
+            typescript = {
+              suggest = {
+                includeCompletionsForModuleExports = true,
+              },
+              inlayHints = {
+                includeInlayParameterNameHints = 'all',
+                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                includeInlayFunctionParameterTypeHints = true,
+                includeInlayVariableTypeHints = true,
+                includeInlayPropertyDeclarationTypeHints = true,
+                includeInlayFunctionLikeReturnTypeHints = true,
+                includeInlayEnumMemberValueHints = true,
+              },
+            },
+            javascript = {
+              suggest = {
+                includeCompletionsForModuleExports = true,
+              },
+              inlayHints = {
+                includeInlayParameterNameHints = 'all',
+                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                includeInlayFunctionParameterTypeHints = true,
+                includeInlayVariableTypeHints = true,
+                includeInlayPropertyDeclarationTypeHints = true,
+                includeInlayFunctionLikeReturnTypeHints = true,
+                includeInlayEnumMemberValueHints = true,
+              },
+            },
           },
         },
         lua_ls = {
@@ -128,6 +156,34 @@ return {
               format = { enable = true },
               hover = true,
               completion = true,
+              validate = true,
+              schemaStore = {
+                enable = true,
+                url = 'https://www.schemastore.org/api/json/catalog.json',
+              },
+              schemas = {
+                ['https://raw.githubusercontent.com/awslabs/goformation/main/schema/cloudformation.schema.json'] = {
+                  'cloudformation.yaml',
+                  'cloudformation.yml',
+                  'cfn-template.yaml',
+                  'cfn-template.yml',
+                  '**/cloudformation/**/*.yaml',
+                  '**/cloudformation/**/*.yml',
+                  '**/cfn/**/*.yaml',
+                  '**/cfn/**/*.yml',
+                },
+                kubernetes = '*.k8s.yaml',
+                ['http://json.schemastore.org/github-workflow'] = '.github/workflows/*.{yml,yaml}',
+                ['http://json.schemastore.org/github-action'] = '.github/action.{yml,yaml}',
+                ['http://json.schemastore.org/ansible-stable-2.9'] = 'roles/tasks/*.{yml,yaml}',
+                ['http://json.schemastore.org/prettierrc'] = '.prettierrc.{yml,yaml}',
+                ['http://json.schemastore.org/kustomization'] = 'kustomization.{yml,yaml}',
+                ['http://json.schemastore.org/ansible-playbook'] = '**/playbooks/**/*.{yml,yaml}',
+                ['http://json.schemastore.org/chart'] = 'Chart.{yml,yaml}',
+                ['https://json.schemastore.org/dependabot-v2'] = '.github/dependabot.{yml,yaml}',
+                ['https://json.schemastore.org/gitlab-ci'] = '*gitlab-ci*.{yml,yaml}',
+                ['https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.1/schema.json'] = '**/openapi/**/*.{yml,yaml}',
+              },
               customTags = {
                 '!And sequence',
                 '!Base64',
@@ -153,6 +209,21 @@ return {
             },
           },
         },
+        taplo = {
+          keys = {
+            {
+              'K',
+              function()
+                if vim.fn.expand '%:t' == 'Cargo.toml' and require('crates').popup_available() then
+                  require('crates').show_popup()
+                else
+                  vim.lsp.buf.hover()
+                end
+              end,
+              desc = 'Show Crate Documentation',
+            },
+          },
+        },
       }
 
       -- Install LSPs via mason-lspconfig
@@ -161,8 +232,17 @@ return {
       -- Extra non-LSP tools
       local ensure_tools = {
         'goimports-reviser',
+        'goimports',
         'delve',
         'stylua',
+        'prettier',
+        'eslint_d',
+        'ruff',
+        'mypy',
+        'yamllint',
+        'jsonlint',
+        'taplo',
+        'rustfmt',
       }
 
       require('mason').setup {

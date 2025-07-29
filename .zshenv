@@ -14,6 +14,7 @@ export PYTHONPATH="$HOME/.pyenv/shims/python:$HOME/.local/share/nvim/site/plugin
 
 # GitHub
 export GH_HOST="github.com"
+export GH_COPILOT_AGENT_MODE=1
 
 # Pipenv
 export PIPENV_VENV_IN_PROJECT=true
