@@ -34,12 +34,15 @@ fi
 }
 
 # Aliases
+alias ca='cursor-agent'
 alias cat="bat"
+alias cl='claude'
 alias clip="tr -d '\n' | pbcopy"
-alias pn="pnpm"
 alias nv="nvim"
+alias pn="pnpm"
 alias rmswp="rm -f /tmp/*.swp"
 alias ta='tmux attach -t "$(tmux ls | fzf | cut -d: -f1)"'
+alias md="glow"
 
 # Functions
 
@@ -155,3 +158,4 @@ export NVM_DIR="$HOME/.nvm"
 # Additional config
 [[ -f "$HOME/.tnsrc" ]] && source "$HOME/.tnsrc"
 [[ -f "$HOME/.zshrc.extended" ]] && source "$HOME/.zshrc.extended"
+export PATH="$HOME/.local/bin:$PATH"
