@@ -37,16 +37,20 @@ return {                -- random plugins that don't need their own files
   {
     'kiddos/gemini.nvim',
     dependencies = { 'nvim-lua/plenary.nvim' },
+    event = 'VeryLazy',
     config = function()
       require('gemini').setup({
         api_key = vim.env.GEMINI_API_KEY,
       })
+      require('config.keymaps').setup_gemini()
     end,
   },
   {
     'coder/claudecode.nvim',
+    event = 'VeryLazy',
     config = function()
       require('claudecode').setup()
+      require('config.keymaps').setup_claude()
     end,
   },
 }

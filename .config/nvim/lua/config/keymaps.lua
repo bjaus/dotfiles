@@ -10,6 +10,7 @@ function M.setup_which_key()
     { '<leader>ap', group = 'co[p]ilot' },
     { '<leader>ag', group = '[g]emini' },
     { '<leader>ac', group = '[c]laude' },
+    { '<leader>au', group = 'c[u]rsor' },
     -- { '<leader>d', group = '[d]ocument' },
     -- { '<leader>i', group = '[i]nspect' },
     -- { '<leader>k', group = '[k]ey' },
@@ -792,6 +793,11 @@ end
 
 function M.setup_peek(toggle)
   vim.keymap.set('n', '<leader>op', toggle, { desc = 'toggle markdown previewer' })
+end
+
+-- Load cursor-agent keymaps
+function M.setup_cursor_agent()
+  require('config.cursor-keymaps')
 end
 
 function M.setup_render_markdown()
