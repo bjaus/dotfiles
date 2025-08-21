@@ -33,7 +33,7 @@ fi
   eval "$(atuin init zsh)"
 }
 
-# Aliases
+# ==================== GENERAL ALIASES ====================
 alias ca='cursor-agent'
 alias cat="bat"
 alias cl='claude'
@@ -41,10 +41,286 @@ alias clip="tr -d '\n' | pbcopy"
 alias nv="nvim"
 alias pn="pnpm"
 alias rmswp="rm -f /tmp/*.swp"
-alias ta='tmux attach -t "$(tmux ls | fzf | cut -d: -f1)"'
 alias md="glow"
 
-# Functions
+# ==================== GIT ALIASES ====================
+# Matching your .gitconfig aliases for consistency
+alias g='git'
+
+# Status (matching your s, sb, ss aliases)
+alias gs='git s'        # git status
+alias gsb='git sb'      # git status -s -b
+alias gss='git ss'      # git status -s
+
+# Add (matching your a, aa, ap aliases)
+alias ga='git a'        # git add
+alias gaa='git aa'      # git add --all
+alias gap='git ap'      # git add --patch
+
+# Commit (matching your c, ca, cam, can, cm aliases)
+alias gc='git c'        # git commit
+alias gca='git ca'      # git commit --amend
+alias gcam='git cam'    # git commit -am
+alias gcan='git can'    # git commit --amend --no-edit
+alias gcm='git cm'      # git commit -m
+
+# Push (matching your ps, psf, pso, psoc aliases)
+alias gp='git ps'       # git push
+alias gpf='git psf'     # git push --force-with-lease
+alias gpo='git pso'     # git push origin
+alias gpoc='git psoc'   # git push origin current-branch
+
+# Pull (matching your pl, plo, plom aliases)
+alias gpl='git pl'      # git pull
+alias gplo='git plo'    # git pull origin
+alias gplom='git plom'  # git pull origin master
+
+# Fetch (matching your f, fa, fo aliases)
+alias gf='git f'        # git fetch
+alias gfa='git fa'      # git fetch --all
+alias gfo='git fo'      # git fetch origin
+
+# Diff (matching your d, dc, ds aliases)
+alias gd='git d'        # git diff
+alias gdc='git dc'      # git diff --cached
+alias gds='git ds'      # git diff --stat
+
+# Log (matching your l, lg, ll aliases)
+alias gl='git ll'       # git log --oneline
+alias glg='git lg'      # your custom pretty log
+alias glp='git lp'      # git log --patch
+
+# Branch (matching your b, ba, bd, bdd aliases)
+alias gb='git b'        # git branch
+alias gba='git ba'      # git branch -a
+alias gbd='git bd'      # git branch -d
+alias gbD='git bdd'     # git branch -D
+
+# Checkout (matching your o, ob, maino aliases)
+alias gco='git o'       # git checkout
+alias gcob='git ob'     # git checkout -b
+alias gcom='git maino'  # checkout main/master
+
+# Rebase (matching your rb, rba, rbc, rbi aliases)
+alias gr='git rb'       # git rebase
+alias gra='git rba'     # git rebase --abort
+alias grc='git rbc'     # git rebase --continue
+alias gri='git rbi'     # git rebase --interactive
+
+# Reset (matching your re, reh, rehh aliases)
+alias gre='git re'      # git reset
+alias greh='git reh'    # git reset --hard
+alias grehh='git rehh'  # git reset --hard HEAD
+
+# Stash (matching your sp, so, sa, sl, ssp aliases)
+alias gst='git sp'      # git stash push
+alias gstp='git so'     # git stash pop
+alias gsta='git sa'     # git stash apply
+alias gstl='git sl'     # git stash list
+alias gsts='git ssp'    # git stash show -p
+
+# Other (matching your cp, cpa, cpc, m, ma aliases)
+alias gcp='git cp'      # git cherry-pick
+alias gcpa='git cpa'    # git cherry-pick --abort
+alias gcpc='git cpc'    # git cherry-pick --continue
+alias gm='git m'        # git merge
+alias gma='git ma'      # git merge --abort
+
+# ==================== TMUX ALIASES ====================
+alias t='tmux'
+alias tn='tmux new -s'
+alias tl='tmux ls'
+alias ta='tmux attach -t "$(tmux ls | fzf | cut -d: -f1)"'
+alias tk='tmux kill-session -t'
+alias tka='tmux kill-server'
+alias td='tmux detach'
+alias ts='tmux switch -t'
+
+# ==================== GIT FUNCTIONS ====================
+
+# Interactive branch selection with preview
+function gco-fzf() {
+  local branches branch
+  branches=$(git --no-pager branch -vv) &&
+  branch=$(echo "$branches" | fzf +m --preview="git log --oneline --graph --decorate {1}" | awk '{print $1}' | sed "s/.* //") &&
+  git checkout "$branch"
+}
+
+# Delete multiple branches interactively
+function gb-delete() {
+  local branches
+  branches=$(git branch | grep -v "^\*" | fzf -m --preview="git log --oneline --graph --decorate {1} -10") &&
+  echo "$branches" | xargs -n 1 git branch -d
+}
+
+# Interactive commit selection for cherry-pick
+function gcp-fzf() {
+  local commits commit
+  commits=$(git log --oneline) &&
+  commit=$(echo "$commits" | fzf --preview="git show --stat {1}" | awk '{print $1}') &&
+  git cherry-pick "$commit"
+}
+
+# Show git log with file changes
+function git-files() {
+  git log --oneline | fzf --preview="git show --stat --color {1}" --preview-window=right:60%
+}
+
+# Interactive add with preview
+function ga-fzf() {
+  local files
+  files=$(git status -s | awk '{print $2}' | fzf -m --preview="git diff --color {}" --preview-window=right:60%) &&
+  echo "$files" | xargs git add
+}
+
+# Interactive reset with preview
+function greset-fzf() {
+  local files
+  files=$(git diff --staged --name-only | fzf -m --preview="git diff --staged --color {}" --preview-window=right:60%) &&
+  echo "$files" | xargs git reset HEAD
+}
+
+# Quick commit with generated message based on changes
+function gcq() {
+  local changes=$(git diff --staged --stat | head -n -1)
+  if [[ -z "$changes" ]]; then
+    echo "No staged changes to commit"
+    return 1
+  fi
+  local message="$1"
+  if [[ -z "$message" ]]; then
+    message=$(echo "$changes" | awk '{print $1}' | xargs | sed 's/ /, /g')
+    message="Update: $message"
+  fi
+  git commit -m "$message"
+}
+
+# Show commit diff by hash
+function gshow() {
+  git show $(git log --oneline | fzf --preview="git show --stat --color {1}" | awk '{print $1}')
+}
+
+# Interactive stash management (enhanced version of original)
+function gst-fzf() {
+  local stash action
+  stash=$(git stash list | fzf --preview="echo {} | cut -d: -f1 | xargs git stash show -p" --preview-window=right:60%) || return
+  [[ -z "$stash" ]] && return
+  
+  local ref=$(echo "$stash" | cut -d: -f1)
+  echo "Selected: $stash"
+  echo -n "Action [a]pply, [p]op, [d]rop, [s]how, [c]ancel: "
+  read action
+  
+  case "$action" in
+    a) git stash apply "$ref" ;;
+    p) git stash pop "$ref" ;;
+    d) git stash drop "$ref" ;;
+    s) git stash show -p "$ref" | less ;;
+    *) echo "Cancelled" ;;
+  esac
+}
+
+# Create worktree
+function gwt-new() {
+  local branch="$1"
+  local path="${2:-../$(basename $(pwd))-$branch}"
+  if [[ -z "$branch" ]]; then
+    echo "Usage: gwt-new <branch> [path]"
+    return 1
+  fi
+  git worktree add "$path" -b "$branch"
+  echo "Created worktree at $path for branch $branch"
+}
+
+# List and navigate worktrees
+function gwt() {
+  local worktree
+  worktree=$(git worktree list | fzf --preview="ls -la {2}" | awk '{print $1}')
+  [[ -n "$worktree" ]] && cd "$worktree"
+}
+
+# ==================== TMUX FUNCTIONS ====================
+
+# Create or attach to session with directory name
+function tns() {
+  local session_name="${1:-$(basename $(pwd))}"
+  tmux new-session -A -s "$session_name"
+}
+
+# Interactive session switcher with preview
+function ts-fzf() {
+  local session
+  session=$(tmux ls 2>/dev/null | fzf --preview="tmux list-windows -t {1}" | cut -d: -f1) &&
+  tmux switch-client -t "$session" 2>/dev/null || tmux attach -t "$session"
+}
+
+# Save tmux session layout
+function tmux-save() {
+  local session="${1:-$(tmux display-message -p '#S')}"
+  local file="${2:-~/.tmux-sessions/$session.txt}"
+  mkdir -p "$(dirname "$file")"
+  tmux list-windows -t "$session" -F "#{window_index}:#{window_name}:#{pane_current_path}" > "$file"
+  echo "Session layout saved to $file"
+}
+
+# Restore tmux session layout
+function tmux-restore() {
+  local file="${1:-~/.tmux-sessions/$(tmux display-message -p '#S').txt}"
+  if [[ ! -f "$file" ]]; then
+    echo "Layout file not found: $file"
+    return 1
+  fi
+  while IFS=: read -r index name path; do
+    tmux new-window -t ":$index" -n "$name" -c "$path" 2>/dev/null || \
+    tmux rename-window -t ":$index" "$name"
+  done < "$file"
+  echo "Session layout restored from $file"
+}
+
+# Quick pane navigation
+function tmux-pane() {
+  local pane
+  pane=$(tmux list-panes -F "#{pane_index}: #{pane_current_command} - #{pane_current_path}" | \
+    fzf --preview="tmux capture-pane -pt {1} | head -20" | cut -d: -f1) &&
+  tmux select-pane -t "$pane"
+}
+
+# Create new session in specific directory
+function tcd() {
+  local dir
+  dir=$(find ~ -type d -maxdepth 3 2>/dev/null | fzf) &&
+  tmux new-session -c "$dir" -s "$(basename "$dir")"
+}
+
+# Kill multiple sessions
+function tk-fzf() {
+  local sessions
+  sessions=$(tmux ls | fzf -m | cut -d: -f1) &&
+  echo "$sessions" | xargs -n1 tmux kill-session -t
+}
+
+# Rename current session
+function tr() {
+  local new_name="$1"
+  if [[ -z "$new_name" ]]; then
+    echo -n "New session name: "
+    read new_name
+  fi
+  tmux rename-session "$new_name"
+}
+
+# Send keys to all panes
+function tmux-send-all() {
+  local cmd="$*"
+  tmux list-panes -F '#{pane_id}' | xargs -I {} tmux send-keys -t {} "$cmd" Enter
+}
+
+# Quick window switcher
+function tw() {
+  local window
+  window=$(tmux list-windows -F "#{window_index}: #{window_name}" | fzf | cut -d: -f1) &&
+  tmux select-window -t "$window"
+}
 
 function tmux-rename() {
   local session
@@ -120,6 +396,27 @@ function git-checkout() {
   fi
 }
 
+# ==================== COMBINED GIT+TMUX FUNCTIONS ====================
+
+# Open git project in tmux
+function tgit() {
+  local repo
+  repo=$(find ~/ltk/repos -name .git -type d 2>/dev/null | sed 's/\.git$//' | fzf) &&
+  cd "$repo" &&
+  tns "$(basename "$repo")"
+}
+
+# Git status in all tmux panes
+function tgs() {
+  tmux list-panes -F '#{pane_id}:#{pane_current_path}' | while IFS=: read -r pane path; do
+    if [[ -d "$path/.git" ]]; then
+      echo "=== Pane $pane: $path ==="
+      git -C "$path" status -sb
+      echo
+    fi
+  done
+}
+
 # Integration
 
 ## AWSume
@@ -158,4 +455,14 @@ export NVM_DIR="$HOME/.nvm"
 # Additional config
 [[ -f "$HOME/.tnsrc" ]] && source "$HOME/.tnsrc"
 [[ -f "$HOME/.zshrc.extended" ]] && source "$HOME/.zshrc.extended"
+
+# Auto-start tmux server if not running
+if command -v tmux &>/dev/null && [[ -z "$TMUX" ]]; then
+  tmux has-session 2>/dev/null || tmux new-session -d -s default 2>/dev/null
+fi
+
+# Create tmux config symlink if it doesn't exist
+[[ ! -L "$HOME/.tmux.conf" && -f "$HOME/Projects/dotfiles/.tmux.conf" ]] && \
+  ln -s "$HOME/Projects/dotfiles/.tmux.conf" "$HOME/.tmux.conf"
+
 export PATH="$HOME/.local/bin:$PATH"
