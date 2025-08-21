@@ -3,7 +3,7 @@ local config = function()
 
   peek.setup {
     auto_load = true, -- whether to automatically load preview when entering another markdown buffer
-    close_on_bdelete = true, -- close preview window on buffer delete
+    close_on_bdelete = false, -- keep browser tab open when buffer is deleted
     syntax = true, -- enable syntax highlighting, affects performance
     theme = 'dark', -- 'dark' or 'light'
     update_on_change = true,
@@ -28,6 +28,15 @@ local config = function()
   vim.api.nvim_create_user_command('PeekOpen', peek.open, {})
   vim.api.nvim_create_user_command('PeekClose', peek.close, {})
   vim.api.nvim_create_user_command('PeekToggle', toggle, {})
+  
+  -- Prevent peek from closing when switching buffers or closing files
+  vim.api.nvim_create_autocmd({"BufWinLeave", "BufDelete", "BufWipeout"}, {
+    pattern = "*.md",
+    callback = function()
+      -- Override the default close behavior
+      return true
+    end,
+  })
 end
 
 return {
