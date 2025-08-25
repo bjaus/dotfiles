@@ -1,4 +1,8 @@
-# Check if running in cursor agent mode and use minimal config
+#!/usr/bin/env zsh
+# Optimized .zshrc for faster startup
+
+# ==================== CURSOR AGENT MODE CHECK ====================
+# Use minimal config when running in cursor agent to prevent flickering
 if [[ "$AGENT_MODE" = "true" ]] || [[ -n "$CURSOR_AGENT" ]]; then
     # Minimal config for cursor agent - no interactive features
     export PATH="$HOME/.local/bin:$HOME/.scripts:$HOME/scripts:$HOME/Library/pnpm:$HOME/.rd/bin:$PATH"
@@ -17,17 +21,67 @@ if [[ "$AGENT_MODE" = "true" ]] || [[ -n "$CURSOR_AGENT" ]]; then
     return
 fi
 
-# Oh My Zsh base
+# ==================== PERFORMANCE OPTIMIZATIONS ====================
+# Skip global compinit - we'll handle it ourselves
+skip_global_compinit=1
+
+# Oh My Zsh base (minimal setup)
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="zhann"
-plugins=(git aliases autojump emoji emotty)
+
+# Reduce plugins to essentials - load others on demand
+plugins=(git)  # Remove heavy plugins like autojump, emoji, emotty
+
+# Disable auto-update checks
+DISABLE_AUTO_UPDATE=true
+DISABLE_UPDATE_PROMPT=true
+
 source $ZSH/oh-my-zsh.sh
+
+# ==================== LAZY LOADING ====================
+
+# Lazy load NVM (biggest culprit - only loads when needed)
+export NVM_DIR="$HOME/.nvm"
+nvm() {
+  unset -f nvm node npm npx
+  [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
+  [ -s "$NVM_DIR/bash_completion" ] && source "$NVM_DIR/bash_completion"
+  nvm "$@"
+}
+node() { nvm; node "$@"; }
+npm() { nvm; npm "$@"; }
+npx() { nvm; npx "$@"; }
+
+# Lazy load pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/shims:$PATH"
+pyenv() {
+  unset -f pyenv
+  eval "$(command pyenv init --path)"
+  eval "$(command pyenv init -)"
+  pyenv "$@"
+}
+
+# Lazy load goenv
+export GOENV_ROOT="$HOME/.goenv"
+export PATH="$GOENV_ROOT/shims:$PATH"
+goenv() {
+  unset -f goenv
+  eval "$(command goenv init -)"
+  goenv "$@"
+}
+
+# Lazy load autojump
+j() {
+  unset -f j
+  [[ -f /opt/homebrew/etc/profile.d/autojump.sh ]] && source /opt/homebrew/etc/profile.d/autojump.sh
+  j "$@"
+}
+
+# ==================== FAST LOADING CONFIGS ====================
 
 # Enable vi mode
 bindkey -v
-
-# Setup autojump
-[[ -f /opt/homebrew/etc/profile.d/autojump.sh ]] && source /opt/homebrew/etc/profile.d/autojump.sh
 
 # PNPM
 export PNPM_HOME="$HOME/Library/pnpm"
@@ -46,11 +100,37 @@ else
   export EDITOR="nvim"
 fi
 
-# Atuin history shell integration
-[[ -f "$HOME/.config/atuin/config.toml" && -f "$HOME/.atuin/bin/env" ]] && {
-  source "$HOME/.atuin/bin/env"
-  eval "$(atuin init zsh)"
+# ==================== DEFERRED LOADING ====================
+# Load heavy features after prompt is shown
+function load_deferred() {
+  # Atuin history (load in background)
+  if [[ -f "$HOME/.config/atuin/config.toml" && -f "$HOME/.atuin/bin/env" ]]; then
+    source "$HOME/.atuin/bin/env"
+    eval "$(atuin init zsh)"
+  fi
+  
+  # Load compinit with cache
+  autoload -Uz compinit
+  if [[ -n "$ZSH_COMPDUMP" ]]; then
+    # Check cache once per day
+    if [[ ! -f "$ZSH_COMPDUMP" || "$ZSH_COMPDUMP" -ot /usr/share/zsh ]] || 
+       [[ ! -f "$ZSH_COMPDUMP.zwc" || "$ZSH_COMPDUMP" -ot "$ZSH_COMPDUMP.zwc" ]]; then
+      compinit -d "$ZSH_COMPDUMP"
+      # Compile the dump file for faster loading
+      [[ -f "$ZSH_COMPDUMP" && ! -f "$ZSH_COMPDUMP.zwc" ]] && zcompile "$ZSH_COMPDUMP"
+    else
+      compinit -C -d "$ZSH_COMPDUMP"
+    fi
+  else
+    compinit -C
+  fi
+  
+  # awsume completion
+  fpath=(~/.awsume/zsh-autocomplete/ $fpath)
 }
+
+# Run deferred loading in background after prompt
+(load_deferred &)
 
 # ==================== GENERAL ALIASES ====================
 alias ca='cursor-agent'
@@ -155,6 +235,11 @@ alias tka='tmux kill-server'
 alias td='tmux detach'
 alias ts='tmux switch -t'
 
+# ==================== FUNCTIONS (Load on demand) ====================
+# Source functions file only when needed
+if [[ ! -f "$HOME/.zsh_functions" ]]; then
+  # Create functions file on first run
+  cat > "$HOME/.zsh_functions" << 'EOF'
 # ==================== GIT FUNCTIONS ====================
 
 # Interactive branch selection with preview
@@ -318,11 +403,8 @@ function tk-fzf() {
   echo "$sessions" | xargs -n1 tmux kill-session -t
 }
 
-# Unset the old tr function if it exists (from cached shell state)
-unset -f tr 2>/dev/null || true
-
 # Rename current session
-function tmux-rename() {
+function tr() {
   local new_name="$1"
   if [[ -z "$new_name" ]]; then
     echo -n "New session name: "
@@ -438,27 +520,32 @@ function tgs() {
     fi
   done
 }
+EOF
+fi
 
-# Integration
+# Lazy load functions when first called (skip conflicting names)
+for func in gco-fzf gb-delete gcp-fzf git-files ga-fzf greset-fzf gcq gshow gst-fzf gwt-new gwt tns ts-fzf tmux-save tmux-restore tmux-pane tcd tk-fzf tmux-send-all tmux-rename tmux-kill tmux-kill-hard git-stash git-checkout tgit tgs; do
+  # Skip if already defined as alias
+  if ! alias $func &>/dev/null; then
+    eval "$func() { source ~/.zsh_functions; $func \"\$@\"; }"
+  fi
+done
 
-## AWSume
-# Unalias awsume if it exists (from previous configs)
-unalias awsume 2>/dev/null || true
+# ==================== INTEGRATION ====================
 
-# Wrapper function to handle awsume's tmux integration issues
+## AWSume (lazy load)
 awsume() {
-    # Temporarily unset TMUX-related env vars if not actually in tmux
+  unset -f awsume
+  # Wrapper function to handle awsume's tmux integration issues
+  awsume() {
     if [[ -z "$TMUX" ]]; then
-        # Not in tmux, but awsume might still try tmux commands
-        # Suppress tmux-related errors
-        source $(pyenv which awsume) "$@" 2> >(grep -v -E "(rename-session|tmux:)" >&2)
+      source $(command pyenv which awsume) "$@" 2> >(grep -v -E "(rename-session|tmux:)" >&2)
     else
-        # Actually in tmux, but still filter tmux errors from awsume
-        source $(pyenv which awsume) "$@" 2> >(grep -v -E "(rename-session.*unknown flag|tmux:)" >&2)
+      source $(command pyenv which awsume) "$@" 2> >(grep -v -E "(rename-session.*unknown flag|tmux:)" >&2)
     fi
+  }
+  awsume "$@"
 }
-
-fpath=(~/.awsume/zsh-autocomplete/ $fpath)
 
 ## Deduplicate PATH (Zsh feature)
 typeset -U path PATH
@@ -467,39 +554,17 @@ typeset -U path PATH
 export PATH="/Users/bjaus/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
 
-## pyenv init (interactive shell logic)
-if command -v pyenv &>/dev/null; then
-  eval "$(pyenv init --path)"
-  eval "$(pyenv init -)"
-fi
+export PATH="$HOME/.local/bin:$PATH"
 
-## Ensure goenv shims come first
-export PATH="$HOME/.goenv/shims:$PATH"
-
-## Initialize goenv (adds shims and dynamic version switching)
-if command -v goenv &>/dev/null; then
-  eval "$(goenv init -)"
-fi
-
-if command -v gh &>/dev/null; then
-  eval "$(gh copilot alias -- zsh)"
-fi
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
-
-# Additional config
+# Additional config (load only if exists)
 [[ -f "$HOME/.tnsrc" ]] && source "$HOME/.tnsrc"
 [[ -f "$HOME/.zshrc.extended" ]] && source "$HOME/.zshrc.extended"
 
-# Auto-start tmux server if not running
+# Auto-start tmux server if not running (background)
 if command -v tmux &>/dev/null && [[ -z "$TMUX" ]]; then
-  tmux has-session 2>/dev/null || tmux new-session -d -s default 2>/dev/null
+  (tmux has-session 2>/dev/null || tmux new-session -d -s default 2>/dev/null &)
 fi
 
-# Create tmux config symlink if it doesn't exist
-[[ ! -L "$HOME/.tmux.conf" && -f "$HOME/Projects/dotfiles/.tmux.conf" ]] && \
-  ln -s "$HOME/Projects/dotfiles/.tmux.conf" "$HOME/.tmux.conf"
-
-export PATH="$HOME/.local/bin:$PATH"
+# Create tmux config symlink if it doesn't exist (background)
+([[ ! -L "$HOME/.tmux.conf" && -f "$HOME/Projects/dotfiles/.tmux.conf" ]] && \
+  ln -s "$HOME/Projects/dotfiles/.tmux.conf" "$HOME/.tmux.conf" &)
