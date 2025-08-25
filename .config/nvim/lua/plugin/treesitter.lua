@@ -41,6 +41,7 @@ return {
         'diff',
         'dockerfile',
         'git_config',
+        'gitcommit',
         'gitignore',
         'go',
         'gomod',
@@ -82,7 +83,8 @@ return {
         'yaml',
       },
       -- Autoinstall languages that are not installed
-      auto_install = true,
+      -- Disable auto_install during git operations to prevent conflicts
+      auto_install = vim.fn.exists('$GIT_EXEC_PATH') == 0,
       highlight = {
         enable = true,
         disable = function(_, buf)
