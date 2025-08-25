@@ -1,12 +1,12 @@
 # ==================== PERFORMANCE OPTIMIZATIONS ====================
 # This .zshrc includes several optimizations for faster shell startup:
-# 1. Cursor agent detection - minimal config when in AGENT_MODE
+# 1. Cursor/Claude agent detection - minimal config when in AGENT_MODE
 # 2. Consider lazy loading heavy tools like NVM if startup is slow
 # 3. Oh My Zsh is loaded with selected plugins for balance of features/speed
 
-# Check if running in cursor agent mode and use minimal config
-if [[ "$AGENT_MODE" = "true" ]] || [[ -n "$CURSOR_AGENT" ]]; then
-    # Minimal config for cursor agent - no interactive features
+# Check if running in cursor or claude agent mode and use minimal config
+if [[ "$AGENT_MODE" = "true" ]] || [[ -n "$CURSOR_AGENT" ]] || [[ -n "$CLAUDECODE" ]] || [[ -n "$CLAUDE_CODE_ENTRYPOINT" ]]; then
+    # Minimal config for AI code assistants - no interactive features
     export PATH="$HOME/.local/bin:$HOME/.scripts:$HOME/scripts:$HOME/Library/pnpm:$HOME/.rd/bin:$PATH"
     export EDITOR="nvim"
     export LANG="en_US.UTF-8"
