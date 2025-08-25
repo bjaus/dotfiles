@@ -1,3 +1,9 @@
+# ==================== PERFORMANCE OPTIMIZATIONS ====================
+# This .zshrc includes several optimizations for faster shell startup:
+# 1. Cursor agent detection - minimal config when in AGENT_MODE
+# 2. Consider lazy loading heavy tools like NVM if startup is slow
+# 3. Oh My Zsh is loaded with selected plugins for balance of features/speed
+
 # Check if running in cursor agent mode and use minimal config
 if [[ "$AGENT_MODE" = "true" ]] || [[ -n "$CURSOR_AGENT" ]]; then
     # Minimal config for cursor agent - no interactive features
