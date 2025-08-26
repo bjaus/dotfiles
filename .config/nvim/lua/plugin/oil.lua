@@ -133,7 +133,7 @@ return {
     -- Open parent directory in current window
     keys = {
       { "-", "<CMD>Oil<CR>", desc = "Open parent directory" },
-      { "<leader>-", require("oil").toggle_float, desc = "Open parent directory in float" },
+      { "<leader>-", function() require("oil").toggle_float() end, desc = "Open parent directory in float" },
     },
   },
 }
