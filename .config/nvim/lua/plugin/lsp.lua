@@ -39,6 +39,12 @@ return {
         callback = function(event)
           require('config.keymaps').setup_lsp(event)
           require('config.autocmds').setup_lsp_highlight(event)
+          
+          -- Enable inlay hints if supported
+          local client = vim.lsp.get_client_by_id(event.data.client_id)
+          if client and client.server_capabilities.inlayHintProvider then
+            vim.lsp.inlay_hint.enable(true, { bufnr = event.buf })
+          end
         end,
       })
 
@@ -76,7 +82,46 @@ return {
 
       -- Server configurations
       local servers = {
-        gopls = {},
+        gopls = {
+          settings = {
+            gopls = {
+              hints = {
+                assignVariableTypes = true,
+                compositeLiteralFields = true,
+                compositeLiteralTypes = true,
+                constantValues = true,
+                functionTypeParameters = true,
+                parameterNames = true,
+                rangeVariableTypes = true,
+              },
+              analyses = {
+                unusedparams = true,
+                shadow = true,
+              },
+              staticcheck = true,
+              usePlaceholders = true,
+              codelenses = {
+                gc_details = false,
+                generate = true,
+                regenerate_cgo = true,
+                run_govulncheck = true,
+                test = true,
+                tidy = true,
+                upgrade_dependency = true,
+                vendor = true,
+              },
+              semanticTokens = true,
+            },
+          },
+          capabilities = {
+            textDocument = {
+              foldingRange = {
+                dynamicRegistration = false,
+                lineFoldingOnly = true,
+              },
+            },
+          },
+        },
         pyright = {},
         rust_analyzer = {},
         intelephense = {},
