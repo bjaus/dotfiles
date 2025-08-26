@@ -261,14 +261,10 @@ function M.setup_coderunner()
   map_normal_mode('<leader>rf', ':RunFile term<CR>', 'run file')
 end
 
-function M.setup_neotree()
-  return {
-    { '<leader>eb', '<cmd>Neotree source=buffers reveal=true position=left action=focus<cr>', desc = 'explore buffers' },
-    { '<leader>ec', '<cmd>Neotree action=close<cr>', desc = 'close explorer' },
-    { '<leader>eo', '<cmd>Neotree source=filesystem reveal=true position=left action=focus<cr>', desc = 'explore filesystem' },
-    { '<leader>eg', '<cmd>Neotree source=git_status reveal=true position=left action=focus<cr>', desc = 'explore git status' },
-    { '<leader>es', '<cmd>Neotree source=document_symbols reveal=true position=left action=focus<cr>', desc = 'explore document symbols' },
-  }
+-- Removed: neotree keybindings - replaced by oil.nvim
+-- Oil.nvim uses: '-' to open parent directory, '<leader>-' for floating window
+function M.setup_oil()
+  return {} -- Oil keybindings are in the plugin config
 end
 
 function M.setup_gitsigns(bufnr)
