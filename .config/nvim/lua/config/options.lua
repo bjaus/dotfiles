@@ -1,6 +1,6 @@
 M = {}
 
---  vim.env.PATH = os.getenv 'HOME' .. '/.goenv/shims:' .. vim.env.PATH
+vim.env.PATH = os.getenv 'HOME' .. '/.goenv/shims:' .. vim.env.PATH
 
 -- See `:help mapleader`
 vim.g.mapleader = ' '

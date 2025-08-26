@@ -41,6 +41,14 @@ return {
     vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWritePost', 'InsertLeave' }, {
       group = vim.api.nvim_create_augroup('lint', { clear = true }),
       callback = function()
+        -- For Go files, only lint if we're in a Go module
+        if vim.bo.filetype == 'go' then
+          -- Check if go.mod exists in the current directory or any parent
+          local go_mod = vim.fn.findfile('go.mod', '.;')
+          if go_mod == '' then
+            return -- Don't lint if not in a Go module
+          end
+        end
         lint.try_lint()
       end,
     })
