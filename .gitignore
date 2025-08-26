@@ -1,3 +1,5 @@
 .zsh-secrets
 lazy-lock.json
 db.lua
+# Machine-specific completions
+.zsh/completions/_ktl

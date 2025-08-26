@@ -38,6 +38,19 @@ fi
 # 2. Consider lazy loading heavy tools like NVM if startup is slow
 # 3. Oh My Zsh is loaded with selected plugins for balance of features/speed
 
+# ==================== SHELL COMPLETIONS ====================
+# Add custom completion directory to fpath (only if it exists)
+[[ -d ~/.zsh/completions ]] && fpath=(~/.zsh/completions $fpath)
+
+# Initialize completions
+autoload -Uz compinit && compinit
+
+# Machine-specific completions (only load if the tool exists)
+if command -v ktl &>/dev/null && [[ -f ~/.zsh/completions/_ktl ]]; then
+  # ktl completion is available
+  :
+fi
+
 # Oh My Zsh base
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="zhann"
