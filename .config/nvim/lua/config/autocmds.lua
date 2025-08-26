@@ -9,6 +9,37 @@ M = {}
 
 vim.api.nvim_create_autocmd({ 'BufWritePre' }, { pattern = { '*.templ' }, callback = vim.lsp.buf.format })
 
+-- CloudFormation file detection
+autocmd({ 'BufRead', 'BufNewFile' }, {
+  pattern = {
+    'template.yaml',
+    'template.yml',
+    'template.json',
+    '**/cloudformation/*.yaml',
+    '**/cloudformation/*.yml',
+    '**/cloudformation/*.json',
+    '**/cfn/*.yaml',
+    '**/cfn/*.yml',
+    '**/cfn/*.json',
+    '*-stack.yaml',
+    '*-stack.yml',
+    '*-stack.json',
+    '*.cfn.yaml',
+    '*.cfn.yml',
+    '*.cfn.json',
+  },
+  callback = function()
+    -- Set filetype to yaml.cloudformation for better detection
+    if vim.fn.expand('%:e') == 'json' then
+      vim.bo.filetype = 'json'
+    else
+      vim.bo.filetype = 'yaml'
+    end
+    -- Add a buffer variable to indicate this is a CloudFormation template
+    vim.b.is_cloudformation = true
+  end,
+})
+
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
 --  See `:help vim.highlight.on_yank()`

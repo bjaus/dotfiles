@@ -5,11 +5,24 @@ if [[ -n "$CLAUDECODE" ]] || [[ -n "$CLAUDE_CODE_ENTRYPOINT" ]] || [[ -n "$CURSO
     export PATH="$HOME/.local/bin:$HOME/.scripts:$HOME/scripts:$HOME/Library/pnpm:$HOME/.rd/bin:$PATH"
     export EDITOR="nvim"
     export LANG="en_US.UTF-8"
-    export TERM="xterm-256color"
     
-    # Disable ALL interactive features
+    # Set proper TERM for AI tools - avoid tmux-specific terms that might cause issues
+    if [[ -n "$TMUX" ]]; then
+        export TERM="screen-256color"
+    else
+        export TERM="xterm-256color"
+    fi
+    
+    # Disable ALL interactive features to prevent terminal drawing issues
     unsetopt zle promptsp prompt_subst
     setopt no_prompt_cr no_prompt_sp
+    
+    # Disable any potential tmux auto-commands
+    unset TMUX_TMPDIR
+    
+    # Tell applications to use simple output mode
+    export SIMPLE_PROMPT=1
+    export NO_COLOR=1
     
     # Essential aliases only
     alias g='git'

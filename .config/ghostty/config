@@ -1,0 +1,32 @@
+# Ghostty Configuration for AI Tools Compatibility
+
+# Font configuration
+font-family = "JetBrainsMono Nerd Font"
+font-size = 14
+
+# Performance settings to reduce flickering
+# Enable synchronized output support
+sync-updates = true
+
+# Reduce cursor blinking which can cause visual noise
+cursor-blink = false
+
+# Set proper terminfo
+term = xterm-ghostty
+
+# Window padding for better readability
+window-padding-x = 10
+window-padding-y = 10
+
+# Color scheme
+theme = dark
+
+# Shell integration
+shell-integration = detect
+shell-integration-features = cursor,sudo,title
+
+# Disable features that might cause flickering
+animations = false
+
+# Scrollback
+scrollback-limit = 10000
