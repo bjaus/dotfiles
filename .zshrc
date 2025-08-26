@@ -506,9 +506,26 @@ if command -v gh &>/dev/null; then
   eval "$(gh copilot alias -- zsh)"
 fi
 
+# ==================== NVM LAZY LOADING ====================
+# NVM is slow to load, so we lazy-load it on first use
 export NVM_DIR="$HOME/.nvm"
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+# Create placeholder functions for nvm, node, npm, npx, yarn, pnpm that load NVM on first use
+lazy_load_nvm() {
+  unset -f nvm node npm npx yarn pnpm
+  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
+  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
+}
+
+# Create stub functions that will load NVM when first called
+for cmd in nvm node npm npx yarn pnpm; do
+  eval "
+    $cmd() {
+      lazy_load_nvm
+      $cmd \"\$@\"
+    }
+  "
+done
 
 # Additional config
 [[ -f "$HOME/.tnsrc" ]] && source "$HOME/.tnsrc"
