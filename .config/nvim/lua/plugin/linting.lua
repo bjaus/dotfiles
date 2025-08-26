@@ -48,8 +48,17 @@ return {
           if go_mod == '' then
             return -- Don't lint if not in a Go module
           end
+          -- Additional check: ensure we're not in a vendor directory
+          local current_file = vim.fn.expand('%:p')
+          if current_file:match('/vendor/') then
+            return -- Don't lint vendor files
+          end
         end
-        lint.try_lint()
+        
+        -- Wrap in pcall to prevent errors from disrupting workflow
+        pcall(function()
+          lint.try_lint()
+        end)
       end,
     })
   end,
