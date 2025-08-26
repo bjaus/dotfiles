@@ -7,7 +7,138 @@ local autocmd = vim.api.nvim_create_autocmd
 
 M = {}
 
-vim.api.nvim_create_autocmd({ 'BufWritePre' }, { pattern = { '*.templ' }, callback = vim.lsp.buf.format })
+-- Format on save for all file types with LSP support
+vim.api.nvim_create_autocmd('BufWritePre', {
+  pattern = '*',
+  callback = function(args)
+    -- Don't format if the buffer is not modifiable
+    if not vim.bo[args.buf].modifiable then
+      return
+    end
+    
+    -- Check if any LSP client supports formatting
+    local clients = vim.lsp.get_clients({ bufnr = args.buf })
+    for _, client in ipairs(clients) do
+      if client.supports_method('textDocument/formatting') then
+        vim.lsp.buf.format({ bufnr = args.buf })
+        return
+      end
+    end
+  end,
+})
+
+-- Go-specific keymaps and features
+autocmd({ 'FileType' }, {
+  pattern = 'go',
+  callback = function()
+    local bufnr = vim.api.nvim_get_current_buf()
+    
+    -- Jump to function/method signature
+    vim.keymap.set('n', 'gfs', function()
+      -- Save current position
+      local pos = vim.api.nvim_win_get_cursor(0)
+      -- Search backwards for func keyword
+      local found = vim.fn.search([[\v^func|^type\s+\w+\s+interface]], 'bcnW')
+      if found == 0 then
+        -- If not found backwards, we might be above the function, search forward
+        found = vim.fn.search([[\v^func|^type\s+\w+\s+interface]], 'cnW')
+      end
+      if found == 0 then
+        vim.notify("No function signature found", vim.log.levels.WARN)
+      end
+    end, { buffer = bufnr, desc = 'Go: Jump to function signature' })
+    
+    -- Jump to function return values
+    vim.keymap.set('n', 'gfr', function()
+      -- Save position
+      local pos = vim.api.nvim_win_get_cursor(0)
+      -- Find the function we're in
+      local found = vim.fn.search([[\v^func]], 'bcnW')
+      if found > 0 then
+        -- Jump to that line
+        vim.api.nvim_win_set_cursor(0, {found, 0})
+        -- Find the opening paren
+        vim.fn.search('(', 'c', found)
+        -- Jump to matching paren
+        vim.cmd('normal! %')
+        -- Move right to get to return type
+        vim.cmd('normal! l')
+      else
+        vim.notify("No function found", vim.log.levels.WARN)
+      end
+    end, { buffer = bufnr, desc = 'Go: Jump to function return type' })
+    
+    -- Show current function signature in floating window
+    vim.keymap.set('n', 'gF', function()
+      -- Find the function signature line
+      local found_line = vim.fn.search([[\v^func]], 'bcn')
+      if found_line == 0 then
+        found_line = vim.fn.search([[\v^func]], 'cn')
+      end
+      
+      if found_line > 0 then
+        -- Get the function signature
+        local lines = vim.api.nvim_buf_get_lines(bufnr, found_line - 1, found_line, false)
+        if #lines > 0 then
+          local signature = lines[1]
+          
+          -- Check if signature continues on next lines (multi-line signatures)
+          local next_line = found_line
+          local full_sig = signature
+          while not full_sig:match('{') and next_line < vim.api.nvim_buf_line_count(bufnr) do
+            next_line = next_line + 1
+            local next = vim.api.nvim_buf_get_lines(bufnr, next_line - 1, next_line, false)[1]
+            if next then
+              full_sig = full_sig .. " " .. vim.trim(next)
+              if next:match('{') then
+                break
+              end
+            else
+              break
+            end
+          end
+          
+          -- Clean up the signature (remove the opening brace)
+          full_sig = full_sig:gsub('{.*', '')
+          
+          -- Create floating window
+          local width = math.min(100, #full_sig + 4)
+          local height = 1
+          local buf = vim.api.nvim_create_buf(false, true)
+          
+          -- Set the content
+          vim.api.nvim_buf_set_lines(buf, 0, -1, false, {full_sig})
+          
+          -- Add syntax highlighting
+          vim.api.nvim_buf_set_option(buf, 'filetype', 'go')
+          
+          -- Create the window
+          local win = vim.api.nvim_open_win(buf, false, {
+            relative = 'cursor',
+            row = -2,
+            col = 0,
+            width = width,
+            height = height,
+            style = 'minimal',
+            border = 'rounded',
+          })
+          
+          -- Auto close after 3 seconds
+          vim.defer_fn(function()
+            if vim.api.nvim_win_is_valid(win) then
+              vim.api.nvim_win_close(win, true)
+            end
+            if vim.api.nvim_buf_is_valid(buf) then
+              vim.api.nvim_buf_delete(buf, { force = true })
+            end
+          end, 3000)
+        end
+      else
+        vim.notify("No function signature found", vim.log.levels.WARN)
+      end
+    end, { buffer = bufnr, desc = 'Go: Show function signature in popup' })
+  end,
+})
 
 -- CloudFormation file detection
 autocmd({ 'BufRead', 'BufNewFile' }, {
@@ -37,6 +168,25 @@ autocmd({ 'BufRead', 'BufNewFile' }, {
     end
     -- Add a buffer variable to indicate this is a CloudFormation template
     vim.b.is_cloudformation = true
+  end,
+})
+
+-- Spell checking for markdown, text, and git commits
+autocmd({ 'FileType' }, {
+  pattern = { 'markdown', 'text', 'gitcommit' },
+  callback = function()
+    vim.opt_local.spell = true
+    vim.opt_local.spelllang = 'en_us'
+  end,
+})
+
+-- Spell checking in comments for all programming languages
+autocmd({ 'FileType' }, {
+  pattern = { 'go', 'python', 'javascript', 'typescript', 'lua', 'rust', 'c', 'cpp' },
+  callback = function()
+    vim.opt_local.spell = true
+    vim.opt_local.spelllang = 'en_us'
+    vim.opt_local.spelloptions = 'camel'  -- Recognize camelCase words
   end,
 })
 
