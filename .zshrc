@@ -1,27 +1,29 @@
-# ==================== PERFORMANCE OPTIMIZATIONS ====================
-# This .zshrc includes several optimizations for faster shell startup:
-# 1. Cursor/Claude agent detection - minimal config when in AGENT_MODE
-# 2. Consider lazy loading heavy tools like NVM if startup is slow
-# 3. Oh My Zsh is loaded with selected plugins for balance of features/speed
-
-# Check if running in cursor or claude agent mode and use minimal config
-if [[ "$AGENT_MODE" = "true" ]] || [[ -n "$CURSOR_AGENT" ]] || [[ -n "$CLAUDECODE" ]] || [[ -n "$CLAUDE_CODE_ENTRYPOINT" ]]; then
-    # Minimal config for AI code assistants - no interactive features
+# ==================== AI ASSISTANT DETECTION ====================
+# IMMEDIATE CHECK - Must be first to prevent any interactive features
+if [[ -n "$CLAUDECODE" ]] || [[ -n "$CLAUDE_CODE_ENTRYPOINT" ]] || [[ -n "$CURSOR_AGENT" ]] || [[ "$AGENT_MODE" = "true" ]]; then
+    # Absolute minimal config for AI assistants
     export PATH="$HOME/.local/bin:$HOME/.scripts:$HOME/scripts:$HOME/Library/pnpm:$HOME/.rd/bin:$PATH"
     export EDITOR="nvim"
     export LANG="en_US.UTF-8"
+    export TERM="xterm-256color"
     
-    # Basic git aliases only
+    # Disable ALL interactive features
+    unsetopt zle promptsp prompt_subst
+    setopt no_prompt_cr no_prompt_sp
+    
+    # Essential aliases only
     alias g='git'
     alias gs='git status'
-    alias ga='git add'
-    alias gc='git commit'
-    alias gp='git push'
-    alias gd='git diff'
     
-    # Skip all interactive features
-    return
+    # Exit immediately - no further config needed
+    return 0 2>/dev/null || exit 0
 fi
+
+# ==================== PERFORMANCE OPTIMIZATIONS ====================
+# This .zshrc includes several optimizations for faster shell startup:
+# 1. AI assistant detection at the very top prevents loading interactive features
+# 2. Consider lazy loading heavy tools like NVM if startup is slow
+# 3. Oh My Zsh is loaded with selected plugins for balance of features/speed
 
 # Oh My Zsh base
 export ZSH="$HOME/.oh-my-zsh"
