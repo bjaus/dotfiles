@@ -2,6 +2,7 @@
   editor = nvim
   excludesfile = ~/.gitignore
   whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
+  hooksPath = /Users/bjaus/.config/git/hooks
 
 [init]
   defaultBranch = main
