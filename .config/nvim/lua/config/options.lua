@@ -76,6 +76,11 @@ vim.api.nvim_create_autocmd('FileType', {
 -- session options
 vim.opt.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
 
+-- Undo persistence - save undo history between sessions
+vim.opt.undofile = true
+vim.opt.undolevels = 10000
+vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+
 -- format options
 vim.opt.formatoptions = '1cjnpqr'
 
