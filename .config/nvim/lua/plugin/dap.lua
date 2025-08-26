@@ -1,101 +1,129 @@
 return {
-  -- {
-  --   "mfussenegger/nvim-dap",
-  --   enabled = false,
-  --   event = "VeryLazy",
-  --   dependencies = {
-  --     {
-  --       "rcarriga/nvim-dap-ui",
-  --       dependencies = {
-  --         "nvim-neotest/nvim-nio",
-  --       },
-  --       opts = {},
-  --       config = function(_, opts)
-  --         -- setup dap config by VsCode launch.json file
-  --         -- require("dap.ext.vscode").load_launchjs()
-  --         local dap = require("dap")
-  --         local dapui = require("dapui")
-  --         dapui.setup(opts)
-  --         dap.listeners.after.event_initialized["dapui_config"] = function()
-  --           dapui.open({})
-  --         end
-  --         dap.listeners.before.event_terminated["dapui_config"] = function()
-  --           dapui.close({})
-  --         end
-  --         dap.listeners.before.event_exited["dapui_config"] = function()
-  --           dapui.close({})
-  --         end
-  --       end,
-  --       keys = require("config.keymaps").setup_dap_ui_keymaps(),
-  --     },
-  --     {
-  --       "theHamsta/nvim-dap-virtual-text",
-  --       opts = {},
-  --     },
-  --     {
-  --       "jay-babu/mason-nvim-dap.nvim",
-  --       dependencies = {
-  --         "williamboman/mason.nvim",
-  --         -- "mfussenegger/nvim-dap",
-  --       },
-  --       cmd = { "DapInstall", "DapUninstall" },
-  --       opts = {
-  --         -- Makes a best effort to setup the various debuggers with
-  --         -- reasonable debug configurations
-  --         automatic_installation = true,
-  --
-  --         -- You can provide additional configuration to the handlers,
-  --         -- see mason-nvim-dap README for more information
-  --         handlers = {},
-  --
-  --         -- You'll need to check that you have the required things installed
-  --         -- online, please don't ask me how to install them :)
-  --         ensure_installed = {
-  --           -- Update this to ensure that you have the debuggers for the langs you want
-  --         },
-  --       },
-  --     },
-  --     {
-  --       "nvim-lualine/lualine.nvim",
-  --       opts = function(_, opts)
-  --         local function dap_status()
-  --           return "  " .. require("dap").status()
-  --         end
-  --
-  --         opts.dap_status = {
-  --           lualine_component = {
-  --             dap_status,
-  --             cond = function()
-  --               -- return package.loaded["dap"] and require("dap").status() ~= ""
-  --               return require("dap").status() ~= ""
-  --             end,
-  --             color = require("utils.colors").fgcolor("Debug"),
-  --           },
-  --         }
-  --       end,
-  --     },
-  --   },
-  --   config = function(_, opts)
-  --     -- Set nice color highlighting at the stopped line
-  --     -- vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
-  --
-  --     -- Show nice icons in gutter instead of the default characters
-  --     for name, sign in pairs(require("utils.defaults").icons.dap) do
-  --       sign = type(sign) == "table" and sign or { sign }
-  --       vim.fn.sign_define("Dap" .. name, {
-  --         text = sign[1],
-  --         texthl = sign[2] or "DiagnosticInfo",
-  --         linehl = sign[3],
-  --         numhl = sign[3],
-  --       })
-  --     end
-  --
-  --     local dap = require("dap")
-  --     if opts.configurations ~= nil then
-  --       local merged = require("utils.table").deep_tbl_extend(dap.configurations, opts.configurations)
-  --       dap.configurations = merged
-  --     end
-  --   end,
-  --   keys = require("config.keymaps").setup_dap_keymaps(),
-  -- },
+  {
+    "mfussenegger/nvim-dap",
+    event = "VeryLazy",
+    dependencies = {
+      -- UI for debugging
+      {
+        "rcarriga/nvim-dap-ui",
+        dependencies = { "nvim-neotest/nvim-nio" },
+        config = function()
+          local dap = require("dap")
+          local dapui = require("dapui")
+          
+          dapui.setup({
+            layouts = {
+              {
+                elements = {
+                  { id = "scopes", size = 0.25 },
+                  { id = "breakpoints", size = 0.25 },
+                  { id = "stacks", size = 0.25 },
+                  { id = "watches", size = 0.25 },
+                },
+                position = "left",
+                size = 40,
+              },
+              {
+                elements = {
+                  { id = "repl", size = 0.5 },
+                  { id = "console", size = 0.5 },
+                },
+                position = "bottom",
+                size = 10,
+              },
+            },
+          })
+          
+          -- Auto open/close UI
+          dap.listeners.after.event_initialized["dapui_config"] = function()
+            dapui.open()
+          end
+          dap.listeners.before.event_terminated["dapui_config"] = function()
+            dapui.close()
+          end
+          dap.listeners.before.event_exited["dapui_config"] = function()
+            dapui.close()
+          end
+        end,
+      },
+      -- Virtual text for debugging
+      {
+        "theHamsta/nvim-dap-virtual-text",
+        config = function()
+          require("nvim-dap-virtual-text").setup()
+        end,
+      },
+      -- Install debug adapters
+      {
+        "jay-babu/mason-nvim-dap.nvim",
+        dependencies = "williamboman/mason.nvim",
+        cmd = { "DapInstall", "DapUninstall" },
+        config = function()
+          require("mason-nvim-dap").setup({
+            automatic_installation = true,
+            ensure_installed = { "delve" }, -- Go debugger
+          })
+        end,
+      },
+      -- Go specific debugging
+      {
+        "leoluz/nvim-dap-go",
+        ft = "go",
+        config = function()
+          require("dap-go").setup({
+            -- Additional dap configurations can be added here
+            dap_configurations = {
+              {
+                type = "go",
+                name = "Debug test (go.mod)",
+                request = "launch",
+                mode = "test",
+                program = "${workspaceFolder}",
+              },
+            },
+            -- delve configurations
+            delve = {
+              path = "dlv",
+              initialize_timeout_sec = 20,
+              port = "${port}",
+              args = {},
+              build_flags = "",
+            },
+          })
+        end,
+      },
+    },
+    config = function()
+      local dap = require("dap")
+      
+      -- Set up icons
+      vim.fn.sign_define("DapBreakpoint", { text = "🔴", texthl = "DapBreakpoint", linehl = "", numhl = "" })
+      vim.fn.sign_define("DapBreakpointCondition", { text = "🟡", texthl = "DapBreakpoint", linehl = "", numhl = "" })
+      vim.fn.sign_define("DapBreakpointRejected", { text = "⚫", texthl = "DapBreakpoint", linehl = "", numhl = "" })
+      vim.fn.sign_define("DapLogPoint", { text = "📝", texthl = "DapLogPoint", linehl = "", numhl = "" })
+      vim.fn.sign_define("DapStopped", { text = "▶️", texthl = "DapStopped", linehl = "DapStoppedLine", numhl = "" })
+      
+      -- Highlight groups
+      vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
+    end,
+    keys = {
+      -- Debugging controls
+      { "<F5>", function() require("dap").continue() end, desc = "Debug: Continue" },
+      { "<F10>", function() require("dap").step_over() end, desc = "Debug: Step Over" },
+      { "<F11>", function() require("dap").step_into() end, desc = "Debug: Step Into" },
+      { "<F12>", function() require("dap").step_out() end, desc = "Debug: Step Out" },
+      { "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "Debug: Toggle Breakpoint" },
+      { "<leader>dB", function() require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: ")) end, desc = "Debug: Set Conditional Breakpoint" },
+      { "<leader>dr", function() require("dap").repl.open() end, desc = "Debug: Open REPL" },
+      { "<leader>dl", function() require("dap").run_last() end, desc = "Debug: Run Last" },
+      { "<leader>dc", function() require("dap").continue() end, desc = "Debug: Continue" },
+      { "<leader>dt", function() require("dap").terminate() end, desc = "Debug: Terminate" },
+      { "<leader>du", function() require("dapui").toggle() end, desc = "Debug: Toggle UI" },
+      { "<leader>de", function() require("dapui").eval() end, desc = "Debug: Eval", mode = { "n", "v" } },
+      
+      -- Go specific debugging
+      { "<leader>dgt", function() require("dap-go").debug_test() end, desc = "Debug: Go Test", ft = "go" },
+      { "<leader>dgl", function() require("dap-go").debug_last_test() end, desc = "Debug: Go Last Test", ft = "go" },
+    },
+  },
 }

@@ -276,7 +276,7 @@ return {
       local ensure_tools = {
         'goimports-reviser',
         'goimports',
-        'delve',
+        'delve',  -- Go debugger for DAP
         'stylua',
         'prettier',
         'eslint_d',
