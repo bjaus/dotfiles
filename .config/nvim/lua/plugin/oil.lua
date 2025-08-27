@@ -7,34 +7,37 @@ return {
       
       -- Custom yank function for oil buffers
       local function oil_yank()
-        -- Get visual selection if in visual mode
         local mode = vim.fn.mode()
+        
         if mode == 'v' or mode == 'V' or mode == '' then
-          -- Get selected lines
-          local start_line = vim.fn.line("'<")
-          local end_line = vim.fn.line("'>")
-          local lines = {}
+          -- Visual mode - get selected range
+          local start_line = vim.fn.line("v")
+          local end_line = vim.fn.line(".")
           
-          for line_num = start_line, end_line do
-            local entry = oil.get_entry_on_line(0, line_num)
-            if entry then
-              table.insert(lines, entry.name)
+          -- Ensure start is before end
+          if start_line > end_line then
+            start_line, end_line = end_line, start_line
+          end
+          
+          local filenames = {}
+          for line = start_line, end_line do
+            local entry = oil.get_entry_on_line(0, line)
+            if entry and entry.name then
+              table.insert(filenames, entry.name)
             end
           end
           
-          if #lines > 0 then
-            -- Join without trailing newline and copy to system clipboard
-            local text = table.concat(lines, "\n")
+          if #filenames > 0 then
+            local text = table.concat(filenames, "\n")
             vim.fn.setreg('+', text)
             vim.fn.setreg('"', text)
-            -- Exit visual mode
-            vim.cmd('normal! ')
-            vim.notify("Copied " .. #lines .. " filename(s)")
+            vim.cmd('normal! ')  -- Exit visual mode
+            vim.notify("Copied " .. #filenames .. " filename(s)")
           end
         else
           -- Normal mode - yank current line
           local entry = oil.get_entry_on_line(0, vim.fn.line('.'))
-          if entry then
+          if entry and entry.name then
             vim.fn.setreg('+', entry.name)
             vim.fn.setreg('"', entry.name)
             vim.notify("Copied: " .. entry.name)
