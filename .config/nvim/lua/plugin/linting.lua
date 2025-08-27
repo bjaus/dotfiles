@@ -37,6 +37,22 @@ return {
       end,
     })
 
+    -- Override golangci-lint to handle errors better
+    local golangcilint = lint.linters.golangcilint
+    if golangcilint then
+      golangcilint.args = {
+        'run',
+        '--out-format=json',
+        '--issues-exit-code=0', -- Don't exit with error code
+        function()
+          return vim.fn.expand('%:h')
+        end,
+      }
+      -- Ignore exit codes that aren't actual linting issues
+      golangcilint.exit_codes = { [0] = true, [1] = true }
+      golangcilint.ignore_exitcode = true
+    end
+
     -- Create autocommand which carries out the actual linting on the specified events.
     vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWritePost', 'InsertLeave' }, {
       group = vim.api.nvim_create_augroup('lint', { clear = true }),
@@ -52,6 +68,10 @@ return {
           local current_file = vim.fn.expand('%:p')
           if current_file:match('/vendor/') then
             return -- Don't lint vendor files
+          end
+          -- Check if golangci-lint is available
+          if vim.fn.executable('golangci-lint') == 0 then
+            return -- Don't try to lint if golangci-lint isn't installed
           end
         end
         

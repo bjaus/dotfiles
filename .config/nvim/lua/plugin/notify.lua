@@ -14,6 +14,16 @@ return {
   },
   config = function(_, opts)
     require("notify").setup(opts)
-    vim.notify = require("notify")
+    
+    -- Create a wrapper around vim.notify to filter out annoying messages
+    local notify = require("notify")
+    vim.notify = function(msg, level, opts)
+      -- Filter out golangci-lint exit code messages
+      if msg and msg:match("golangci%-lint.*exited with code") then
+        return -- Suppress this notification
+      end
+      -- Pass through all other notifications
+      return notify(msg, level, opts)
+    end
   end,
 }
