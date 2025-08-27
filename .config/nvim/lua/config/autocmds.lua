@@ -143,6 +143,41 @@ autocmd('BufWritePre', {
   end,
 })
 
+-- Auto-remove vendor directory when gopls detects issues
+autocmd('DiagnosticChanged', {
+  pattern = '*.go',
+  callback = function()
+    local diagnostics = vim.diagnostic.get(0)
+    for _, diagnostic in ipairs(diagnostics) do
+      local message = diagnostic.message or ""
+      -- Check for vendor-related errors from gopls
+      if message:match("vendor") and (
+        message:match("inconsistent") or 
+        message:match("missing") or 
+        message:match("out of date") or
+        message:match("sync") or
+        message:match("mismatch")
+      ) then
+        -- Get the current file's directory
+        local current_dir = vim.fn.expand('%:p:h')
+        -- Find the project root (where go.mod is)
+        local project_root = vim.fn.findfile('go.mod', current_dir .. ';')
+        if project_root ~= '' then
+          local vendor_dir = vim.fn.fnamemodify(project_root, ':h') .. '/vendor'
+          if vim.fn.isdirectory(vendor_dir) == 1 then
+            -- Remove vendor directory
+            vim.fn.system('rm -rf ' .. vim.fn.shellescape(vendor_dir))
+            vim.notify("Removed outdated vendor directory. Run 'go mod vendor' to regenerate.", vim.log.levels.INFO)
+            -- Restart gopls to clear the diagnostics
+            vim.cmd('LspRestart gopls')
+            return -- Exit after first vendor issue found
+          end
+        end
+      end
+    end
+  end,
+})
+
 -- Lua reload
 local write_source = augroup 'ConfigWritePostReload'
 autocmd({ 'BufWritePost' }, {
