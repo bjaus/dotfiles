@@ -33,6 +33,7 @@ return {
         "gitcommit",
         "TelescopePrompt",
         "TelescopeResults",
+        "go", -- Temporarily disable for Go files to test performance
       },
     },
   },

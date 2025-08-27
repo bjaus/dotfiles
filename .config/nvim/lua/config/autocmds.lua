@@ -144,9 +144,11 @@ autocmd('BufWritePre', {
 })
 
 -- Auto-remove vendor directory when gopls detects issues
-autocmd('DiagnosticChanged', {
+-- Using BufWritePre instead of DiagnosticChanged to reduce frequency
+autocmd('BufWritePre', {
   pattern = '*.go',
   callback = function()
+    -- Only check on save, not on every diagnostic change
     local diagnostics = vim.diagnostic.get(0)
     for _, diagnostic in ipairs(diagnostics) do
       local message = diagnostic.message or ""

@@ -60,9 +60,9 @@ return {
       "Struct",
     },
     highlight_mode = "split_width",
-    highlight_closest = true,
+    highlight_closest = false, -- Disable for performance
     highlight_on_hover = false,
-    highlight_on_jump = 300,
+    highlight_on_jump = false, -- Disable for performance
     icons = {},
     ignore = {
       unlisted_buffers = true,

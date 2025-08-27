@@ -44,9 +44,10 @@ return {
       },
       highlight = false,
       separator = " > ",
-      depth_limit = 0,
+      depth_limit = 3, -- Limit depth for performance
       depth_limit_indicator = "..",
       safe_output = true,
+      lazy_update = true, -- Update less frequently
     })
 
     -- Attach navic to LSP servers
