@@ -38,6 +38,7 @@ local config = function()
 
   pcall(telescope.load_extension, 'fzf')
   pcall(telescope.load_extension, 'ui-select')
+  pcall(telescope.load_extension, 'frecency')
 
   require('config.keymaps').setup_telescope()
 end
@@ -47,7 +48,8 @@ return {
   -- https://github.com/nvim-tele
   'nvim-telescope/telescope.nvim',
   enabled = true,
-  event = 'VimEnter',
+  cmd = 'Telescope',
+  event = 'VeryLazy',
   dependencies = {
     'nvim-lua/plenary.nvim',
     {
@@ -61,6 +63,10 @@ return {
     { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
     'crusj/bookmarks.nvim',
     'ThePrimeagen/harpoon',
+    {
+      'nvim-telescope/telescope-frecency.nvim',
+      dependencies = { 'kkharji/sqlite.lua' },
+    },
   },
   config = config,
 }
