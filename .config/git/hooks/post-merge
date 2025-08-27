@@ -1,0 +1,29 @@
+#!/bin/sh
+# Git hook to automatically update submodules after merge/pull
+# Only runs for rewardStyle repositories
+
+# Get the current repository's remote URL
+REMOTE_URL=$(git config --get remote.origin.url 2>/dev/null)
+
+# Check if this is a rewardStyle repository
+if echo "$REMOTE_URL" | grep -qE "(rewardStyle|rewardstyle|github\.com[:/]rewardStyle)" 2>/dev/null; then
+    # Check if the repository has submodules
+    if [ -f .gitmodules ]; then
+        echo "📦 Updating submodules after merge for rewardStyle repository..."
+        
+        # Initialize submodules if needed
+        git submodule init
+        
+        # Update submodules to match the current branch
+        git submodule update --checkout
+        
+        if [ $? -eq 0 ]; then
+            echo "✅ Submodules updated successfully"
+        else
+            echo "⚠️  Warning: Failed to update some submodules"
+        fi
+    fi
+fi
+
+# Always exit successfully to not block the merge
+exit 0

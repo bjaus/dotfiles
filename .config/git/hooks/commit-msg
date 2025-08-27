@@ -1,0 +1,17 @@
+#!/bin/sh
+# Git hook to prevent commits with Claude attribution
+
+# Check if commit message contains Claude attribution
+if grep -qE "(Co-Authored-By: Claude|Generated with \[Claude Code\]|🤖.*Claude)" "$1"; then
+    echo "❌ Error: Commit message contains Claude attribution."
+    echo "Please remove the following lines from your commit message:"
+    echo "  - Co-Authored-By: Claude <noreply@anthropic.com>"
+    echo "  - 🤖 Generated with [Claude Code](https://claude.ai/code)"
+    echo ""
+    echo "You can edit your commit message by running:"
+    echo "  git commit --amend"
+    exit 1
+fi
+
+# All checks passed
+exit 0
