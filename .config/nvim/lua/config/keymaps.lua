@@ -904,16 +904,7 @@ function M.setup_gemini()
   vim.keymap.set('v', '<leader>agr', ':GeminiReview<CR>', { desc = 'Review with Gemini' })
 end
 
-function M.setup_claude()
-  vim.keymap.set('n', '<leader>acc', ':ClaudeCode<CR>', { desc = 'Toggle Claude' })
-  vim.keymap.set('n', '<leader>acf', ':ClaudeCodeFocus<CR>', { desc = 'Focus Claude terminal' })
-  vim.keymap.set('n', '<leader>acr', ':ClaudeCodeResume<CR>', { desc = 'Resume Claude' })
-  vim.keymap.set('n', '<leader>acC', ':ClaudeCodeContinue<CR>', { desc = 'Continue Claude' })
-  vim.keymap.set('n', '<leader>acb', ':ClaudeCodeAdd<CR>', { desc = 'Add current buffer' })
-  vim.keymap.set('v', '<leader>acs', ':ClaudeCodeSend<CR>', { desc = 'Send selection to Claude' })
-  vim.keymap.set('n', '<leader>aca', ':ClaudeCodeDiffAccept<CR>', { desc = 'Accept diff changes' })
-  vim.keymap.set('n', '<leader>acd', ':ClaudeCodeDiffDeny<CR>', { desc = 'Reject diff changes' })
-end
+-- Claude keymaps are now defined directly in the plugin configuration
 
 -- function M.setup_treesitter()
 --   -- There are additional nvim-treesitter modules that you can use to interact
