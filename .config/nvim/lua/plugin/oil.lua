@@ -41,8 +41,10 @@ return {
         keymaps = {
           ["g?"] = "actions.show_help",
           ["<CR>"] = "actions.select",
-          ["<C-v>"] = "actions.select_vsplit",
-          ["<C-h>"] = "actions.select_split",
+          ["<C-v>"] = false, -- Disable to preserve visual block mode
+          ["gv"] = "actions.select_vsplit", -- Use gv for vertical split
+          ["<C-h>"] = false, -- Disable to preserve navigation
+          ["gh"] = "actions.select_split", -- Use gh for horizontal split
           ["<C-t>"] = "actions.select_tab",
           ["<C-p>"] = "actions.preview",
           ["<C-c>"] = "actions.close",
