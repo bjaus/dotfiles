@@ -143,29 +143,40 @@ autocmd('BufWritePre', {
   end,
 })
 
--- Auto-remove vendor directory when gopls detects issues
--- Using BufWritePre instead of DiagnosticChanged to reduce frequency
-autocmd('BufWritePre', {
+-- Auto-remove vendor directory when gopls detects issues (once per session)
+local vendor_checked = {}
+autocmd('BufEnter', {
   pattern = '*.go',
   callback = function()
-    -- Only check on save, not on every diagnostic change
-    local diagnostics = vim.diagnostic.get(0)
-    for _, diagnostic in ipairs(diagnostics) do
-      local message = diagnostic.message or ""
-      -- Check for vendor-related errors from gopls
-      if message:match("vendor") and (
-        message:match("inconsistent") or 
-        message:match("missing") or 
-        message:match("out of date") or
-        message:match("sync") or
-        message:match("mismatch")
-      ) then
-        -- Get the current file's directory
-        local current_dir = vim.fn.expand('%:p:h')
-        -- Find the project root (where go.mod is)
-        local project_root = vim.fn.findfile('go.mod', current_dir .. ';')
-        if project_root ~= '' then
-          local vendor_dir = vim.fn.fnamemodify(project_root, ':h') .. '/vendor'
+    -- Get project root
+    local current_dir = vim.fn.expand('%:p:h')
+    local go_mod = vim.fn.findfile('go.mod', current_dir .. ';')
+    if go_mod == '' then
+      return
+    end
+    
+    local project_root = vim.fn.fnamemodify(go_mod, ':h')
+    
+    -- Only check once per project per session
+    if vendor_checked[project_root] then
+      return
+    end
+    vendor_checked[project_root] = true
+    
+    -- Check for vendor directory issues after a short delay (let gopls initialize)
+    vim.defer_fn(function()
+      local diagnostics = vim.diagnostic.get(0)
+      for _, diagnostic in ipairs(diagnostics) do
+        local message = diagnostic.message or ""
+        -- Check for vendor-related errors from gopls
+        if message:match("vendor") and (
+          message:match("inconsistent") or 
+          message:match("missing") or 
+          message:match("out of date") or
+          message:match("sync") or
+          message:match("mismatch")
+        ) then
+          local vendor_dir = project_root .. '/vendor'
           if vim.fn.isdirectory(vendor_dir) == 1 then
             -- Remove vendor directory
             vim.fn.system('rm -rf ' .. vim.fn.shellescape(vendor_dir))
@@ -176,7 +187,7 @@ autocmd('BufWritePre', {
           end
         end
       end
-    end
+    end, 1000) -- Wait 1 second for gopls to initialize
   end,
 })
 
