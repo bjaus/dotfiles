@@ -128,6 +128,9 @@ vim.opt.scrolloff = 8
 
 vim.opt.smoothscroll = true
 
+-- Always show winbar space to prevent editor jumping
+vim.opt.winbar = " "
+
 if not vim.g.vscode then
   vim.opt.timeoutlen = 300 -- lower than default (1000) to quickly trigger which-key
 end

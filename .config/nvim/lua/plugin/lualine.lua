@@ -52,13 +52,19 @@ return {
     local breadcrumbs = function()
       local ok, navic = pcall(require, "nvim-navic")
       if ok and navic.is_available() then
-        return navic.get_location()
+        local location = navic.get_location()
+        if location and location ~= "" then
+          return location
+        end
       end
-      return ""
+      -- Return a space to keep the winbar height consistent
+      return " "
     end
 
     require('lualine').setup {
       options = {
+        globalstatus = false, -- Each window gets its own statusline
+        always_show_winbar = true, -- Always show winbar to prevent jumping
         theme = {
           normal = {
             a = { fg = colors.bg, bg = colors.blue },
