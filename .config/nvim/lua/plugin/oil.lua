@@ -3,7 +3,46 @@ return {
     "stevearc/oil.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
-      require("oil").setup({
+      local oil = require("oil")
+      
+      -- Custom yank function for oil buffers
+      local function oil_yank()
+        -- Get visual selection if in visual mode
+        local mode = vim.fn.mode()
+        if mode == 'v' or mode == 'V' or mode == '' then
+          -- Get selected lines
+          local start_line = vim.fn.line("'<")
+          local end_line = vim.fn.line("'>")
+          local lines = {}
+          
+          for line_num = start_line, end_line do
+            local entry = oil.get_entry_on_line(0, line_num)
+            if entry then
+              table.insert(lines, entry.name)
+            end
+          end
+          
+          if #lines > 0 then
+            -- Join without trailing newline and copy to system clipboard
+            local text = table.concat(lines, "\n")
+            vim.fn.setreg('+', text)
+            vim.fn.setreg('"', text)
+            -- Exit visual mode
+            vim.cmd('normal! ')
+            vim.notify("Copied " .. #lines .. " filename(s)")
+          end
+        else
+          -- Normal mode - yank current line
+          local entry = oil.get_entry_on_line(0, vim.fn.line('.'))
+          if entry then
+            vim.fn.setreg('+', entry.name)
+            vim.fn.setreg('"', entry.name)
+            vim.notify("Copied: " .. entry.name)
+          end
+        end
+      end
+      
+      oil.setup({
         -- Oil will take over directory buffers (e.g. `vim .` or `:e src/`)
         default_file_explorer = true,
         -- Id is automatically added at the beginning, and name at the end
@@ -130,6 +169,14 @@ return {
             winblend = 0,
           },
         },
+      })
+      
+      -- Set up yank keybinding for oil buffers
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "oil",
+        callback = function()
+          vim.keymap.set({"n", "v"}, "y", oil_yank, { buffer = true, desc = "Yank filename(s) to clipboard" })
+        end,
       })
     end,
     -- Open parent directory in current window
