@@ -267,7 +267,14 @@ function M.setup_oil()
   return {} -- Oil keybindings are in the plugin config
 end
 
+-- MOVED TO plugin/gitsigns.lua to avoid conflicts
 function M.setup_gitsigns(bufnr)
+  -- All gitsigns keymaps are now in plugin/gitsigns.lua on_attach
+  return
+end
+
+--[[ OLD CONFIG - kept for reference
+function M.setup_gitsigns_old(bufnr)
   local gitsigns = require 'gitsigns'
 
   local function map(mode, l, r, opts)
@@ -307,9 +314,40 @@ function M.setup_gitsigns(bufnr)
   end, { desc = 'git undo stage hunk' })
 
   -- normal mode
-  map('n', '<leader>gs', gitsigns.stage_hunk, { desc = 'git stage hunk' })
-  map('n', '<leader>gr', gitsigns.reset_hunk, { desc = 'git reset hunk' })
-  map('n', '<leader>gS', gitsigns.stage_buffer, { desc = 'git stage buffer' })
+  map('n', '<leader>gs', function() 
+    local ok, err = pcall(gitsigns.stage_hunk)
+    if ok then
+      vim.notify('Hunk staged', vim.log.levels.INFO)
+      vim.defer_fn(function() 
+        gitsigns.refresh() 
+      end, 200)
+    else
+      vim.notify('Failed to stage hunk: ' .. tostring(err), vim.log.levels.ERROR)
+    end
+  end, { desc = 'git stage hunk' })
+  
+  map('n', '<leader>gr', function()
+    local ok, err = pcall(gitsigns.reset_hunk)
+    if ok then
+      vim.notify('Hunk reset', vim.log.levels.INFO)
+    else
+      vim.notify('Failed to reset hunk: ' .. tostring(err), vim.log.levels.ERROR)
+    end
+  end, { desc = 'git reset hunk' })
+  
+  map('n', '<leader>gS', function()
+    local ok, err = pcall(gitsigns.stage_buffer)
+    if ok then
+      vim.notify('Buffer staged', vim.log.levels.INFO)
+      vim.defer_fn(function() 
+        gitsigns.refresh() 
+        -- Also trigger a full git status update
+        vim.cmd('silent! checktime')
+      end, 200)
+    else
+      vim.notify('Failed to stage buffer: ' .. tostring(err), vim.log.levels.ERROR)
+    end
+  end, { desc = 'git stage buffer' })
   map('n', '<leader>gu', gitsigns.undo_stage_hunk, { desc = 'git undo stage hunk' })
   map('n', '<leader>gR', gitsigns.reset_buffer, { desc = 'git reset buffer' })
   map('n', '<leader>gp', gitsigns.preview_hunk, { desc = 'git preview hunk' })
@@ -323,6 +361,7 @@ function M.setup_gitsigns(bufnr)
   map('n', '<leader>gtb', gitsigns.toggle_current_line_blame, { desc = 'toggle git show blame line' })
   map('n', '<leader>gtd', gitsigns.toggle_deleted, { desc = 'toggle git show deleted' })
 end
+--]]
 
 function M.setup_gitlinker()
   vim.keymap.set(
@@ -799,6 +838,15 @@ end
 
 function M.setup_render_markdown()
   vim.keymap.set('n', '<leader>or', require('render-markdown').toggle, { desc = 'toggle markdown' })
+  
+  -- Additional markdown viewing options
+  vim.keymap.set('n', '<leader>og', function()
+    vim.cmd('vnew | terminal glow ' .. vim.fn.expand('%'))
+  end, { desc = 'view markdown with glow' })
+  
+  vim.keymap.set('n', '<leader>oc', function()
+    vim.cmd('vnew | terminal mdcat --local ' .. vim.fn.expand('%'))
+  end, { desc = 'view markdown with mdcat (images!)' })
 end
 
 function M.setup_obsidian()
