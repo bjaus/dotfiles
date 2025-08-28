@@ -172,8 +172,8 @@ alias gsta='git sa'     # git stash apply
 alias gstl='git sl'     # git stash list
 alias gsts='git ssp'    # git stash show -p
 
-# Enhanced git prompt with worktree support
-source ~/.config/zsh/git-prompt-worktree.zsh
+# Enhanced git prompt with worktree support (for vcs_info themes like zhann)
+source ~/.config/zsh/git-prompt-vcs.zsh
 
 # Other (matching your cp, cpa, cpc, m, ma aliases)
 alias gcp='git cp'      # git cherry-pick
