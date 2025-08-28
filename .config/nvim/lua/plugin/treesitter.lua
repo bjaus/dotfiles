@@ -87,13 +87,22 @@ return {
       auto_install = vim.fn.exists('$GIT_EXEC_PATH') == 0,
       highlight = {
         enable = true,
-        disable = function(_, buf)
+        disable = function(lang, buf)
+          -- Disable for large files
           local max_filesize = 100 * 1024
           ---@diagnostic disable-next-line: undefined-field
           local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
           if ok and stats and stats.size > max_filesize then
             return true
           end
+          
+          -- Disable if buffer is being modified rapidly (helps with the error)
+          local line_count = vim.api.nvim_buf_line_count(buf)
+          if line_count > 10000 then
+            return true
+          end
+          
+          return false
         end,
         additional_vim_regex_highlighting = false,
       },
@@ -108,6 +117,9 @@ return {
       ---@diagnostic disable-next-line: missing-fields
       require('nvim-treesitter.configs').setup(opts)
       -- require('config.keymaps').setup_treesitter_keymaps()
+      
+      -- Apply Treesitter error handling fix
+      require('config.treesitter-fix').setup()
     end,
   },
 }

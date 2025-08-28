@@ -23,29 +23,7 @@ return {
       require('config.keymaps').setup_lazygit()
     end,
   },
-  {
-    'lewis6991/gitsigns.nvim',
-    enabled = true,
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-    },
-    config = function()
-      local gitsigns = require 'gitsigns'
-      gitsigns.setup {
-        numhl = true,
-        signs = {
-          -- add = { text = '+' },
-          -- change = { text = '~' },
-          -- delete = { text = 'x' },
-          -- topdelete = { text = '‾' },
-          -- changedelete = { text = '~' },
-        },
-        on_attach = function(bufnr)
-          require('config.keymaps').setup_gitsigns(bufnr)
-        end,
-      }
-    end,
-  },
+  -- Gitsigns moved to plugin/gitsigns.lua for better organization
   {
     'f-person/git-blame.nvim',
     enabled = true,

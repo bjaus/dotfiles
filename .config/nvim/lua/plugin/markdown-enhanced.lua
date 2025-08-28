@@ -1,0 +1,91 @@
+-- Additional markdown enhancement options for Neovim
+-- Uncomment the plugins you want to try
+
+return {
+  -- 1. markdown-preview.nvim - Most popular, synchronized scrolling
+  -- {
+  --   "iamcco/markdown-preview.nvim",
+  --   cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+  --   build = "cd app && yarn install",
+  --   init = function()
+  --     vim.g.mkdp_filetypes = { "markdown" }
+  --   end,
+  --   ft = { "markdown" },
+  --   config = function()
+  --     vim.keymap.set("n", "<leader>mp", "<cmd>MarkdownPreviewToggle<cr>", { desc = "Markdown preview" })
+  --   end,
+  -- },
+
+  -- 2. Image support in Neovim (works with Ghostty/Kitty)
+  -- NOTE: Disabled due to dependency issues with ImageMagick
+  -- To enable: uncomment below and install ImageMagick with: brew install imagemagick
+  -- {
+  --   "vhyrro/luarocks.nvim",
+  --   priority = 1001, -- this plugin needs to run before anything else
+  --   opts = {
+  --     rocks = { "magick" },
+  --   },
+  -- },
+  -- {
+  --   "3rd/image.nvim",
+  --   dependencies = { "luarocks.nvim" },
+  --   config = function()
+  --     require("image").setup({
+  --       backend = "kitty",  -- Ghostty supports kitty protocol
+  --       integrations = {
+  --         markdown = {
+  --           enabled = true,
+  --           clear_in_insert_mode = false,
+  --           download_remote_images = true,
+  --           only_render_image_at_cursor = false,
+  --           filetypes = { "markdown", "vimwiki" },
+  --         },
+  --       },
+  --     })
+  --   end,
+  -- },
+
+  -- 3. Headlines.nvim - Makes markdown headers and code blocks more visible
+  -- {
+  --   "lukas-reineke/headlines.nvim",
+  --   dependencies = "nvim-treesitter/nvim-treesitter",
+  --   config = function()
+  --     require("headlines").setup({
+  --       markdown = {
+  --         headline_highlights = {
+  --           "Headline1",
+  --           "Headline2",
+  --           "Headline3",
+  --         },
+  --         codeblock_highlight = "CodeBlock",
+  --         dash_highlight = "Dash",
+  --         fat_headlines = true,
+  --         fat_headline_upper_string = "▄",
+  --         fat_headline_lower_string = "▀",
+  --       },
+  --     })
+  --   end,
+  -- },
+
+  -- 4. Neorg - Powerful note-taking with better rendering than markdown
+  -- {
+  --   "nvim-neorg/neorg",
+  --   build = ":Neorg sync-parsers",
+  --   dependencies = { "nvim-lua/plenary.nvim" },
+  --   config = function()
+  --     require("neorg").setup({
+  --       load = {
+  --         ["core.defaults"] = {},
+  --         ["core.concealer"] = {}, -- Beautiful rendering
+  --         ["core.dirman"] = {
+  --           config = {
+  --             workspaces = {
+  --               notes = "~/notes",
+  --             },
+  --           },
+  --         },
+  --       },
+  --     })
+  --   end,
+  -- },
+}

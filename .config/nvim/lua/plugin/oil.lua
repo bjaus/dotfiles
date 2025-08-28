@@ -9,12 +9,44 @@ return {
       local function oil_yank()
         local mode = vim.fn.mode()
         
-        if mode == 'v' or mode == 'V' or mode == '' then
-          -- Visual mode - get selected range
+        if mode == '' then  -- Visual block mode (Ctrl+V)
+          -- Get visual block boundaries
+          local start_line = vim.fn.line("'<")
+          local end_line = vim.fn.line("'>")
+          local start_col = vim.fn.col("'<")
+          local end_col = vim.fn.col("'>")
+          
+          -- Ensure proper ordering
+          if start_line > end_line then
+            start_line, end_line = end_line, start_line
+          end
+          if start_col > end_col then
+            start_col, end_col = end_col, start_col
+          end
+          
+          local selected_text = {}
+          for line = start_line, end_line do
+            -- Get the line content
+            local line_text = vim.fn.getline(line)
+            -- Extract only the selected columns (1-indexed)
+            local substring = string.sub(line_text, start_col, end_col)
+            if substring and substring ~= "" then
+              table.insert(selected_text, substring)
+            end
+          end
+          
+          if #selected_text > 0 then
+            local text = table.concat(selected_text, "\n")
+            vim.fn.setreg('+', text)
+            vim.fn.setreg('"', text)
+            vim.cmd('normal! ')  -- Exit visual mode
+            vim.notify("Copied selection")
+          end
+        elseif mode == 'v' or mode == 'V' then
+          -- Line or character visual mode - copy full filenames
           local start_line = vim.fn.line("v")
           local end_line = vim.fn.line(".")
           
-          -- Ensure start is before end
           if start_line > end_line then
             start_line, end_line = end_line, start_line
           end
@@ -35,7 +67,7 @@ return {
             vim.notify("Copied " .. #filenames .. " filename(s)")
           end
         else
-          -- Normal mode - yank current line
+          -- Normal mode - yank current line's filename
           local entry = oil.get_entry_on_line(0, vim.fn.line('.'))
           if entry and entry.name then
             vim.fn.setreg('+', entry.name)

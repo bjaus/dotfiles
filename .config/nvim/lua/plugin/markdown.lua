@@ -8,6 +8,7 @@ local config = function()
     theme = 'dark', -- 'dark' or 'light'
     update_on_change = true,
     app = 'browser', -- 'webview', 'browser', string or a table of strings
+    -- app = 'webview', -- Use this for a persistent webview window instead of browser
     filetype = { 'markdown' }, -- list of filetypes to recognize as markdown
     -- relevant if update_on_change is true
     throttle_at = 200000, -- start throttling when file exceeds this
@@ -58,7 +59,18 @@ return {
       'nvim-tree/nvim-web-devicons',
     },
     config = function()
-      require('render-markdown').setup()
+      require('render-markdown').setup({
+        -- Disable concealment that might interfere with search
+        conceal = {
+          default = vim.o.conceallevel or 2,
+          rendered = vim.o.conceallevel or 2,
+        },
+        -- Don't render in these modes to avoid search issues
+        render_modes = { 'n', 'c' },
+        anti_conceal = {
+          enabled = true,
+        },
+      })
       require('config.keymaps').setup_render_markdown()
     end,
   },
