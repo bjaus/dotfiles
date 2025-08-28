@@ -494,6 +494,9 @@ function tgs() {
 # Directory safeguard - prevent errors from deleted directories
 [[ -f ~/Projects/dotfiles/.config/zsh/directory-safeguard.zsh ]] && source ~/Projects/dotfiles/.config/zsh/directory-safeguard.zsh
 
+# Markdown tools for terminal
+[[ -f ~/Projects/dotfiles/.config/zsh/markdown-tools.zsh ]] && source ~/Projects/dotfiles/.config/zsh/markdown-tools.zsh
+
 ## AWSume
 # Unalias awsume if it exists (from previous configs)
 unalias awsume 2>/dev/null || true
