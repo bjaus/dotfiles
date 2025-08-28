@@ -482,6 +482,15 @@ function tgs() {
 # Source custom git worktree functions
 [[ -f ~/.config/zsh/git-worktree.zsh ]] && source ~/.config/zsh/git-worktree.zsh
 
+# Fix for Docker builds in git worktrees
+[[ -f ~/Projects/dotfiles/.config/zsh/fix-worktree-docker.zsh ]] && source ~/Projects/dotfiles/.config/zsh/fix-worktree-docker.zsh
+
+# Simple worktree make command for Docker compatibility
+[[ -f ~/Projects/dotfiles/.config/zsh/worktree-make-simple.zsh ]] && source ~/Projects/dotfiles/.config/zsh/worktree-make-simple.zsh
+
+# Worktree repository identification helpers
+[[ -f ~/Projects/dotfiles/.config/zsh/worktree-info.zsh ]] && source ~/Projects/dotfiles/.config/zsh/worktree-info.zsh
+
 ## AWSume
 # Unalias awsume if it exists (from previous configs)
 unalias awsume 2>/dev/null || true
