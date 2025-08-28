@@ -64,5 +64,4 @@ function make() {
   command make "$@"
 }
 
-# Export the function
-export -f make
+# Function is automatically available in zsh, no need to export

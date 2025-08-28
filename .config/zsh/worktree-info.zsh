@@ -122,7 +122,4 @@ function cd() {
 alias repo='repo-name'
 alias wti='wt-info'
 
-echo "💡 Worktree info tools loaded. Commands:"
-echo "   wt       - Show [repo:branch] quickly"
-echo "   wt-info  - Show detailed repository information"
-echo "   repo     - Show just the repository name"
+# Silent load - no startup message

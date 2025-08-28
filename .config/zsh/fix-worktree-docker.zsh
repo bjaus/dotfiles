@@ -95,10 +95,7 @@ function link-worktree-git() {
   echo "  You may need to update your Docker mounts to include the main repository"
 }
 
-# Export functions
-export -f fix-worktree-docker
-export -f restore-worktree-git
-export -f link-worktree-git
+# Functions are automatically available in zsh, no need to export
 
 # Aliases for convenience
 alias fwd='fix-worktree-docker'

@@ -72,4 +72,4 @@ function worktree-make() {
 # Alias for convenience
 alias wmake='worktree-make'
 
-echo "💡 Git worktree Docker fix loaded. Use 'wmake' instead of 'make' in worktrees."
+# Silent load - no startup message
