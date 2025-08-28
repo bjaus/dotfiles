@@ -58,9 +58,9 @@ git_prompt_info_enhanced() {
 }
 
 # Override the default git_prompt_info if it exists
-if type git_prompt_info &>/dev/null; then
-    # Backup original function
-    eval "git_prompt_info_original() { $(declare -f git_prompt_info | tail -n +2) }"
+if type git_prompt_info &>/dev/null 2>&1; then
+    # Backup original function safely
+    functions[git_prompt_info_original]=$functions[git_prompt_info]
 fi
 
 # Replace with our enhanced version
