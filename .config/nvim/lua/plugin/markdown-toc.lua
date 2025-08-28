@@ -73,40 +73,7 @@ return {
     end,
   },
 
-  -- Markdown specific text objects and commands
-  {
-    "preservim/vim-markdown",
-    ft = "markdown",
-    config = function()
-      vim.g.vim_markdown_folding_disabled = 1
-      vim.g.vim_markdown_toc_autofit = 1
-      vim.g.vim_markdown_follow_anchor = 1
-      vim.g.vim_markdown_frontmatter = 1
-      vim.g.vim_markdown_toml_frontmatter = 1
-      vim.g.vim_markdown_json_frontmatter = 1
-      vim.g.vim_markdown_strikethrough = 1
-      vim.g.vim_markdown_new_list_item_indent = 2
-    end,
-    keys = {
-      { "]]", "<Plug>Markdown_MoveToNextHeader", ft = "markdown", desc = "Next Header" },
-      { "[[", "<Plug>Markdown_MoveToPreviousHeader", ft = "markdown", desc = "Previous Header" },
-      { "][", "<Plug>Markdown_MoveToNextSiblingHeader", ft = "markdown", desc = "Next Sibling Header" },
-      { "[]", "<Plug>Markdown_MoveToPreviousSiblingHeader", ft = "markdown", desc = "Previous Sibling Header" },
-      { "]u", "<Plug>Markdown_MoveToParentHeader", ft = "markdown", desc = "Parent Header" },
-      { "ge", "<Plug>Markdown_EditUrlUnderCursor", ft = "markdown", desc = "Edit Link Under Cursor" },
-    },
-  },
 
-  -- Bullets and checkboxes
-  {
-    "bullets-vim/bullets.vim",
-    ft = { "markdown", "text" },
-    config = function()
-      vim.g.bullets_enabled_file_types = { "markdown", "text" }
-      vim.g.bullets_set_mappings = 1
-      vim.g.bullets_checkbox_markers = ' .oOx'
-    end,
-  },
 
   -- Table mode for markdown tables
   {
@@ -122,16 +89,6 @@ return {
     },
   },
 
-  -- Markdown concealing for better readability
-  {
-    "preservim/vim-markdown",
-    ft = "markdown",
-    config = function()
-      vim.opt.conceallevel = 2
-      vim.g.vim_markdown_conceal = 1
-      vim.g.vim_markdown_conceal_code_blocks = 0
-    end,
-  },
 
   -- Floating TOC window (alternative)
   {
