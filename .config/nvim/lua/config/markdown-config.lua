@@ -15,13 +15,24 @@ function M.setup()
       vim.opt_local.conceallevel = 2
       vim.opt_local.textwidth = 80
       
-      -- Enable folding by headers
+      -- Enable folding by headers using markdown syntax
       vim.opt_local.foldmethod = "expr"
-      vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
-      vim.opt_local.foldenable = false -- Start with all folds open
+      vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+      vim.opt_local.foldlevel = 99  -- Start with all folds open
+      vim.opt_local.foldenable = true  -- Enable folding
+      vim.opt_local.foldtext = "v:lua.vim.treesitter.foldtext()"
       
       -- Local keymaps for markdown
       local opts = { buffer = true, noremap = true, silent = true }
+      
+      -- Folding keymaps
+      vim.keymap.set('n', 'za', 'za', opts)  -- Toggle fold
+      vim.keymap.set('n', 'zR', 'zR', opts)  -- Open all folds
+      vim.keymap.set('n', 'zM', 'zM', opts)  -- Close all folds
+      vim.keymap.set('n', 'zo', 'zo', opts)  -- Open fold
+      vim.keymap.set('n', 'zc', 'zc', opts)  -- Close fold
+      vim.keymap.set('n', 'zj', 'zj', opts)  -- Next fold
+      vim.keymap.set('n', 'zk', 'zk', opts)  -- Previous fold
       
       -- Navigation keymaps
       vim.keymap.set('n', '<Tab>', ':call search("^#\\+ ", "")<CR>', opts)
