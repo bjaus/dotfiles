@@ -172,6 +172,9 @@ alias gsta='git sa'     # git stash apply
 alias gstl='git sl'     # git stash list
 alias gsts='git ssp'    # git stash show -p
 
+# Enhanced git prompt with worktree support
+source ~/.config/zsh/git-prompt-worktree.zsh
+
 # Other (matching your cp, cpa, cpc, m, ma aliases)
 alias gcp='git cp'      # git cherry-pick
 alias gcpa='git cpa'    # git cherry-pick --abort
@@ -475,6 +478,16 @@ function tgs() {
 
 # Integration
 
+## Git Worktree Management
+# Source custom git worktree functions (try multiple locations)
+if [[ -f ~/git-worktree.zsh ]]; then
+  source ~/git-worktree.zsh
+elif [[ -f ~/.config/zsh/git-worktree.zsh ]]; then
+  source ~/.config/zsh/git-worktree.zsh
+elif [[ -f "$HOME/Projects/dotfiles/.config/zsh/git-worktree.zsh" ]]; then
+  source "$HOME/Projects/dotfiles/.config/zsh/git-worktree.zsh"
+fi
+
 ## AWSume
 # Unalias awsume if it exists (from previous configs)
 unalias awsume 2>/dev/null || true
@@ -554,3 +567,5 @@ fi
   ln -s "$HOME/Projects/dotfiles/.tmux.conf" "$HOME/.tmux.conf"
 
 export PATH="$HOME/.local/bin:$PATH"
+# Source git worktree functions
+source ~/git-worktree.zsh
