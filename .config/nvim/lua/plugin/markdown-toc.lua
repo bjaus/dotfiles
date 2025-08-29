@@ -90,29 +90,4 @@ return {
   },
 
 
-  -- Floating TOC window (alternative)
-  {
-    "AntonVanAssche/md-headers.nvim",
-    lazy = false,
-    version = "*",
-    ft = "markdown",
-    config = function()
-      require("md-headers").setup({
-        popup = {
-          width = 60,
-          height = 20,
-          borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
-        },
-        toc = {
-          indent_size = 2,
-          indent_char = " ",
-          marker = "-",
-        },
-      })
-    end,
-    keys = {
-      { "<leader>mh", "<cmd>MarkdownHeaders<cr>", desc = "Show Markdown Headers" },
-      { "<leader>mt", "<cmd>MarkdownHeadersClosest<cr>", desc = "Jump to Closest Header" },
-    },
-  },
 }

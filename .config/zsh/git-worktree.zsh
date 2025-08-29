@@ -12,6 +12,8 @@ function _gwt_copy_essentials() {
   local files_to_copy=(
     "Taskfile.yml"
     "Taskfile.yaml"
+    "local.env"
+    ".env"
     ".env.local"
     ".env.development.local"
   )
