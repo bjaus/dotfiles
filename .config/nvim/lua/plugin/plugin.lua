@@ -47,11 +47,12 @@ return {                -- random plugins that don't need their own files
   },
   {
     'greggh/claude-code.nvim',
-    cmd = { 'ClaudeCode', 'ClaudeCodeChat' },
+    cmd = { 'ClaudeCode', 'ClaudeCodeChat', 'ClaudeCodeToggle', 'ClaudeCodeFocus' },
     keys = {
-      { '<leader>acc', '<cmd>ClaudeCode toggle<cr>', desc = 'Toggle Claude Code' },
-      { '<leader>acr', '<cmd>ClaudeCode toggle --continue<cr>', desc = 'Resume Claude Code' },
-      { '<leader>acf', '<cmd>ClaudeCode focus<cr>', desc = 'Focus Claude Code' },
+      { '<leader>acc', '<cmd>ClaudeCodeToggle<cr>', desc = 'Toggle Claude Code' },
+      { '<leader>acs', '<cmd>ClaudeCode<cr>', desc = 'Start Claude Code' },
+      { '<leader>acr', '<cmd>ClaudeCode --continue<cr>', desc = 'Resume Claude Code' },
+      { '<leader>acf', '<cmd>ClaudeCodeFocus<cr>', desc = 'Focus Claude Code' },
     },
     config = function()
       require('claude-code').setup({

@@ -16,7 +16,7 @@ function md-toc() {
   fi
   
   echo "📚 Table of Contents: $file"
-  echo "=" | sed "s/./$(&)/g"
+  echo "================================"
   
   # Extract headers and create TOC with line numbers
   grep -n "^#" "$file" | while IFS=: read -r line_num content; do
