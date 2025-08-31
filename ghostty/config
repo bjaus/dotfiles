@@ -1,6 +1,6 @@
 # Ghostty Configuration
 
-# Window settings
+# === WINDOW SETTINGS ===
 window-inherit-working-directory = true
 window-save-state = always
 macos-non-native-fullscreen = true
@@ -9,50 +9,40 @@ window-width = 430
 window-height = 90
 
 # Quick Terminal Settings
-quick-terminal-position = top
+quick-terminal-position = bottom
 quick-terminal-screen = macos-menu-bar
 quick-terminal-animation-duration = 0.2
 quick-terminal-autohide = false
-# window-style = plain  # Removed as it may interfere
 
-# Note: Ghostty doesn't have a built-in option to hide from cmd+tab
-# The quick terminal mode with autohide keeps it minimal in the dock
-
-# Keybindings
-# Quick Terminal Toggle - try cmd+` first
-# Note: Ghostty must be running for global keybinds to work
+# === KEYBINDINGS ===
+# Quick Terminal Toggle
 keybind = global:cmd+period=toggle_quick_terminal
 
 # Fix shift+enter to send newline (use \n instead of \r)
 keybind = shift+enter=text:\n
 
 # Split management (use instead of tabs in quick terminal)
-# cmd+d creates a vertical split (side by side)
-# cmd+shift+d creates a horizontal split (top/bottom)
-# cmd+[ and cmd+] to navigate between splits
 keybind = cmd+shift+t=new_split:right
 
-# You can reload this config with cmd+shift+, (super+shift+,)
-
 # === APPEARANCE ===
-# Font settings
-font-family = "MesloLGS NF"
-font-size = 18
+# Font configuration (from .config/ghostty/config for AI tools compatibility)
+font-family = "JetBrainsMono Nerd Font"
+font-size = 14
 adjust-cell-height = 10%
 
-# Padding inside window
+# Window padding for better readability
 window-padding-x = 10
 window-padding-y = 10
 
-# macOS title bar style: native, transparent, or hidden
+# macOS title bar style
 macos-titlebar-style = transparent
 
-# Cursor style: block, bar, underline
+# Cursor style (from .config/ghostty/config - no blinking for reduced visual noise)
 cursor-style = block
-cursor-style-blink = true
+cursor-style-blink = false
 
 # === COLORS & THEME ===
-# High contrast dark theme
+# High contrast custom theme (from ghostty/config)
 background = #000000
 foreground = #ffffff
 
@@ -95,8 +85,5 @@ shell-integration = detect
 shell-integration-features = cursor,sudo,title
 
 # === PERFORMANCE ===
-# Unfocused window refresh rate (saves battery)
-# unfocused-throttle = true  # Not available in current version
-
-# Window transparency (0-1, where 1 is opaque)
-# background-opacity = 0.95
+# Set proper terminfo (from .config/ghostty/config)
+term = xterm-ghostty
