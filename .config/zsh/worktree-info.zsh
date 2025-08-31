@@ -81,7 +81,7 @@ function wt() {
 
 # Add to prompt - THIS IS NOW ENABLED BY DEFAULT
 # This adds the repository info to your right prompt
-RPROMPT='$(wt) '$RPROMPT
+# RPROMPT='$(wt) '$RPROMPT
 
 # Alternative: Update the terminal title
 function update_terminal_title() {
