@@ -547,13 +547,13 @@ export NVM_DIR="$HOME/.nvm"
 
 # Create placeholder functions for nvm, node, npm, npx, yarn, pnpm that load NVM on first use
 lazy_load_nvm() {
-  unset -f nvm node npm npx yarn pnpm
+  unset -f nvm node npm npx yarn pnpm claude
   [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
   [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
 }
 
 # Create stub functions that will load NVM when first called
-for cmd in nvm node npm npx yarn pnpm; do
+for cmd in nvm node npm npx yarn pnpm claude; do
   eval "
     $cmd() {
       lazy_load_nvm
