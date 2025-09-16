@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+# Script to remove Claude attribution from recent commits
+
+set -e
+
+# Colors for output
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+
+echo "🧹 Cleaning Claude attribution from recent commits..."
+
+# Check if there are any commits with Claude attribution
+if git log --oneline -10 | grep -q -i "claude\|🤖.*generated"; then
+  echo -e "${YELLOW}Found commits with potential Claude attribution${NC}"
+  
+  # Interactive rebase to clean last few commits
+  echo "This will open an interactive rebase to clean recent commits."
+  echo "In the editor, keep 'pick' for all commits you want to keep."
+  echo "The commit messages will be automatically cleaned."
+  echo ""
+  read -p "Proceed? (y/N): " proceed
+  
+  if [[ "$proceed" =~ ^[Yy]$ ]]; then
+    # Backup current branch
+    CURRENT_BRANCH=$(git branch --show-current)
+    git tag backup-before-claude-cleanup
+    
+    echo "Created backup tag: backup-before-claude-cleanup"
+    echo "If something goes wrong, run: git reset --hard backup-before-claude-cleanup"
+    echo ""
+    
+    # Start interactive rebase
+    git rebase -i HEAD~5
+    
+    echo -e "${GREEN}✓ Commit cleaning complete${NC}"
+    echo "To remove backup: git tag -d backup-before-claude-cleanup"
+  else
+    echo "Cancelled."
+  fi
+else
+  echo -e "${GREEN}✓ No Claude attribution found in recent commits${NC}"
+fi
+
+echo ""
+echo "Note: All future commits will automatically have Claude attribution removed."

@@ -27,6 +27,7 @@ function M.setup_which_key()
     { '<leader>r', group = '[r]un' },
     { '<leader>s', group = '[s]ession', mode = { 'n' } },
     { '<leader>t', group = '[t]est' },
+    { '<leader>T', group = '[T]erminal' },
     { '<leader>w', group = '[w]indow' },
   }
 end
@@ -804,7 +805,7 @@ function M.setup_toggleterm(trim_spaces)
   vim.keymap.set('v', '<C-s>', function()
     require('toggleterm').send_lines_to_terminal('visual_lines', trim_spaces, { args = vim.v.count, desc = 'send lines to terminal' })
   end)
-  vim.keymap.set('n', '<leader>ot', '<cmd>ToggleTerm<CR>', { desc = 'toggle terminal window' })
+  -- Removed <leader>ot - now using <leader>T* for terminal commands
   vim.keymap.set('t', '<esc>', '<C-\\><C-n>', { desc = 'exit terminal mode' })
 end
 

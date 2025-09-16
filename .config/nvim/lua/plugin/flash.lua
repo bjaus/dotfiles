@@ -78,7 +78,7 @@ return {
       -- You can override the default options for a specific mode.
       modes = {
         search = {
-          enabled = true,
+          enabled = false,  -- Disable flash for regular / and ? search
           highlight = { backdrop = false },
           jump = { history = true, register = true, nohlsearch = true },
           search = {

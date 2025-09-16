@@ -149,9 +149,14 @@ alias gba='git ba'      # git branch -a
 alias gbd='git bd'      # git branch -d
 alias gbD='git bdd'     # git branch -D
 
+# Git commit helpers
+alias gcn='git commit --no-verify'  # Commit without pre-commit hooks
+alias gcnm='git commit --no-verify -m'  # Commit with message, no hooks
+
 # Checkout (matching your o, ob, maino aliases)
-alias gco='git o'       # git checkout
-alias gcob='git ob'     # git checkout -b
+# Enhanced git checkout (defined in git-checkout-enhanced.zsh)
+# alias gco='git o'       # git checkout
+# alias gcob='git ob'     # git checkout -b
 alias gcom='git maino'  # checkout main/master
 
 # Rebase (matching your rb, rba, rbc, rbi aliases)
@@ -482,6 +487,9 @@ function tgs() {
 # Source custom git worktree functions
 [[ -f ~/.config/zsh/git-worktree.zsh ]] && source ~/.config/zsh/git-worktree.zsh
 
+# Enhanced git checkout with worktree support
+[[ -f ~/.config/zsh/git-checkout-enhanced.zsh ]] && source ~/.config/zsh/git-checkout-enhanced.zsh
+
 # Fix for Docker builds in git worktrees
 [[ -f ~/Projects/dotfiles/.config/zsh/fix-worktree-docker.zsh ]] && source ~/Projects/dotfiles/.config/zsh/fix-worktree-docker.zsh
 
@@ -496,6 +504,14 @@ function tgs() {
 
 # Markdown tools for terminal
 [[ -f ~/Projects/dotfiles/.config/zsh/markdown-tools.zsh ]] && source ~/Projects/dotfiles/.config/zsh/markdown-tools.zsh
+
+# Clipboard utilities for clean copying
+[[ -f ~/.config/zsh/clipboard-tools.zsh ]] && source ~/.config/zsh/clipboard-tools.zsh
+
+# Helper function to disable colors for commands when needed
+function no-color() {
+  NO_COLOR=1 CLICOLOR=0 "$@"
+}
 
 ## AWSume
 # Unalias awsume if it exists (from previous configs)

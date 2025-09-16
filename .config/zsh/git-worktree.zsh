@@ -334,13 +334,29 @@ function gwt-cd() {
 # Clean up worktrees for deleted branches
 function gwt-clean() {
   echo "Cleaning up worktrees for deleted branches..."
-  git worktree list | while read -r line; do
-    local path=${line%% *}
-    local branch=$(echo "$line" | grep -o '\[.*\]' | tr -d '[]')
-    
-    # Skip the main worktree
-    if [[ "$path" == "$(git rev-parse --show-toplevel)" ]]; then
+  
+  # Process each worktree
+  local first_line=true
+  local main_worktree=""
+  
+  git worktree list | while IFS=' ' read -r path sha rest; do
+    # First line is the main worktree, save it and skip
+    if [[ "$first_line" == "true" ]]; then
+      main_worktree="$path"
+      first_line=false
       continue
+    fi
+    
+    # Extract branch name from rest of line
+    # The format is typically: [branch-name] or (detached HEAD)
+    local branch=""
+    
+    # Use parameter expansion to extract text between brackets
+    if [[ "$rest" == *"["*"]"* ]]; then
+      # Remove everything before [
+      local temp="${rest#*[}"
+      # Remove everything after ]
+      branch="${temp%%]*}"
     fi
     
     # Check if branch still exists

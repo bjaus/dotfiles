@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+# Main pre-commit hook that runs multiple checks
+
+# Run Go formatting if we have Go files
+if git diff --cached --name-only | grep -q '\.go$'; then
+  # Check if the Go format hook exists and run it
+  HOOK_DIR="$(dirname "$0")"
+  if [ -f "$HOOK_DIR/pre-commit-go-format" ]; then
+    "$HOOK_DIR/pre-commit-go-format" || exit 1
+  fi
+fi
+
+# You can add more hooks here for other file types
+# For example:
+# - Python formatting with black/ruff
+# - JavaScript/TypeScript with prettier
+# - Terraform formatting
+# etc.
+
+exit 0

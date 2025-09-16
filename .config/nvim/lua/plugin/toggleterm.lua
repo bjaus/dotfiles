@@ -4,12 +4,12 @@ return {
   cmd = { "ToggleTerm", "TermExec" },
   keys = {
     { "<C-\\>", "<cmd>ToggleTerm<CR>", desc = "Toggle terminal" },
-    { "<leader>tf", "<cmd>ToggleTerm direction=float<CR>", desc = "Toggle floating terminal" },
-    { "<leader>th", "<cmd>ToggleTerm direction=horizontal<CR>", desc = "Toggle horizontal terminal" },
-    { "<leader>tv", "<cmd>ToggleTerm direction=vertical<CR>", desc = "Toggle vertical terminal" },
-    { "<leader>tt", "<cmd>ToggleTerm direction=tab<CR>", desc = "Toggle tab terminal" },
-    { "<leader>tl", "<cmd>ToggleTermSendCurrentLine<CR>", desc = "Send current line to terminal" },
-    { "<leader>ts", "<cmd>ToggleTermSendVisualSelection<CR>", mode = "v", desc = "Send selection to terminal" },
+    { "<leader>Tf", "<cmd>ToggleTerm direction=float<CR>", desc = "Toggle floating terminal" },
+    { "<leader>Th", "<cmd>ToggleTerm direction=horizontal<CR>", desc = "Toggle horizontal terminal" },
+    { "<leader>Tv", "<cmd>ToggleTerm direction=vertical<CR>", desc = "Toggle vertical terminal" },
+    { "<leader>Tt", "<cmd>ToggleTerm direction=tab<CR>", desc = "Toggle tab terminal" },
+    { "<leader>Tl", "<cmd>ToggleTermSendCurrentLine<CR>", desc = "Send current line to terminal" },
+    { "<leader>Ts", "<cmd>ToggleTermSendVisualSelection<CR>", mode = "v", desc = "Send selection to terminal" },
   },
   opts = {
     size = function(term)
