@@ -70,6 +70,11 @@ export PNPM_HOME="$HOME/Library/pnpm"
 # Add personal scripts
 export PATH="$HOME/.scripts:$HOME/scripts:$PATH"
 
+# Homebrew Ruby (for CocoaPods/Flutter)
+export PATH="/opt/homebrew/opt/ruby/bin:/opt/homebrew/lib/ruby/gems/3.4.0/bin:$PATH"
+export LDFLAGS="-L/opt/homebrew/opt/ruby/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/ruby/include"
+
 # Language settings
 export LANG="en_US.UTF-8"
 

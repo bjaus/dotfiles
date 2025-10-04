@@ -12,6 +12,9 @@ export GOPRIVATE="github.com/rewardStyle/*"
 # Python path tweaks
 export PYTHONPATH="$HOME/.pyenv/shims/python:$HOME/.local/share/nvim/site/plugin:$PYTHONPATH"
 
+# Flutter
+export CHROME_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+
 # GitHub
 export GH_HOST="github.com"
 export GH_COPILOT_AGENT_MODE=1
