@@ -62,9 +62,11 @@ return {
         -- Actions - Other
         map('n', '<leader>gu', gitsigns.undo_stage_hunk, {desc = 'Undo stage hunk'})
         map('n', '<leader>gp', gitsigns.preview_hunk, {desc = 'Preview hunk'})
+        -- Git blame: gb for quick popup, gB for full screen
         map('n', '<leader>gb', function()
           gitsigns.blame_line({full = true})
-        end, {desc = 'Blame line'})
+        end, {desc = 'Git blame line (popup)'})
+        map('n', '<leader>gB', ':Git blame<CR>', {desc = 'Git blame full (explore)'})
         map('n', '<leader>gtb', gitsigns.toggle_current_line_blame, {desc = 'Toggle blame'})
         map('n', '<leader>gd', gitsigns.diffthis, {desc = 'Diff this'})
         map('n', '<leader>gD', function()

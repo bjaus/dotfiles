@@ -13,7 +13,7 @@ return {
       vim.keymap.set('n', '<leader>gP', ':Git push<CR>', { desc = 'Git push' })
       vim.keymap.set('n', '<leader>gpl', ':Git pull<CR>', { desc = 'Git pull' })
       vim.keymap.set('n', '<leader>gL', ':Git log --oneline<CR>', { desc = 'Git log' })
-      vim.keymap.set('n', '<leader>gbb', ':Git blame<CR>', { desc = 'Git blame (fugitive)' })
+      -- Git blame is now handled by gitsigns: <leader>gb (popup) and <leader>gB (full)
       vim.keymap.set('n', '<leader>gdv', ':Gvdiffsplit<CR>', { desc = 'Git diff vertical' })
       vim.keymap.set('n', '<leader>gdh', ':Gdiffsplit<CR>', { desc = 'Git diff horizontal' })
       vim.keymap.set('n', '<leader>gm', ':Git merge<CR>', { desc = 'Git merge' })
@@ -22,7 +22,6 @@ return {
       vim.keymap.set('n', '<leader>g3', ':Gclog<CR>', { desc = 'Git log in quickfix' })
       vim.keymap.set('n', '<leader>ge', ':Gedit<CR>', { desc = 'Edit git index version' })
       vim.keymap.set('n', '<leader>gw', ':Gwrite<CR>', { desc = 'Git add current file' })
-      vim.keymap.set('n', '<leader>grd', ':Gread<CR>', { desc = 'Git checkout file' })
     end,
   },
 

@@ -352,7 +352,7 @@ function M.setup_gitsigns_old(bufnr)
   map('n', '<leader>gu', gitsigns.undo_stage_hunk, { desc = 'git undo stage hunk' })
   map('n', '<leader>gR', gitsigns.reset_buffer, { desc = 'git reset buffer' })
   map('n', '<leader>gp', gitsigns.preview_hunk, { desc = 'git preview hunk' })
-  map('n', '<leader>gb', gitsigns.blame_line, { desc = 'git blame line' })
+  -- Git blame is configured in gitsigns plugin: <leader>gb (popup) and <leader>gB (full)
   map('n', '<leader>gd', gitsigns.diffthis, { desc = 'git diff against index' })
   map('n', '<leader>gD', function()
     gitsigns.diffthis '@'
