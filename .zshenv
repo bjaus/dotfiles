@@ -1,3 +1,4 @@
+# ==================== VERSION MANAGERS ====================
 # Goenv
 export GOENV_ROOT="$HOME/.goenv"
 export PATH="$GOENV_ROOT/bin:$PATH"
@@ -6,41 +7,41 @@ export PATH="$GOENV_ROOT/bin:$PATH"
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 
-# GOPRIVATE for Go
+# ==================== LANGUAGE CONFIGURATION ====================
+# Go
 export GOPRIVATE="github.com/rewardStyle/*"
 
-# Python path tweaks
+# Python
 export PYTHONPATH="$HOME/.pyenv/shims/python:$HOME/.local/share/nvim/site/plugin:$PYTHONPATH"
-
-# Flutter
-export CHROME_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
-
-# GitHub
-export GH_HOST="github.com"
-export GH_COPILOT_AGENT_MODE=1
-
-# Pipenv
 export PIPENV_VENV_IN_PROJECT=true
 
 # Rust
 export RUST_BACKTRACE=1
 
+# Flutter
+export CHROME_EXECUTABLE="/Applications/Arc.app/Contents/MacOS/Arc"
+# export CHROME_EXECUTABLE="/Applications/Brave Browser.app/Contents/MacOS/Brave Browser"
+
+# ==================== TOOLS & SERVICES ====================
+# GitHub
+export GH_HOST="github.com"
+export GH_COPILOT_AGENT_MODE=1
+
 # Docker
 export DOCKER_DEFAULT_PLATFORM=linux/amd64
 
-# AWS SDK
+# AWS
 export AWS_SDK_LOAD_CONFIG=true
 
+# AWSume alias and completion
+alias awsume="source \$(pyenv which awsume)"
+fpath=(~/.awsume/zsh-autocomplete/ $fpath)
+
+# ==================== SHELL CONFIGURATION ====================
 # History
 export HISTSIZE=20000
 export HISTCONTROL=ignoredups
 
-#AWSume alias to source the AWSume script
-alias awsume="source \$(pyenv which awsume)"
-
-#Auto-Complete function for AWSume
-fpath=(~/.awsume/zsh-autocomplete/ $fpath)
-
-# Secrets
+# ==================== SECRETS ====================
 [[ -f "$HOME/.zsh-secrets" ]] && source "$HOME/.zsh-secrets"
 [[ -f "$HOME/.zsh-ltk" ]] && source "$HOME/.zsh-ltk"
