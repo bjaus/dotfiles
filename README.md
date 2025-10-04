@@ -78,15 +78,23 @@ exec zsh
 
 ## Keeping Brewfile Updated
 
-Whenever you install a new package, update the Brewfile:
+Whenever you install a new package:
 
 ```bash
+# Install the package
+brew install <package-name>
+
+# Manually add it to Brewfile with a comment
 cd ~/Projects/dotfiles
-brew bundle dump --force
+# Edit Brewfile and add:
+# brew "package-name"  # Description of what it does
+
 git add Brewfile
-git commit -m "Update Brewfile with new packages"
+git commit -m "Add <package-name> to Brewfile"
 git push
 ```
+
+**Note**: Don't use `brew bundle dump --force` as it will remove all comments. Instead, manually add new packages to maintain documentation.
 
 ## Key Tools Installed
 

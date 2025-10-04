@@ -1,35 +1,58 @@
-tap "pulumi/tap"
-tap "radulucut/cleed"
-brew "autojump"
-brew "awscli"
-brew "bat"
-brew "coreutils"
-brew "curl"
-brew "deno"
-brew "docker", link: false
-brew "fd"
-brew "gh"
-brew "git"
-brew "go-task"
-brew "goenv"
-brew "httpie"
-brew "lazygit"
-brew "luarocks"
-brew "mage"
-brew "neovim"
-brew "nvm"
-brew "pngpaste"
-brew "pnpm"
-brew "poppler"
-brew "pyenv"
-brew "ripgrep"
-brew "ruby"
-brew "rustup"
-brew "terraform"
-brew "tmux"
-brew "tree"
-brew "pulumi/tap/pulumi"
-brew "radulucut/cleed/cleed"
-cask "docker-desktop"
-cask "flutter"
-cask "ghostty"
+# ==================== THIRD-PARTY TAPS ====================
+tap "pulumi/tap"          # Infrastructure as Code tool
+tap "radulucut/cleed"     # Custom tap for cleed tool
+
+# ==================== SHELL & TERMINAL ====================
+brew "autojump"           # Fast directory navigation (j command)
+brew "bat"                # Better cat with syntax highlighting
+brew "tmux"               # Terminal multiplexer for session management
+brew "tree"               # Display directory structure
+
+# ==================== VERSION MANAGERS ====================
+brew "goenv"              # Go version manager
+brew "nvm"                # Node.js version manager
+brew "pyenv"              # Python version manager
+brew "rustup"             # Rust toolchain installer
+
+# ==================== PROGRAMMING LANGUAGES ====================
+brew "ruby"               # Ruby 3.4+ (required for CocoaPods/Flutter iOS)
+
+# ==================== GIT TOOLS ====================
+brew "git"                # Version control
+brew "gh"                 # GitHub CLI for PRs, issues, etc.
+brew "lazygit"            # Terminal UI for git commands
+
+# ==================== DEVELOPMENT TOOLS ====================
+brew "neovim"             # Modern Vim-based text editor
+brew "go-task"            # Task runner (Taskfile.yml)
+brew "mage"               # Make-like build tool for Go
+brew "luarocks"           # Lua package manager (for Neovim plugins)
+brew "deno"               # JavaScript/TypeScript runtime
+
+# ==================== SEARCH & FILES ====================
+brew "fd"                 # Fast alternative to find
+brew "ripgrep"            # Fast grep alternative (rg)
+
+# ==================== CLOUD & INFRASTRUCTURE ====================
+brew "awscli"             # AWS command line interface
+brew "terraform"          # Infrastructure as Code
+brew "pulumi/tap/pulumi"  # Modern Infrastructure as Code
+
+# ==================== UTILITIES ====================
+brew "coreutils"          # GNU core utilities for macOS
+brew "curl"               # Transfer data with URLs
+brew "httpie"             # User-friendly HTTP client
+brew "pngpaste"           # Paste PNG images from clipboard (for markdown)
+brew "poppler"            # PDF rendering library
+brew "radulucut/cleed/cleed"  # Custom utility
+
+# ==================== PACKAGE MANAGERS ====================
+brew "pnpm"               # Fast, disk-efficient npm alternative
+
+# ==================== CONTAINERIZATION ====================
+brew "docker", link: false  # Docker CLI (Desktop app handles daemon)
+
+# ==================== APPLICATIONS (CASKS) ====================
+cask "docker-desktop"     # Docker Desktop for Mac
+cask "flutter"            # Flutter SDK for mobile/web development
+cask "ghostty"            # Fast, native terminal emulator
