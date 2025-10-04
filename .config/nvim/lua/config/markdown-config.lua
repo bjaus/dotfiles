@@ -13,7 +13,9 @@ function M.setup()
       vim.opt_local.spell = true
       vim.opt_local.spelllang = "en_us"
       vim.opt_local.conceallevel = 2
-      vim.opt_local.textwidth = 80
+      vim.opt_local.textwidth = 0  -- Disable automatic line breaking
+      vim.opt_local.formatoptions:remove('t')  -- Remove auto-wrap text using textwidth
+      vim.opt_local.formatoptions:remove('a')  -- Remove automatic paragraph formatting
       
       -- Enable folding by headers using markdown syntax
       vim.opt_local.foldmethod = "expr"
