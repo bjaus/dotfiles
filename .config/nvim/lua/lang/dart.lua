@@ -164,4 +164,8 @@ function M.setup()
   })
 end
 
-return M
+-- Call setup when this file is loaded
+M.setup()
+
+-- Return empty table for Lazy.nvim (this file is imported as a plugin spec)
+return {}
