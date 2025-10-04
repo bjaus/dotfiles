@@ -30,6 +30,13 @@ function _gwt_copy_essentials() {
     cp -r "$src_dir/.task" "$dest_dir/.task"
     echo "  ✓ Copied .task directory"
   fi
+
+  # Copy docker/envs directory if it exists
+  if [[ -d "$src_dir/docker/envs" ]]; then
+    mkdir -p "$dest_dir/docker"
+    cp -r "$src_dir/docker/envs/." "$dest_dir/docker/envs"
+    echo "  ✓ Copied docker/envs directory"
+  fi
 }
 
 # Initialize submodules in worktree
@@ -465,7 +472,8 @@ Aliases:
   gwtb  = gwt-branch
   
 Notes:
-  - Taskfile.yml is automatically copied to new worktrees
+  - Taskfile.yml and environment files are automatically copied to new worktrees
+  - docker/envs directory is automatically copied to new worktrees
   - Submodules (including build-utils) are automatically initialized
   - Use gwt-init-submodules to fix existing worktrees without submodules
 
