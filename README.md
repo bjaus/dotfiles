@@ -51,8 +51,12 @@ pyenv global 3.12.0
 
 #### Go (via goenv)
 ```bash
-goenv install 1.21.0
-goenv global 1.21.0
+# Install Go version
+goenv install 1.25.1
+goenv global 1.25.1
+
+# Install all Go tools
+~/Projects/dotfiles/scripts/install-go-tools.sh
 ```
 
 #### Rust
@@ -131,6 +135,40 @@ git push
 ├── .zshenv             # Zsh environment variables
 ├── Brewfile            # Homebrew packages list
 └── README.md           # This file
+```
+
+## Managing Go Versions
+
+When upgrading Go, use this workflow to ensure all tools are available:
+
+```bash
+# Install new Go version
+goenv install 1.26.0
+goenv global 1.26.0
+
+# Reinstall all Go tools for new version
+~/Projects/dotfiles/scripts/install-go-tools.sh
+
+# Clean up old Go versions (keeps current version only)
+goenv versions --bare | grep -v "^$(goenv version-name)$" | xargs -I {} goenv uninstall -f {}
+```
+
+### Adding New Go Tools
+
+When you install a new Go tool, add it to `go-tools.txt`:
+
+```bash
+# Install the tool
+go install github.com/example/tool@latest
+
+# Add to go-tools.txt
+echo 'github.com/example/tool@latest  # Description of what it does' >> ~/Projects/dotfiles/go-tools.txt
+
+# Commit the change
+cd ~/Projects/dotfiles
+git add go-tools.txt
+git commit -m "Add tool-name to Go tools"
+git push
 ```
 
 ## Troubleshooting

@@ -1,0 +1,18 @@
+# Go Tools Installed via `go install`
+# This file tracks all Go binaries needed for development
+# Run: ~/Projects/dotfiles/scripts/install-go-tools.sh after upgrading Go
+
+# Code formatting & linting
+github.com/segmentio/golines@latest                    # Format long lines
+github.com/golangci/golangci-lint/cmd/golangci-lint@latest  # Comprehensive linter
+github.com/incu6us/goimports-reviser/v3@latest        # Sort and group imports
+
+# Database tools
+github.com/sqlc-dev/sqlc/cmd/sqlc@latest              # Generate type-safe Go from SQL
+github.com/pressly/goose/v3/cmd/goose@latest          # Database migration tool
+
+# Development tools
+github.com/air-verse/air@latest                        # Live reload for Go apps
+
+# LSP & Editor support (if using gopls manually)
+# golang.org/x/tools/gopls@latest                      # Go language server (usually via mason)
