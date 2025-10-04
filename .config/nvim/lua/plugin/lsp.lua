@@ -132,29 +132,72 @@ return {
         html = { filetypes = { 'html', 'templ' } },
         htmx = { filetypes = { 'html', 'templ' } },
         svelte = {},
+        eslint = {
+          filetypes = {
+            'javascript',
+            'javascriptreact',
+            'javascript.jsx',
+            'typescript',
+            'typescriptreact',
+            'typescript.tsx',
+          },
+          settings = {
+            workingDirectory = { mode = 'auto' },
+            codeAction = {
+              disableRuleComment = {
+                enable = true,
+                location = 'separateLine',
+              },
+              showDocumentation = {
+                enable = true,
+              },
+            },
+          },
+        },
         vtsls = {
           filetypes = {
             'javascript',
             'javascriptreact',
+            'javascript.jsx',
             'typescript',
             'typescriptreact',
-            'vue',
+            'typescript.tsx',
           },
           settings = {
             vtsls = {
-              enableVueSupport = true,
+              enableVueSupport = false,
               takeOverMode = true,
+              experimental = {
+                completion = {
+                  enableServerSideFuzzyMatch = true,
+                  entriesLimit = 75,
+                },
+              },
             },
             typescript = {
               suggest = {
                 includeCompletionsForModuleExports = true,
+                includeCompletionsForImportStatements = true,
+                includeAutomaticOptionalChainCompletions = true,
+              },
+              preferences = {
+                importModuleSpecifier = 'relative',
+                includePackageJsonAutoImports = 'auto',
+                jsxAttributeCompletionStyle = 'auto',
+                allowTextChangesInNewFiles = true,
+                allowRenameOfImportPath = true,
+              },
+              format = {
+                enable = true,
+                insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces = true,
+                semicolons = 'insert',
               },
               inlayHints = {
-                includeInlayParameterNameHints = 'all',
+                includeInlayParameterNameHints = 'literals',
                 includeInlayParameterNameHintsWhenArgumentMatchesName = false,
                 includeInlayFunctionParameterTypeHints = true,
-                includeInlayVariableTypeHints = true,
-                includeInlayPropertyDeclarationTypeHints = true,
+                includeInlayVariableTypeHints = false,
+                includeInlayPropertyDeclarationTypeHints = false,
                 includeInlayFunctionLikeReturnTypeHints = true,
                 includeInlayEnumMemberValueHints = true,
               },
@@ -162,13 +205,27 @@ return {
             javascript = {
               suggest = {
                 includeCompletionsForModuleExports = true,
+                includeCompletionsForImportStatements = true,
+                includeAutomaticOptionalChainCompletions = true,
+              },
+              preferences = {
+                importModuleSpecifier = 'relative',
+                includePackageJsonAutoImports = 'auto',
+                jsxAttributeCompletionStyle = 'auto',
+                allowTextChangesInNewFiles = true,
+                allowRenameOfImportPath = true,
+              },
+              format = {
+                enable = true,
+                insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces = true,
+                semicolons = 'insert',
               },
               inlayHints = {
-                includeInlayParameterNameHints = 'all',
+                includeInlayParameterNameHints = 'literals',
                 includeInlayParameterNameHintsWhenArgumentMatchesName = false,
                 includeInlayFunctionParameterTypeHints = true,
-                includeInlayVariableTypeHints = true,
-                includeInlayPropertyDeclarationTypeHints = true,
+                includeInlayVariableTypeHints = false,
+                includeInlayPropertyDeclarationTypeHints = false,
                 includeInlayFunctionLikeReturnTypeHints = true,
                 includeInlayEnumMemberValueHints = true,
               },
@@ -185,11 +242,37 @@ return {
         },
 
         tailwindcss = {
-          filetypes = { 'templ', 'astro', 'javascript', 'typescript', 'react' },
+          filetypes = {
+            'templ',
+            'astro',
+            'javascript',
+            'javascriptreact',
+            'typescript',
+            'typescriptreact',
+            'html',
+            'css',
+            'scss',
+            'sass',
+          },
           settings = {
             tailwindCSS = {
               includeLanguages = {
                 templ = 'html',
+                javascriptreact = 'javascript',
+                typescriptreact = 'javascript',
+              },
+              experimental = {
+                classRegex = {
+                  -- Support for clsx, classnames, tw
+                  { "clsx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)" },
+                  { "classnames\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)" },
+                  { "tw`([^`]*)`" },
+                  { "tw=\"([^\"]*)\"" },
+                  { "tw={'([^'}]*)'}" },
+                  -- React Native styled-components
+                  { "styled\\.[a-z]+`([^`]*)`" },
+                  { "styled\\(.*\\)`([^`]*)`" },
+                },
               },
             },
           },
