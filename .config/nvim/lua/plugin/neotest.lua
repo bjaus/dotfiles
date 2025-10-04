@@ -14,24 +14,7 @@ return {
     config = function()
       require("neotest").setup({
         adapters = {
-          require("neotest-go")({
-            experimental = {
-              test_table = true,
-            },
-            args = { "-count=1", "-timeout=60s" }
-          }),
-          require("neotest-python")({
-            dap = { justMyCode = false },
-            runner = "pytest",
-          }),
-          require("neotest-jest")({
-            jestCommand = "npm test --",
-            jestConfigFile = "custom.jest.config.ts",
-            env = { CI = true },
-            cwd = function(path)
-              return vim.fn.getcwd()
-            end,
-          }),
+          require("neotest-go"),
         },
         benchmark = {
           enabled = true
