@@ -56,7 +56,7 @@ return {
         end
 
         local args = {
-          '-company-prefixes', 'github.com/rewardStyle',
+          '-company-prefixes', 'github.com/rewardStyle,github.com/bjaus',
           '-output', 'file',
           '-set-alias',
           '-rm-unused',
