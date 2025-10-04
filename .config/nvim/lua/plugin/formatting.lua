@@ -33,13 +33,44 @@ return {
   },
   config = function(_, opts)
     -- Custom formatter for goimports-reviser
+    -- Groups imports: (1) stdlib, (2) third-party, (3) company/org, (4) local project
     require('conform').formatters['goimports-reviser'] = {
       command = 'goimports-reviser',
-      args = {
-        '-company-prefixes', 'github.com/rewardStyle',
-        '-format',
-        '$FILENAME',
-      },
+      args = function(self, ctx)
+        -- Auto-detect Go module name from go.mod
+        local go_mod = vim.fs.find('go.mod', {
+          upward = true,
+          path = ctx.dirname,
+        })[1]
+
+        local project_name = nil
+        if go_mod then
+          local lines = vim.fn.readfile(go_mod)
+          for _, line in ipairs(lines) do
+            local module = line:match('^module%s+(.+)$')
+            if module then
+              project_name = module
+              break
+            end
+          end
+        end
+
+        local args = {
+          '-company-prefixes', 'github.com/rewardStyle',
+          '-output', 'file',
+          '-set-alias',
+          '-rm-unused',
+          '-format',
+        }
+
+        if project_name then
+          table.insert(args, '-project-name')
+          table.insert(args, project_name)
+        end
+
+        table.insert(args, '$FILENAME')
+        return args
+      end,
       stdin = false,
     }
 
