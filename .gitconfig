@@ -196,12 +196,10 @@
   ra = remote add
   rao = remote add origin
   rau = remote add upstream
-  rb = rebase
   rba = rebase --abort
   rbc = rebase --continue
   rbi = rebase --interactive
   rbom = rebase origin/main
-  rbs = rebase --skip
   re = reset
   reh = reset --hard
   rehh = reset --hard HEAD
@@ -287,3 +285,15 @@
   ; git changelog <ref1>..<ref2> generate a changelog between two commits or refs
   changelog = log --pretty=format:'* %s (%an)' --abbrev-commit --no-merges
 	clean-commit = commit --amend --no-edit
+	range-diff = "f(){ git range-diff \"origin/$1...$2\" \"origin/main...$2\"; }; f"
+	rbom-onto = "f(){ git fetch origin && git rebase --onto origin/main \"origin/main\" HEAD; }; f"
+	rbonto = "\\!f(){ if [ $# -lt 2 ]; then echo \"Usage: git rbonto <new-base> <old-base>\"; echo \"Example: git rbonto origin/main origin/feat/A\"; return 1; fi; git fetch origin; git rebase --onto \"$1\" \"$2\" HEAD; }; f"
+	rebase-onto-main = "\\!f(){ if [ -z \"$1\" ]; then echo \"Usage: git rebase-onto-main <base-branch> [target-branch]\"; return 1; fi; target=\"${2:-$(git branch --show-current)}\"; git fetch origin && git rebase --onto origin/main \"origin/$1\" \"$target\"; }; f"
+	rb = rebase
+	lc = log -1 --pretty=format:\"%s\"
+	unstash-commit = "\\!f(){ git stash pop && git commit -m \"$(git stash list -1 --pretty=format:\"%s\" | sed \"s/.*: //\")\"; }; f"
+	pull-commit = "\\!f(){ git log -1 --pretty=format:\"%s\" > /tmp/commit-msg; git reset --soft HEAD~1; git stash push -u -m \"$(cat /tmp/commit-msg)\"; }; f"
+	restore-commit = "\\!f(){ msg=$(git stash list -1 --format=\"%s\" | sed \"s/.*: //\"); git stash pop; git add .; git commit -m \"$msg\"; }; f"
+	goimports = \\!goimports-reviser -company-prefixes \"github.com/rewardStyle\" -format
+[rerere]
+	enabled = true
