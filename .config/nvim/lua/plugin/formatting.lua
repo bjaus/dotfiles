@@ -12,7 +12,7 @@ return {
       lsp_format = 'fallback',
     },
     formatters_by_ft = {
-      go = { 'goimports', 'gofumpt' },
+      go = { 'goimports-reviser', 'gofumpt' },
       javascript = { 'prettier' },
       javascriptreact = { 'prettier' },
       typescript = { 'prettier' },
@@ -31,6 +31,16 @@ return {
     },
   },
   config = function(_, opts)
+    -- Custom formatter for goimports-reviser
+    require('conform').formatters['goimports-reviser'] = {
+      command = 'goimports-reviser',
+      args = {
+        '-company-prefixes', 'github.com/rewardStyle',
+        '-format',
+        '$FILENAME',
+      },
+      stdin = false,
+    }
     local conform = require 'conform'
 
     vim.api.nvim_create_autocmd('BufWritePre', {
