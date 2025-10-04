@@ -413,7 +413,10 @@ return {
       }
 
       -- Install LSPs via mason-lspconfig
-      local ensure_lsp_servers = vim.tbl_keys(servers)
+      -- Note: dartls is not in Mason registry (comes with Dart SDK), so exclude it
+      local ensure_lsp_servers = vim.tbl_filter(function(server)
+        return server ~= 'dartls'
+      end, vim.tbl_keys(servers))
 
       -- Extra non-LSP tools
       local ensure_tools = {
