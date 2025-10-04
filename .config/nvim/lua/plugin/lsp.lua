@@ -122,6 +122,21 @@ return {
             },
           },
         },
+        dartls = {
+          settings = {
+            dart = {
+              analysisExcludedFolders = {
+                vim.fn.expand('$HOME/.pub-cache'),
+                vim.fn.expand('$HOME/flutter'),
+              },
+              updateImportsOnRename = true,
+              completeFunctionCalls = true,
+              showTodos = true,
+              enableSnippets = true,
+              lineLength = 120,
+            },
+          },
+        },
         pyright = {},
         rust_analyzer = {},
         intelephense = {},

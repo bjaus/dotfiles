@@ -12,6 +12,7 @@ return {
       lsp_format = 'fallback',
     },
     formatters_by_ft = {
+      dart = { 'dart_format' },
       go = { 'goimports-reviser', 'gofumpt' },
       javascript = { 'prettier' },
       javascriptreact = { 'prettier' },
@@ -41,6 +42,14 @@ return {
       },
       stdin = false,
     }
+
+    -- Custom formatter for Dart
+    require('conform').formatters['dart_format'] = {
+      command = 'dart',
+      args = { 'format', '$FILENAME' },
+      stdin = false,
+    }
+
     local conform = require 'conform'
 
     vim.api.nvim_create_autocmd('BufWritePre', {
