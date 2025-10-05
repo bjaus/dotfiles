@@ -28,6 +28,7 @@ brew "go-task"            # Task runner (Taskfile.yml)
 brew "mage"               # Make-like build tool for Go
 brew "luarocks"           # Lua package manager (for Neovim plugins)
 brew "deno"               # JavaScript/TypeScript runtime
+brew "buf"                # Protocol Buffers tooling (linting, breaking change detection)
 
 # ==================== SEARCH & FILES ====================
 brew "fd"                 # Fast alternative to find
@@ -50,7 +51,8 @@ brew "radulucut/cleed/cleed"  # Custom utility
 brew "pnpm"               # Fast, disk-efficient npm alternative
 
 # ==================== CONTAINERIZATION ====================
-brew "docker", link: false  # Docker CLI (Desktop app handles daemon)
+brew "docker"             # Docker CLI and tooling
+# Note: Was previously set to 'link: false' when using Docker Desktop
 
 # ==================== APPLICATIONS (CASKS) ====================
 cask "docker-desktop"     # Docker Desktop for Mac
