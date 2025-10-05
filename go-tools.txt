@@ -15,7 +15,7 @@ github.com/pressly/goose/v3/cmd/goose@latest                 # Database migratio
 github.com/air-verse/air@latest                               # Live reload for Go apps
 
 # Testing & benchmarking
-# github.com/rakyll/hey@latest                                # HTTP load generator (alternative to ab/wrk)
+github.com/rakyll/hey@latest                                # HTTP load generator (alternative to ab/wrk)
 # github.com/bojand/ghz/cmd/ghz@latest                        # gRPC benchmarking tool
 
 # API & protobuf
@@ -25,24 +25,23 @@ github.com/air-verse/air@latest                               # Live reload for 
 
 # Code generation & utilities
 # github.com/golang/mock/mockgen@latest                       # Generate mock implementations
-# github.com/vektra/mockery/v2@latest                         # Better mock generator with interfaces
-# mvdan.cc/gofumpt@latest                                     # Stricter gofmt alternative
+github.com/vektra/mockery/v2@latest                         # Better mock generator with interfaces
+mvdan.cc/gofumpt@latest                                     # Stricter gofmt alternative
 # github.com/daixiang0/gci@latest                             # Control Go import order
 
 # Debugging & profiling
-# github.com/go-delve/delve/cmd/dlv@latest                   # Go debugger (usually via DAP)
+github.com/go-delve/delve/cmd/dlv@latest                   # Go debugger (usually via DAP)
 # github.com/google/pprof@latest                              # Visualization tool for profiling data
 
 # Documentation
-# golang.org/x/tools/cmd/godoc@latest                         # Local Go documentation server
+golang.org/x/tools/cmd/godoc@latest                         # Local Go documentation server
 
 # Security & vulnerability scanning
 # github.com/securego/gosec/v2/cmd/gosec@latest              # Security scanner (often included in golangci-lint)
-# golang.org/x/vuln/cmd/govulncheck@latest                   # Check for known vulnerabilities
+golang.org/x/vuln/cmd/govulncheck@latest                   # Check for known vulnerabilities
 
 # DevOps & infrastructure
-# github.com/cosmtrek/air@latest                              # Live reload (alternative to air-verse)
-# github.com/mikefarah/yq/v4@latest                           # YAML/JSON/XML processor (like jq for YAML)
+github.com/mikefarah/yq/v4@latest                           # YAML/JSON/XML processor (like jq for YAML)
 
 # CLI development
 # github.com/spf13/cobra-cli@latest                           # Cobra CLI generator for building CLI apps
