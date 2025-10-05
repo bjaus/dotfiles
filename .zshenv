@@ -19,8 +19,8 @@ export PIPENV_VENV_IN_PROJECT=true
 export RUST_BACKTRACE=1
 
 # Flutter
-export CHROME_EXECUTABLE="/Applications/Arc.app/Contents/MacOS/Arc"
-# export CHROME_EXECUTABLE="/Applications/Brave Browser.app/Contents/MacOS/Brave Browser"
+# export CHROME_EXECUTABLE="/Applications/Arc.app/Contents/MacOS/Arc"
+export CHROME_EXECUTABLE="/Applications/Brave Browser.app/Contents/MacOS/Brave Browser"
 
 # ==================== TOOLS & SERVICES ====================
 # GitHub
