@@ -83,6 +83,7 @@ return {
       -- Server configurations
       local servers = {
         gopls = {
+          cmd = { 'gopls' },
           settings = {
             gopls = {
               hints = {
@@ -111,6 +112,18 @@ return {
                 vendor = true,
               },
               semanticTokens = true,
+              -- Improve performance for large projects
+              directoryFilters = {
+                "-**/node_modules",
+                "-**/.git",
+                "-**/vendor",
+                "-**/build",
+                "-**/dist",
+              },
+              -- Let formatter handle imports
+              ["local"] = "github.com/rewardStyle",
+              -- Disable gopls import organization (let goimports-reviser handle it)
+              ["formatting.gofumpt"] = false,
             },
           },
           capabilities = {
