@@ -9,7 +9,7 @@ return {
       'antoinemadec/FixCursorHold.nvim',
       'klen/nvim-test',
       -- 'nvim-neotest/neotest-go',
-      'fredrikaverpil/neotest-golang',
+      { 'fredrikaverpil/neotest-golang', version = '*' },
       'marilari88/neotest-vitest',
     },
     opts = {
@@ -39,28 +39,24 @@ return {
       discovery = {
         enabled = true,
         concurrent = 0,
-        exclude_dirs = { 'node_modules', '.git' },
-        runtime_condition = function()
-          return true
-        end,
-        running = {
-          concurrent = false,
-        },
-        summary = {
-          enabled = true,
-          follow = true,
-          animated = true,
-          expand_errors = true,
-          mappings = {
-            expand = { '<CR>', '<2-LeftMouse>' },
-            stop = { 'x', '<Esc>' },
-            run = { 'r' },
-            debug = { 'd' },
-            mark = { 'm' },
-            clear_marked = { 'M' },
-            next_failed = { ']' },
-            prev_failed = { '[' },
-          },
+      },
+      running = {
+        concurrent = false,
+      },
+      summary = {
+        enabled = true,
+        follow = true,
+        animated = true,
+        expand_errors = true,
+        mappings = {
+          expand = { '<CR>', '<2-LeftMouse>' },
+          stop = { 'x', '<Esc>' },
+          run = { 'r' },
+          debug = { 'd' },
+          mark = { 'm' },
+          clear_marked = { 'M' },
+          next_failed = { ']' },
+          prev_failed = { '[' },
         },
       },
       diagnostic = {
@@ -111,6 +107,7 @@ return {
         opts.adapters,
         require 'neotest-golang' {
           go_test_args = {
+            '-v',
             '-count=1',
             '-race',
             '-cover',
@@ -118,8 +115,8 @@ return {
             '-coverprofile=/tmp/coverage.out',
           },
           testify_enabled = true,
-          warn_test_name_dupes = true,
-          warn_test_not_executed = true,
+          warn_test_name_dupes = false,
+          warn_test_not_executed = false,
         }
       )
       require('neotest').setup(opts)
