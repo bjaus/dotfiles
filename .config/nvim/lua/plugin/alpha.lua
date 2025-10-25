@@ -37,6 +37,7 @@ end
 
 return {
   'goolord/alpha-nvim',
+  enabled = true,
   event = 'VimEnter',
   config = config,
 }
