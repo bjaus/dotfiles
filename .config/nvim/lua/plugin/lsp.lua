@@ -85,6 +85,10 @@ return {
         gopls = {
           settings = {
             gopls = {
+              -- Import organization
+              gofumpt = true,
+              ['local'] = 'github.com/rewardStyle',
+
               hints = {
                 assignVariableTypes = true,
                 compositeLiteralFields = true,
@@ -97,9 +101,12 @@ return {
               analyses = {
                 unusedparams = true,
                 shadow = true,
+                unusedwrite = true,
+                useany = true,
               },
               staticcheck = true,
               usePlaceholders = true,
+              completeUnimported = true,
               codelenses = {
                 gc_details = false,
                 generate = true,

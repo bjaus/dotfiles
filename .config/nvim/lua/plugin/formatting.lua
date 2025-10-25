@@ -8,8 +8,8 @@ return {
   keys = require('config.keymaps').setup_conform(),
   opts = {
     format_on_save = {
-      timeout_ms = 5000,
-      lsp_format = 'fallback',
+      timeout_ms = 10000, -- Increased for large Go codebases
+      lsp_format = 'never', -- Disable LSP formatting, use conform.nvim only
     },
     formatters_by_ft = {
       dart = { 'dart_format' },
@@ -83,13 +83,15 @@ return {
 
     local conform = require 'conform'
 
+    -- Note: gopls organize imports runs first (in autocmds.lua)
+    -- Then this formatting runs second to organize and format the code
     vim.api.nvim_create_autocmd('BufWritePre', {
       pattern = '*',
       callback = function(args)
         if vim.g.auto_format then
           -- Get available formatters for this filetype
           local formatters = conform.list_formatters(args.buf)
-          
+
           -- Only try to format if formatters are available
           if #formatters > 0 then
             local ok, err = pcall(conform.format, {
@@ -97,14 +99,14 @@ return {
               timeout_ms = 5000,
               lsp_format = 'fallback',
             })
-            
+
             if not ok then
               vim.notify("Formatter error: " .. tostring(err), vim.log.levels.WARN)
             end
           else
             -- Fallback to LSP formatting if available
-            vim.lsp.buf.format({ 
-              bufnr = args.buf, 
+            vim.lsp.buf.format({
+              bufnr = args.buf,
               timeout_ms = 5000,
               filter = function(client)
                 return client.supports_method("textDocument/formatting")

@@ -120,17 +120,14 @@ function M.setup_lsp_highlight(event)
 end
 
 -- https://github.com/golang/tools/blob/master/gopls/doc/vim.md#imports-and-formatting
+-- Organize imports with gopls (adds missing imports, removes unused)
+-- Then conform.nvim will handle formatting (goimports-reviser + gofumpt)
 autocmd('BufWritePre', {
   pattern = '*.go',
   callback = function()
     local params = vim.lsp.util.make_range_params(0, 'utf-16')
     params.context = { only = { 'source.organizeImports' } }
-    -- buf_request_sync defaults to a 1000ms timeout. Depending on your
-    -- machine and codebase, you may want longer. Add an additional
-    -- argument after params if you find that you have to write the file
-    -- twice for changes to be saved.
-    -- E.g., vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, 3000)
-    local result = vim.lsp.buf_request_sync(0, 'textDocument/codeAction', params)
+    local result = vim.lsp.buf_request_sync(0, 'textDocument/codeAction', params, 3000)
     for cid, res in pairs(result or {}) do
       for _, r in pairs(res.result or {}) do
         if r.edit then
@@ -139,7 +136,7 @@ autocmd('BufWritePre', {
         end
       end
     end
-    vim.lsp.buf.format { async = false }
+    -- NOTE: Do NOT call vim.lsp.buf.format here - let conform.nvim handle formatting
   end,
 })
 
