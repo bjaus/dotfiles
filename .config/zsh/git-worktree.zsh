@@ -16,6 +16,7 @@ function _gwt_copy_essentials() {
     ".env"
     ".env.local"
     ".env.development.local"
+    ".go-version"
   )
   
   for file in "${files_to_copy[@]}"; do
