@@ -80,8 +80,8 @@ return {
     },
   },
   keys = {
-    { "<leader>a", "<cmd>AerialToggle!<CR>", desc = "Toggle Aerial" },
-    { "<leader>A", "<cmd>AerialNavToggle<CR>", desc = "Toggle Aerial Nav" },
+    { "<leader>oo", "<cmd>AerialToggle!<CR>", desc = "Toggle Outline (Aerial)" },
+    { "<leader>oO", "<cmd>AerialNavToggle<CR>", desc = "Toggle Outline Nav" },
   },
   dependencies = {
     "nvim-treesitter/nvim-treesitter",

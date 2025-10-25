@@ -216,6 +216,10 @@ function M.setup_lsp(event)
   --  Symbols are things like variables, functions, types, etc.
   map('<leader>fsd', builtin.lsp_document_symbols, 'find document symbols')
 
+  map('<leader>fsm', function()
+    builtin.lsp_document_symbols { symbols = { 'method', 'function' } }
+  end, 'find symbols (methods & functions)')
+
   map('<leader>fm', function()
     builtin.lsp_document_symbols { symbols = 'method' }
   end, 'find method')
