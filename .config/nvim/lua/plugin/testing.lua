@@ -8,34 +8,14 @@ return {
       'nvim-treesitter/nvim-treesitter',
       'antoinemadec/FixCursorHold.nvim',
       'klen/nvim-test',
-      -- 'nvim-neotest/neotest-go',
-      { 'fredrikaverpil/neotest-golang', version = '*' },
+      {
+        'fredrikaverpil/neotest-golang',
+        version = 'v1.*', -- Use v1 for master branch compatibility
+      },
       'marilari88/neotest-vitest',
     },
     opts = {
-      adapters = {
-        -- ['neotest-go'] = {
-        --   experimental = {
-        --     test_table = true,
-        --   },
-        -- },
-        -- ['neotest-golang'] = {
-        --   -- args = {
-        --   --
-        --   -- },
-        --   go_test_args = {
-        --     '-count=1',
-        --     '-race',
-        --     '-cover',
-        --     '-coverpkg=./...',
-        --     '-coverprofile=coverage.out',
-        --   },
-        --   testify_enabled = true,
-        --   warn_test_name_dupes = true,
-        --   warn_test_not_executed = true,
-        -- },
-        ['neotest-vitest'] = {},
-      },
+      adapters = {},
       discovery = {
         enabled = true,
         concurrent = 0,
@@ -95,42 +75,46 @@ return {
       }, neotest_ns)
 
       opts.adapters = opts.adapters or {}
-      -- table.insert(
-      --   opts.adapters,
-      --   require 'neotest-go' {
-      --     experimental = {
-      --       test_table = true,
-      --     },
-      --   }
-      -- )
+
+      -- Add neotest-golang adapter with gotestsum
       table.insert(
         opts.adapters,
-        require 'neotest-golang' {
+        require('neotest-golang')({
+          runner = 'gotestsum',
           go_test_args = {
             '-v',
             '-count=1',
             '-race',
-            '-cover',
-            '-coverpkg=./...',
-            '-coverprofile=/tmp/coverage.out',
           },
+          dap_go_enabled = true,
           testify_enabled = true,
-          warn_test_name_dupes = false,
-          warn_test_not_executed = false,
-        }
+        })
       )
+
+      -- Add vitest adapter
+      table.insert(opts.adapters, require('neotest-vitest')({}))
+
       require('neotest').setup(opts)
     end,
     keys = require('config.keymaps').setup_neotest(),
   },
   {
     'vim-test/vim-test',
-    enabled = true,
+    enabled = false, -- Disabled in favor of neotest
     event = 'VeryLazy',
     cmd = { 'TestFile', 'TestNearest', 'TestSuite' },
+    keys = {
+      { '<leader>tn', '<cmd>TestNearest<cr>', desc = 'Test Nearest' },
+      { '<leader>tf', '<cmd>TestFile<cr>', desc = 'Test File' },
+      { '<leader>ts', '<cmd>TestSuite<cr>', desc = 'Test Suite' },
+      { '<leader>tl', '<cmd>TestLast<cr>', desc = 'Test Last' },
+      { '<leader>tv', '<cmd>TestVisit<cr>', desc = 'Test Visit' },
+    },
     config = function()
       vim.g['test#strategy'] = 'neovim'
       vim.g['test#go#runner'] = 'gotest'
+      vim.g['test#neovim#term_position'] = 'belowright'
+      vim.g['test#preserve_screen'] = 1
     end,
   },
   -- {
