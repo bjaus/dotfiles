@@ -15,6 +15,7 @@ github.com/pressly/goose/v3/cmd/goose@latest                 # Database migratio
 github.com/air-verse/air@latest                               # Live reload for Go apps
 
 # Testing & benchmarking
+gotest.tools/gotestsum@latest                               # Pretty test output with JSON support
 github.com/rakyll/hey@latest                                # HTTP load generator (alternative to ab/wrk)
 # github.com/bojand/ghz/cmd/ghz@latest                        # gRPC benchmarking tool
 
@@ -47,5 +48,5 @@ github.com/mikefarah/yq/v4@latest                           # YAML/JSON/XML proc
 # github.com/spf13/cobra-cli@latest                           # Cobra CLI generator for building CLI apps
 # github.com/charmbracelet/glow@latest                        # Render markdown in terminal (already have via brew)
 
-# LSP & Editor support (if using gopls manually)
-# golang.org/x/tools/gopls@latest                             # Go language server (usually via mason)
+# LSP & Editor support
+golang.org/x/tools/gopls@latest                             # Go language server
